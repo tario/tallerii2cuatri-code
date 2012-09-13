@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Proyecto>
+    <Entidad id="b16bf6b9-b240-41d2-9f75-28174af8e584" tipo="MAESTRA_COSA">
+        <Nombre>Teatro</Nombre>
+        <Atributos>
+            <Atributo id="7f88a747-1a0b-4bea-9690-fb70147d18f2" tipo="CARACTERIZACION">
+                <Nombre>dir</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Atributos>
+                    <Atributo id="9075a4fa-527f-411a-8e2c-0a01b23693bd" tipo="CARACTERIZACION">
+                        <Nombre>calle</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="a64d4cf5-6c14-432b-b4b4-e8d558663f9c" tipo="CARACTERIZACION">
+                        <Nombre>ubicación</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+            <Atributo id="e717bd5a-6042-4325-82d9-1d9b44614737" tipo="CARACTERIZACION">
+                <Nombre>idTeatro</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="f62e267a-1456-437c-87d7-38157a270856" tipo="CARACTERIZACION">
+                <Nombre>nomTeatro</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="60644af0-5a43-4b3b-bd27-8d9257a23397" tipo="CARACTERIZACION">
+                <Nombre>Localidad</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="60644af0-5a43-4b3b-bd27-8d9257a23397"/>
+                <RefAtributo idref="f62e267a-1456-437c-87d7-38157a270856"/>
+            </Identificador>
+            <Identificador>
+                <RefAtributo idref="e717bd5a-6042-4325-82d9-1d9b44614737"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="9e43ed60-8ee8-440a-a071-62e6d04fe767" tipo="MAESTRA_COSA">
+        <Nombre>Función</Nombre>
+        <Atributos>
+            <Atributo id="ec0dea2d-0e6e-43f1-9996-351c41d8d9f3" tipo="CARACTERIZACION">
+                <Nombre>día</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="11c95ac8-a8d0-4e43-8483-3acaee160a47" tipo="CARACTERIZACION">
+                <Nombre>hora</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefEntidad idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
+                <RefEntidad idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
+            </Identificador>
+            <Identificador>
+                <RefAtributo idref="ec0dea2d-0e6e-43f1-9996-351c41d8d9f3"/>
+                <RefAtributo idref="11c95ac8-a8d0-4e43-8483-3acaee160a47"/>
+                <RefEntidad idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Diagrama id="cbc89da8-5c69-4194-b391-8872c5fdc1a1">
+        <Nombre>CarteleraTeatral</Nombre>
+        <Componentes>
+            <Componente idref="45257a3f-519f-450f-b28d-b929a0af826d"/>
+            <Componente idref="19f76d7b-d0b6-49b8-a65e-493e28a112a2"/>
+            <Componente idref="83d06104-4947-483d-aef1-dccab24dd8e9"/>
+            <Componente idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
+            <Componente idref="29168e4b-4bff-4147-81dd-e2a977d05bae"/>
+            <Componente idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
+            <Componente idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
+        </Componentes>
+        <Validacion estado="SIN_VALIDAR">
+            <Observaciones>CarteleraTeatral: 
+   Función: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+   FO: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+   Obra: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+   Teatro: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+   FT: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+   Función: 
+      hora: 
+         - Cardinalidad Minima no tiene un valor definido
+         - Cardinalidad Maxima no tiene un valor definido
+   Teatro: 
+      dir: 
+         ubicación: 
+            - Cardinalidad Minima no tiene un valor definido
+            - Cardinalidad Maxima no tiene un valor definido
+         calle: 
+            - Cardinalidad Minima no tiene un valor definido
+            - Cardinalidad Maxima no tiene un valor definido</Observaciones>
+        </Validacion>
+    </Diagrama>
+    <Entidad id="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe" tipo="MAESTRA_COSA">
+        <Nombre>Obra</Nombre>
+        <Atributos>
+            <Atributo id="2bff9397-44b0-40d5-a72f-d354a54dad8a" tipo="CARACTERIZACION">
+                <Nombre>autor</Nombre>
+                <Cardinalidad max="n" min="1"/>
+            </Atributo>
+            <Atributo id="6174ed6f-03fa-4e63-a88d-59d238899c0c" tipo="CARACTERIZACION">
+                <Nombre>género</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="c0af7737-0581-4d9c-94a9-f8fc873cff70" tipo="CARACTERIZACION">
+                <Nombre>director</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="0c7fb983-58a3-41f9-bc2b-ddf58970fdf6" tipo="CARACTERIZACION">
+                <Nombre>enCartel</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Atributos>
+                    <Atributo id="ac8c8107-410a-48e8-be66-650aed4362fb" tipo="CARACTERIZACION">
+                        <Nombre>desde</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="42e90ef5-e0db-42c6-840b-fc2c8f6ac27e" tipo="CARACTERIZACION">
+                        <Nombre>hasta</Nombre>
+                        <Cardinalidad max="1" min="0"/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+            <Atributo id="c1d481fe-e868-4f7b-9963-b6c9f75ef9be" tipo="CARACTERIZACION">
+                <Nombre>título</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349" tipo="CARACTERIZACION">
+                <Nombre>idObra</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349"/>
+            </Identificador>
+            <Identificador>
+                <RefAtributo idref="c0af7737-0581-4d9c-94a9-f8fc873cff70"/>
+                <RefAtributo idref="c1d481fe-e868-4f7b-9963-b6c9f75ef9be"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="83d06104-4947-483d-aef1-dccab24dd8e9" tipo="MAESTRA_COSA">
+        <Nombre>Intérprete</Nombre>
+        <Atributos>
+            <Atributo id="c6d954d1-8d64-4fdb-8057-668ab658046f" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="1ca859c2-d135-442c-a9b1-0f47d214f504" tipo="CARACTERIZACION">
+                <Nombre>idIntérp</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="c6d954d1-8d64-4fdb-8057-668ab658046f"/>
+            </Identificador>
+            <Identificador>
+                <RefAtributo idref="1ca859c2-d135-442c-a9b1-0f47d214f504"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Relacion id="19f76d7b-d0b6-49b8-a65e-493e28a112a2" tipo="ASOCIACION">
+        <Nombre>Elenco</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="83d06104-4947-483d-aef1-dccab24dd8e9"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+        <Atributos>
+            <Atributo id="6d57136a-2d33-411b-86d5-519c38bb9f1c" tipo="CARACTERIZACION">
+                <Nombre>rol</Nombre>
+                <Cardinalidad max="1" min="0"/>
+            </Atributo>
+            <Atributo id="8cb225e1-ad2d-4d65-9a66-223eeb5a2bc0" tipo="DERIVADO_CALCULO">
+                <Nombre>protag</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Formula/>
+            </Atributo>
+        </Atributos>
+    </Relacion>
+    <Relacion id="45257a3f-519f-450f-b28d-b929a0af826d" tipo="ASOCIACION">
+        <Nombre>FT</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Relacion id="29168e4b-4bff-4147-81dd-e2a977d05bae" tipo="ASOCIACION">
+        <Nombre>FO</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Validacion estado="SIN_VALIDAR">
+        <Observaciones>CarteleraTeatral: 
+   Obra: Tiene 6 atributos mientras que el promedio es 2.
+   CarteleraTeatral: 
+      Función: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      FO: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      Obra: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      Teatro: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      FT: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      Función: 
+         hora: 
+            - Cardinalidad Minima no tiene un valor definido
+            - Cardinalidad Maxima no tiene un valor definido
+      Teatro: 
+         dir: 
+            ubicación: 
+               - Cardinalidad Minima no tiene un valor definido
+               - Cardinalidad Maxima no tiene un valor definido
+            calle: 
+               - Cardinalidad Minima no tiene un valor definido
+               - Cardinalidad Maxima no tiene un valor definido
+   Ejemplo: 
+      Obra: Pertence a la relación Elenco que no se encuentra incluida en este diagrama.
+      Función: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      FO: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      Obra: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      Teatro: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      FT: Pertenece a 2 diagramas: Ejemplo, CarteleraTeatral.
+      Función: 
+         hora: 
+            - Cardinalidad Minima no tiene un valor definido
+            - Cardinalidad Maxima no tiene un valor definido
+      Teatro: 
+         dir: 
+            ubicación: 
+               - Cardinalidad Minima no tiene un valor definido
+               - Cardinalidad Maxima no tiene un valor definido
+            calle: 
+               - Cardinalidad Minima no tiene un valor definido
+               - Cardinalidad Maxima no tiene un valor definido</Observaciones>
+    </Validacion>
+</Proyecto>

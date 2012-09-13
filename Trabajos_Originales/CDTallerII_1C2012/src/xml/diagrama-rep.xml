@@ -1,0 +1,9 @@
+<!DOCTYPE note SYSTEM "modelo-rep.dtd">
+<Modelo>
+	<Diagrama id="_41">
+		<Representacion id="_1">
+			<Posicion x="100" y="100" />
+			<Dimension ancho="100" alto="20" />
+		</Representacion>
+	</Diagrama>
+</Modelo>

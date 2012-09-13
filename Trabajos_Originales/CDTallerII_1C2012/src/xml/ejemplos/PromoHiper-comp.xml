@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Proyecto>
+    <Jerarquia id="feed9174-585e-4445-ad54-1dcafdcd2a38" tipo="TOTAL_EXCLUSIVA">
+        <Generica>
+            <RefEntidad idref="78fdf7b3-a205-4956-8293-3965cb5b13af"/>
+        </Generica>
+        <Derivadas>
+            <RefEntidad idref="07835a50-c911-4aca-a5e2-c2d8637973fc"/>
+            <RefEntidad idref="a779d40d-86f1-4d2c-b1de-3bd78cb673bc"/>
+        </Derivadas>
+    </Jerarquia>
+    <Relacion id="5cec6588-af1d-4191-b285-f6221de50860" tipo="ASOCIACION">
+        <Nombre>B/MP</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="cd443bb6-41cf-4d70-98b8-d9625fce7f27"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="6824ff61-3c67-42de-9b41-c4dee27f09f5"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="6becf84c-a22a-4c6c-bb59-f6929179945c" tipo="MAESTRA_COSA">
+        <Nombre>Marca</Nombre>
+        <Atributos>
+            <Atributo id="edfe599b-4a57-4116-9429-a7ce9a3e2858" tipo="CARACTERIZACION">
+                <Nombre>codM</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="b6802cfc-bde7-4ba2-853d-beb76283b549" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="edfe599b-4a57-4116-9429-a7ce9a3e2858"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Relacion id="b6cbb60b-4168-43f7-a627-a3555e0c1d34" tipo="ASOCIACION">
+        <Nombre>M/P</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="6becf84c-a22a-4c6c-bb59-f6929179945c"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="6654e321-2994-44ad-b927-5eea0e624306"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="cd443bb6-41cf-4d70-98b8-d9625fce7f27" tipo="MAESTRA_COSA">
+        <Nombre>MedPago</Nombre>
+        <Atributos>
+            <Atributo id="909d44cf-ec8f-490b-af54-66cad4d386bc" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="909d44cf-ec8f-490b-af54-66cad4d386bc"/>
+                <RefEntidad idref="6824ff61-3c67-42de-9b41-c4dee27f09f5"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Relacion id="4ce60b73-a026-42c0-bd34-eb00d24a1481" tipo="ASOCIACION">
+        <Nombre>STP/B</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="78fdf7b3-a205-4956-8293-3965cb5b13af"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="1cf81b34-828c-4f2f-95f7-36d0d6daf371"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Diagrama id="2678a244-efc1-4239-bff9-8e0b6df6b9de">
+        <Nombre>PromoHiper</Nombre>
+        <Componentes>
+            <Componente idref="cd443bb6-41cf-4d70-98b8-d9625fce7f27"/>
+            <Componente idref="3931981d-b269-4efa-8a44-d988a5c63027"/>
+            <Componente idref="07835a50-c911-4aca-a5e2-c2d8637973fc"/>
+            <Componente idref="4ce60b73-a026-42c0-bd34-eb00d24a1481"/>
+            <Componente idref="ac48b2c3-6a82-4a7b-b107-1a27ed4b5611"/>
+            <Componente idref="5cec6588-af1d-4191-b285-f6221de50860"/>
+            <Componente idref="1cf81b34-828c-4f2f-95f7-36d0d6daf371"/>
+            <Componente idref="95898e8b-ff76-4ddc-ac98-32f353416bea"/>
+            <Componente idref="b6cbb60b-4168-43f7-a627-a3555e0c1d34"/>
+            <Componente idref="aa6df842-e13c-42b6-9e43-43a63414436c"/>
+            <Componente idref="feed9174-585e-4445-ad54-1dcafdcd2a38"/>
+            <Componente idref="46ba09e0-7879-4ad9-b806-57d58111234a"/>
+            <Componente idref="78fdf7b3-a205-4956-8293-3965cb5b13af"/>
+            <Componente idref="6654e321-2994-44ad-b927-5eea0e624306"/>
+            <Componente idref="b887a086-dde7-4ca2-90f2-7e5920ff8038"/>
+            <Componente idref="6becf84c-a22a-4c6c-bb59-f6929179945c"/>
+            <Componente idref="6824ff61-3c67-42de-9b41-c4dee27f09f5"/>
+            <Componente idref="a779d40d-86f1-4d2c-b1de-3bd78cb673bc"/>
+        </Componentes>
+        <Validacion estado="VALIDADO_CON_OBSERVACIONES">
+            <Observaciones>PromoHiper: 
+   PromoHiper: Tiene más de 7 componentes lo cual reduce su claridad.</Observaciones>
+        </Validacion>
+    </Diagrama>
+    <Entidad id="46ba09e0-7879-4ad9-b806-57d58111234a" tipo="MAESTRA_COSA">
+        <Nombre>TipoProd</Nombre>
+        <Atributos>
+            <Atributo id="06ebcd8f-5ede-43b3-95b7-007dab3b1e2f" tipo="CARACTERIZACION">
+                <Nombre>ct</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="67246368-a58f-46d4-9aa6-bd841fadacda" tipo="CARACTERIZACION">
+                <Nombre>dt</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="06ebcd8f-5ede-43b3-95b7-007dab3b1e2f"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="07835a50-c911-4aca-a5e2-c2d8637973fc" tipo="MAESTRA_COSA">
+        <Nombre>Débito</Nombre>
+        <Atributos>
+            <Atributo id="1b7cea80-e083-4fc4-be60-d6e43fc83019" tipo="CARACTERIZACION">
+                <Nombre>descuento</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+    </Entidad>
+    <Entidad id="a779d40d-86f1-4d2c-b1de-3bd78cb673bc" tipo="MAESTRA_COSA">
+        <Nombre>Crédito</Nombre>
+        <Atributos>
+            <Atributo id="32c641fd-de4f-45bb-bcc9-b1bf1c8207b5" tipo="CARACTERIZACION">
+                <Nombre>descuentoO</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="eebd4d21-f79f-443e-8a9e-c4acad49c74d" tipo="CARACTERIZACION">
+                <Nombre>cuotas</Nombre>
+                <Cardinalidad max="n" min="0"/>
+            </Atributo>
+        </Atributos>
+    </Entidad>
+    <Relacion id="3931981d-b269-4efa-8a44-d988a5c63027" tipo="ASOCIACION">
+        <Nombre>TP/STP</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="1cf81b34-828c-4f2f-95f7-36d0d6daf371"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="46ba09e0-7879-4ad9-b806-57d58111234a"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Relacion id="95898e8b-ff76-4ddc-ac98-32f353416bea" tipo="ASOCIACION">
+        <Nombre>excM</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="78fdf7b3-a205-4956-8293-3965cb5b13af"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="6becf84c-a22a-4c6c-bb59-f6929179945c"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Relacion id="aa6df842-e13c-42b6-9e43-43a63414436c" tipo="ASOCIACION">
+        <Nombre>STP/P</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="1cf81b34-828c-4f2f-95f7-36d0d6daf371"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="6654e321-2994-44ad-b927-5eea0e624306"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Relacion id="ac48b2c3-6a82-4a7b-b107-1a27ed4b5611" tipo="ASOCIACION">
+        <Nombre>TP/B</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="46ba09e0-7879-4ad9-b806-57d58111234a"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="78fdf7b3-a205-4956-8293-3965cb5b13af"/>
+                <Cardinalidad max="1" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="1cf81b34-828c-4f2f-95f7-36d0d6daf371" tipo="MAESTRA_COSA">
+        <Nombre>SubtipoProd</Nombre>
+        <Atributos>
+            <Atributo id="59d07e53-7a23-46e5-abce-bdcd4d389e7d" tipo="CARACTERIZACION">
+                <Nombre>dst</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="bab38e7d-5776-4b1e-9e17-06a030b2caab" tipo="CARACTERIZACION">
+                <Nombre>cst</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="bab38e7d-5776-4b1e-9e17-06a030b2caab"/>
+                <RefEntidad idref="46ba09e0-7879-4ad9-b806-57d58111234a"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="6654e321-2994-44ad-b927-5eea0e624306" tipo="MAESTRA_COSA">
+        <Nombre>Producto</Nombre>
+        <Atributos>
+            <Atributo id="e8fd1329-f9c4-4a2e-961a-855e0734c958" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="7abd63a0-574d-4886-aedf-143ff42a76e5" tipo="CARACTERIZACION">
+                <Nombre>código</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="1b53c301-2f6c-49a8-a4fa-6c47d6374dc6" tipo="CARACTERIZACION">
+                <Nombre>precio</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="472301a7-aac5-4169-b9f4-c23fd109d5c8" tipo="CARACTERIZACION">
+                <Nombre>presentación</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="7abd63a0-574d-4886-aedf-143ff42a76e5"/>
+                <RefEntidad idref="6becf84c-a22a-4c6c-bb59-f6929179945c"/>
+                <RefEntidad idref="1cf81b34-828c-4f2f-95f7-36d0d6daf371"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Relacion id="b887a086-dde7-4ca2-90f2-7e5920ff8038" tipo="ASOCIACION">
+        <Nombre>MP/B</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="78fdf7b3-a205-4956-8293-3965cb5b13af"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="cd443bb6-41cf-4d70-98b8-d9625fce7f27"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="78fdf7b3-a205-4956-8293-3965cb5b13af" tipo="MAESTRA_COSA">
+        <Nombre>Beneficio</Nombre>
+        <Atributos>
+            <Atributo id="2627da27-8bb4-43f2-a73b-bd0d6076c7a9" tipo="CARACTERIZACION">
+                <Nombre>días</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="9fa3da66-fd52-4745-9822-0f8b4f66ca10" tipo="CARACTERIZACION">
+                <Nombre>hasta</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="345805d1-bcf1-443f-81e4-e08b0ed1b2b2" tipo="CARACTERIZACION">
+                <Nombre>desde</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="345805d1-bcf1-443f-81e4-e08b0ed1b2b2"/>
+                <RefEntidad idref="cd443bb6-41cf-4d70-98b8-d9625fce7f27"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="6824ff61-3c67-42de-9b41-c4dee27f09f5" tipo="MAESTRA_COSA">
+        <Nombre>Banco</Nombre>
+        <Atributos>
+            <Atributo id="906c7136-127d-4594-a510-9d49c2ae51b7" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="49f06f9f-9084-4d49-be7e-081294a4ddec" tipo="CARACTERIZACION">
+                <Nombre>código</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="49f06f9f-9084-4d49-be7e-081294a4ddec"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Validacion estado="VALIDADO_CON_OBSERVACIONES">
+        <Observaciones>PromoHiper: 
+   Producto: Tiene 4 atributos mientras que el promedio es 1.
+   Beneficio: Pertenece a 4 relaciones mientras que el promedio es 1.
+   PromoHiper: 
+      PromoHiper: Tiene más de 7 componentes lo cual reduce su claridad.</Observaciones>
+    </Validacion>
+</Proyecto>

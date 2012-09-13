@@ -1,0 +1,89 @@
+<!DOCTYPE note SYSTEM "modelo-comp.dtd">
+<Proyecto>
+	<Entidad id="_0" tipo="MAESTRA_COSA">
+		<Nombre />
+		<Atributos>
+			<Atributo id="_1" tipo="CARACTERIZACION">
+				<Nombre />
+				<Cardinalidad min="" max="" />
+				<!-- Caracterizacion o derivado -->
+				<Formula />
+				<!-- Para el caso que sea compuesto -->
+				<Atributos>
+					<!-- 0..* -->
+					<Atributo id="_2" tipo="CARACTERIZACION">
+						<Nombre></Nombre>
+						<Cardinalidad/>
+						<!-- Misma estructura anterior -->
+					</Atributo>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_1" />
+			</Identificador>
+		</Identificadores>
+	</Entidad>
+	<Relacion id="_5" tipo="ASOCIACION">
+		<Nombre />
+		<Participantes>
+			<Participante>
+				<RefEntidad idref="_1" />
+				<Cardinalidad min="" max="" />
+				<!-- Descripcion del Rol -->
+				<Rol></Rol>
+			</Participante>
+		</Participantes>
+		<Atributos>
+			<Atributo id="_3" tipo="CARACTERIZACION">
+				<Nombre />
+				<Cardinalidad min="" max="" />
+				<!-- Caracterizacion o derivado -->
+				<Formula />
+				<!-- Para el caso que sea compuesto -->
+				<Atributos>
+					<!-- 0..* -->
+					<Atributo id="_4" tipo="CARACTERIZACION">
+						<Nombre />
+						<Cardinalidad min="" max="" />
+						<!-- Misma estructura anterior -->
+					</Atributo>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+	</Relacion>
+	<Jerarquia id="_6" tipo="TOTAL_EXCLUSIVA">		
+		<!-- 1 -->
+		<Generica>
+			<RefEntidad idref="_1"/>
+		</Generica>
+		<Derivadas>
+			<RefEntidad idref="_2"/>
+		</Derivadas>
+	</Jerarquia>
+	<Diagrama id="_7">
+		<Nombre />
+		<Componentes>
+			<!-- 0..* -->
+			<Componente idref="_2" />
+		</Componentes>
+		<Diagramas>
+			<!-- 0..* -->
+			<Diagrama id="_8">
+				<Nombre></Nombre>
+				<Validacion estado="VALIDADO">
+					<Observaciones />
+				</Validacion>
+				<!-- Misma estructura anterior -->
+			</Diagrama>
+		</Diagramas>
+		<Validacion estado="SIN_VALIDAR">
+			<Observaciones/>
+		</Validacion>
+	</Diagrama>
+	<!-- Estado global de los diagramas -->
+	<Validacion estado="SIN_VALIDAR">
+		<Observaciones/>
+	</Validacion> 
+</Proyecto>

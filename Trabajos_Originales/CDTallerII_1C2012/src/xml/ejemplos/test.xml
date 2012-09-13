@@ -1,0 +1,5 @@
+<!DOCTYPE note SYSTEM "../proyecto.dtd">
+<Proyecto>
+	<Modelo>test-comp.xml</Modelo>
+	<Representacion>test-rep.xml</Representacion>
+</Proyecto>

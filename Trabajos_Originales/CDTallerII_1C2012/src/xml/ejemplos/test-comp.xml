@@ -1,0 +1,230 @@
+<!DOCTYPE note SYSTEM "../modelo-comp.dtd">
+<Proyecto>
+	<Entidad id="_1" tipo="MAESTRA_COSA">
+		<Nombre>Localidad</Nombre>
+		<Atributos>
+			<Atributo id="_2" tipo="CARACTERIZACION">
+				<Nombre>fila</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_3" tipo="CARACTERIZACION">
+				<Nombre>butaca</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_2a" tipo="DERIVADO_COPIA">
+				<Nombre>copia</Nombre>
+				<Cardinalidad min="1" max="1" />
+				<Origen>
+					<RefAtributo idref="_3" />
+				</Origen>
+			</Atributo>
+			<Atributo id="_2b" tipo="DERIVADO_CALCULO">
+				<Nombre>copia</Nombre>
+				<Cardinalidad min="1" max="1" />
+				<Formula>1 + 1</Formula>
+			</Atributo>
+		</Atributos>
+		<Identificadores>
+			<Identificador>
+				<RefEntidad idref="_5" />
+			</Identificador>
+		</Identificadores>
+	</Entidad>
+	<Entidad id="_5" tipo="MAESTRA_COSA">
+		<Nombre>SeccionSala</Nombre>
+		<Atributos>
+			<Atributo id="_6" tipo="CARACTERIZACION">
+				<Nombre>nroSecc</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_7" tipo="CARACTERIZACION">
+				<Nombre>nomSecc</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+		</Atributos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_7" />
+			</Identificador>
+			<Identificador>
+				<RefAtributo idref="_6" />
+			</Identificador>
+		</Identificadores>
+	</Entidad>
+	<Entidad id="_10" tipo="MAESTRA_COSA">
+		<Nombre>Obra</Nombre>
+		<Atributos>
+			<Atributo id="_11" tipo="CARACTERIZACION">
+				<Nombre>idObra</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_12" tipo="CARACTERIZACION">
+				<Nombre>titulo</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_13" tipo="CARACTERIZACION">
+				<Nombre>autor</Nombre>
+				<Cardinalidad min="1" max="n" />
+			</Atributo>
+			<Atributo id="_14" tipo="CARACTERIZACION">
+				<Nombre>director</Nombre>
+				<Cardinalidad min="1" max="n" />
+			</Atributo>
+			<Atributo id="_15" tipo="CARACTERIZACION">
+				<Nombre>genero</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_16" tipo="CARACTERIZACION">
+				<Nombre>nroProxFunc</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+		</Atributos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_11" />
+			</Identificador>
+			<Identificador>
+				<RefAtributo idref="_12" />
+			</Identificador>
+		</Identificadores>
+	</Entidad>
+	<Entidad id="_19" tipo="MAESTRA_COSA">
+		<Nombre>Funcion</Nombre>
+		<Atributos>
+			<Atributo id="_20" tipo="CARACTERIZACION">
+				<Nombre>nroFunc</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_21" tipo="CARACTERIZACION">
+				<Nombre>fecha</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+			<Atributo id="_22" tipo="CARACTERIZACION">
+				<Nombre>hora</Nombre>
+				<Cardinalidad min="1" max="1" />
+			</Atributo>
+		</Atributos>
+		<Identificadores>
+			<Identificador>
+				<RefEntidad idref="_10" />
+			</Identificador>
+		</Identificadores>
+	</Entidad>
+	<Relacion id="_24" tipo="ASOCIACION">
+		<Nombre>SL</Nombre>
+		<Participantes>
+			<Participante>
+				<RefEntidad idref="_1" />
+				<Cardinalidad min="1" max="1" />
+				<Rol>Bosss</Rol>
+			</Participante>
+			<Participante>
+				<RefEntidad idref="_5" />
+				<Cardinalidad min="1" max="n" />
+			</Participante>
+		</Participantes>
+	</Relacion>
+	<Relacion id="_27" tipo="ASOCIACION">
+		<Nombre>FO</Nombre>
+		<Participantes>
+			<Participante>
+				<RefEntidad idref="_10" />
+				<Cardinalidad min="0" max="n" />
+			</Participante>
+			<Participante>
+				<RefEntidad idref="_19" />
+				<Cardinalidad min="1" max="1" />
+			</Participante>
+		</Participantes>
+	</Relacion>
+	<Relacion id="_30" tipo="ASOCIACION">
+		<Nombre>VtaLoc</Nombre>
+		<Participantes>
+			<Participante>
+				<RefEntidad idref="_10" />
+				<Cardinalidad min="0" max="n" />
+			</Participante>
+			<Participante>
+				<RefEntidad idref="_1" />
+				<Cardinalidad min="0" max="n" />
+			</Participante>
+		</Participantes>
+		<Atributos>
+			<Atributo id="_32" tipo="CARACTERIZACION">
+				<Nombre>tarj</Nombre>
+				<Cardinalidad min="0" max="1" />
+				<Atributos>
+					<Atributo id="_34" tipo="CARACTERIZACION">
+						<Nombre>nomTarj</Nombre>
+						<Cardinalidad min="1" max="1" />
+					</Atributo>
+					<Atributo id="_35" tipo="CARACTERIZACION">
+						<Nombre>bco</Nombre>
+						<Cardinalidad min="1" max="1" />
+					</Atributo>
+					<Atributo id="_36" tipo="CARACTERIZACION">
+						<Nombre>nroTarj</Nombre>
+						<Cardinalidad min="1" max="1" />
+					</Atributo>
+					<Atributo id="_37" tipo="CARACTERIZACION">
+						<Nombre>nroAutoriz</Nombre>
+						<Cardinalidad min="1" max="1" />
+					</Atributo>
+					<Atributo id="_38" tipo="CARACTERIZACION">
+						<Nombre>cr</Nombre>
+						<Cardinalidad min="0" max="1" />
+						<Atributos>
+							<Atributo id="_39" tipo="CARACTERIZACION">
+								<Nombre>cuotas</Nombre>
+								<Cardinalidad min="1" max="1" />
+							</Atributo>
+							<Atributo id="_40" tipo="CARACTERIZACION">
+								<Nombre>int</Nombre>
+								<Cardinalidad min="0" max="1" />
+							</Atributo>
+						</Atributos>
+					</Atributo>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+	</Relacion>
+	<Jerarquia tipo="TOTAL_EXCLUSIVA" id="_50">
+		<Generica>
+			<RefEntidad idref="_1" />
+		</Generica>
+		<Derivadas>
+			<RefEntidad idref="_5" />
+			<RefEntidad idref="_19" />
+		</Derivadas>
+	</Jerarquia>
+	<Diagrama id="_41">
+		<Nombre>BoleteriaTeatro</Nombre>
+		<Componentes>
+			<Componente idref="_1" />
+			<Componente idref="_5" />
+			<Componente idref="_10" />
+			<Componente idref="_19" />
+			<Componente idref="_24" />
+			<Componente idref="_27" />
+			<Componente idref="_30" />
+		</Componentes>
+		<Diagramas>
+			<Diagrama id="_42">
+				<Nombre>lala</Nombre>
+				<Componentes>
+					<Componente idref="_1" />
+				</Componentes>
+				<Validacion estado="VALIDADO">
+					<Observaciones></Observaciones>
+				</Validacion>
+			</Diagrama>
+		</Diagramas>
+		<Validacion estado="SIN_VALIDAR">
+			<Observaciones>Falta validar</Observaciones>
+		</Validacion>
+	</Diagrama>
+	<!-- Estado global de los diagramas -->
+	<Validacion estado="SIN_VALIDAR">
+		<Observaciones />
+	</Validacion>
+</Proyecto>
