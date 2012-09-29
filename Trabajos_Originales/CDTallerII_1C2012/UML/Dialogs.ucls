@@ -1,0 +1,87 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.dialogs.AgregarRelacionDialog" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/dialogs/AgregarRelacionDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="299" y="422"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.dialogs.AgregarEntidadDialog" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/dialogs/AgregarEntidadDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="551" y="423"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.dialogs.SeleccionarComponenteDialog" 
+    project="Taller_II_Viejo" 
+    file="/Taller_II_Viejo/src/mereditor/interfaz/swt/dialogs/SeleccionarComponenteDialog.java" binary="false">    
+    <position height="-1" width="-1" x="1049" y="478"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/dialogs/AgregarJerarquiaDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="778" y="427"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.dialogs.Dialog" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/dialogs/Dialog.java" binary="false">    
+    <position height="-1" width="-1" x="876" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.dialogs.AgregarComponenteDialog" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/dialogs/AgregarComponenteDialog.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="584" y="135"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <dependency id="10">    
+    <bendpoint x="858" y="275"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -1,0 +1,61 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="mereditor.modelo.base.ComponenteNombre" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/modelo/base/ComponenteNombre.java" binary="false">    
+    <position height="-1" width="-1" x="225" y="627"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" corner="BOTTOM_RIGHT" language="java" name="mereditor.modelo.base.ComponenteTipado" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/modelo/base/ComponenteTipado.java" binary="false">    
+    <position height="-1" width="-1" x="590" y="476"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" corner="BOTTOM_RIGHT" language="java" name="mereditor.modelo.base.ComponenteCardinal" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/modelo/base/ComponenteCardinal.java" binary="false">    
+    <position height="-1" width="-1" x="572" y="152"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="mereditor.modelo.base.Componente" project="Taller_II_Viejo" 
+    file="/Taller_II_Viejo/src/mereditor/modelo/base/Componente.java" binary="false">    
+    <position height="-1" width="-1" x="261" y="280"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" name="mereditor.modelo.base.ComponenteAtributos" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/modelo/base/ComponenteAtributos.java" binary="false">    
+    <position height="-1" width="-1" x="574" y="291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <association id="6">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="7" name="padres"/>      
+      <multiplicity id="8" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

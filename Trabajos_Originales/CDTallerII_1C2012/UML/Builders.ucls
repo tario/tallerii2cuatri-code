@@ -1,0 +1,93 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.builders.DialogBuilder.PromptResult" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/DialogBuilder.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="391" y="587"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.builders.TreeManager" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/TreeManager.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="106" y="335"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.builders.MenuArbolBuilder" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/MenuArbolBuilder.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="103" y="743"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.builders.ToolBarBuilder" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/ToolBarBuilder.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="352" y="267"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.builders.DialogBuilder" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/DialogBuilder.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="588" y="216"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="6" corner="BOTTOM_RIGHT" language="java" 
+    name="mereditor.interfaz.swt.builders.DialogBuilder.Resultado" project="Taller_II_Viejo" 
+    file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/DialogBuilder.java" binary="false">    
+    <position height="-1" width="-1" x="546" y="984"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.builders.MenuBuilder" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/builders/MenuBuilder.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="825" y="267"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <nesting id="8">    
+    <bendpoint x="488" y="541"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <association id="9">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="10" name="result"/>      
+      <multiplicity id="11" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="12">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
