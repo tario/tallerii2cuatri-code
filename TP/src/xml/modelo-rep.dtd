@@ -1,0 +1,24 @@
+<!ELEMENT Proyecto (Diagrama+)>
+<!ELEMENT Diagrama (Representacion+)>
+<!ELEMENT Representacion (Posicion, Dimension, ColorFondo?, ColorLinea?, Representacion*)>
+<!ELEMENT Posicion (#PCDATA)>
+<!ELEMENT Dimension (#PCDATA)>
+<!ELEMENT ColorFondo (#PCDATA)>
+<!ELEMENT ColorLinea (#PCDATA)>
+
+<!ATTLIST Diagrama id ID #REQUIRED>
+<!ATTLIST Representacion id ID #REQUIRED>
+
+<!ATTLIST Posicion x CDATA #REQUIRED>
+<!ATTLIST Posicion y CDATA #REQUIRED>
+
+<!ATTLIST Dimension ancho CDATA #REQUIRED>
+<!ATTLIST Dimension alto CDATA #REQUIRED>
+
+<!ATTLIST ColorFondo r CDATA #REQUIRED>
+<!ATTLIST ColorFondo g CDATA #REQUIRED>
+<!ATTLIST ColorFondo b CDATA #REQUIRED>
+
+<!ATTLIST ColorLinea r CDATA #REQUIRED>
+<!ATTLIST ColorLinea g CDATA #REQUIRED>
+<!ATTLIST ColorLinea b CDATA #REQUIRED>

@@ -1,0 +1,75 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.listeners.MovimientoControlador" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/listeners/MovimientoControlador.java" 
+    binary="false">    
+    <position height="161" width="192" x="419" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" 
+    name="mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador" project="Taller_II_Viejo" 
+    file="/Taller_II_Viejo/src/mereditor/interfaz/swt/listeners/ArrastreSeleccionControlador.java" binary="false">    
+    <position height="212" width="223" x="156" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.listeners.AreaSeleccionControlador" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/listeners/AreaSeleccionControlador.java" 
+    binary="false">    
+    <position height="212" width="213" x="651" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.listeners.ArrastreControlador" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/listeners/ArrastreControlador.java" 
+    binary="false">    
+    <position height="212" width="226" x="904" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.listeners.SeleccionControlador" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/listeners/SeleccionControlador.java" 
+    binary="false">    
+    <position height="280" width="213" x="419" y="586"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.listeners.AccionesProvider" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/listeners/AccionesProvider.java" 
+    binary="false">    
+    <position height="382" width="194" x="1170" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="7">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

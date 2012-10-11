@@ -1,0 +1,42 @@
+<!ELEMENT Proyecto (Entidad*,Relacion*,Jerarquia*,Diagrama,Validacion)>
+<!ELEMENT Entidad (Nombre,Atributos?,Identificadores)>
+<!ELEMENT Relacion (Nombre,Participantes,Atributos?)>
+<!ELEMENT Jerarquia (Generica,Derivadas)>
+<!ELEMENT Diagrama (Nombre, Componentes?, Diagramas?, Validacion)>
+<!ELEMENT Validacion (Observaciones)>
+
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT Atributos (Atributo+)>
+<!ELEMENT Atributo (Nombre,Cardinalidad,Formula?,Origen?,Atributos?) >
+<!ELEMENT Identificadores (Identificador+)>
+<!ELEMENT Identificador (RefAtributo*, RefEntidad*)>
+<!ELEMENT Participantes (Participante+)>
+<!ELEMENT Participante (RefEntidad,Cardinalidad,Rol?)>
+<!ELEMENT Formula (#PCDATA)>
+<!ELEMENT Origen (RefAtributo)>
+<!ELEMENT Rol (#PCDATA)>
+<!ELEMENT Cardinalidad EMPTY>
+<!ELEMENT RefAtributo EMPTY>
+<!ELEMENT RefEntidad EMPTY>
+<!ELEMENT Generica (RefEntidad)>
+<!ELEMENT Derivadas (RefEntidad+)>
+<!ELEMENT Componentes (Componente+)>
+<!ELEMENT Diagramas (Diagrama+)>
+<!ELEMENT Observaciones (#PCDATA)>
+<!ELEMENT Componente (#PCDATA)>
+
+<!ATTLIST Atributo id ID #REQUIRED>
+<!ATTLIST Atributo tipo (CARACTERIZACION|DERIVADO_COPIA|DERIVADO_CALCULO) #REQUIRED>
+<!ATTLIST Entidad id ID #REQUIRED>
+<!ATTLIST Entidad tipo (MAESTRA_COSA|MAESTRA_DOMINIO|TRANSACCIONAL_HISTORICA|TRANSACCIONAL_PROGRAMADA) #REQUIRED>
+<!ATTLIST Relacion id ID #REQUIRED>
+<!ATTLIST Relacion tipo (ASOCIACION|COMPOSICION) #REQUIRED>
+<!ATTLIST Jerarquia id ID #REQUIRED>
+<!ATTLIST Jerarquia tipo (TOTAL_EXCLUSIVA|TOTAL_SUPERPUESTA|PARCIAL_EXCLUSIVA|PARCIAL_SUPERPUESTA) #REQUIRED>
+<!ATTLIST Diagrama id ID #REQUIRED>
+<!ATTLIST Validacion estado (VALIDADO|SIN_VALIDAR) #REQUIRED>
+<!ATTLIST Cardinalidad min CDATA "1">
+<!ATTLIST Cardinalidad max CDATA "1">
+<!ATTLIST RefAtributo idref IDREF #REQUIRED>
+<!ATTLIST RefEntidad idref IDREF #REQUIRED>
+<!ATTLIST Componente idref IDREF #REQUIRED>

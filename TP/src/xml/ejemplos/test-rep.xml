@@ -1,0 +1,23 @@
+<!DOCTYPE note SYSTEM "../modelo-rep.dtd">
+<Proyecto>
+	<Diagrama id="_41">
+		<Representacion id="_1">
+			<Posicion x="100" y="100" />
+			<Dimension ancho="100" alto="30" />
+			<ColorFondo r="255" g="255" b="210" />
+			<ColorLinea  r="0" g="0" b="0" />
+		</Representacion>
+		<Representacion id="_24">
+			<Posicion x="150" y="150" />
+			<Dimension ancho="100" alto="50" />
+		</Representacion>
+		<Representacion id="_27">
+			<Posicion x="150" y="200" />
+			<Dimension ancho="100" alto="50" />
+		</Representacion>
+		<Representacion id="_30">
+			<Posicion x="150" y="250" />
+			<Dimension ancho="100" alto="50" />
+		</Representacion>
+	</Diagrama>
+</Proyecto>

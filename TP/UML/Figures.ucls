@@ -1,0 +1,103 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.RelacionFigure" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/RelacionFigure.java" 
+    binary="false">    
+    <position height="229" width="241" x="-108" y="752"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.DiagramaFigura" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/DiagramaFigura.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="33" y="318"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.EstilosFiguras" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/EstilosFiguras.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="303" y="1205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.AtributoFigure" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/AtributoFigure.java" 
+    binary="false">    
+    <position height="263" width="212" x="173" y="752"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.Figura" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/Figura.java" binary="false">    
+    <position height="569" width="274" x="302" y="143"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.EntidadFigure" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/EntidadFigure.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="541" y="876"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="mereditor.interfaz.swt.figuras.JerarquiaFigura" 
+    project="Taller_II_Viejo" file="/Taller_II_Viejo/src/mereditor/interfaz/swt/figuras/JerarquiaFigura.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="829" y="916"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="14">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

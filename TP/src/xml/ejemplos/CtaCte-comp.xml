@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Proyecto>
+    <Entidad id="32826d05-48a5-43ee-8460-3e9d37bd3a09" tipo="MAESTRA_COSA">
+        <Nombre>Tarjeta</Nombre>
+        <Atributos>
+            <Atributo id="4d199448-1d61-4f29-af99-469ba74b19e6" tipo="CARACTERIZACION">
+                <Nombre>nomTarj</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="a92df6ab-b1c8-4afd-ab0e-5b0bb25a133b" tipo="CARACTERIZACION">
+                <Nombre>nroTarj</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="bfdddf76-4ee1-4428-b89f-94e69d0ed312" tipo="CARACTERIZACION">
+                <Nombre>nroAutoriz</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+    </Entidad>
+    <Relacion id="e5671a16-551c-4d61-8338-2e91a531600e" tipo="ASOCIACION">
+        <Nombre>V/P</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="a08da8ff-2f28-41bf-af61-b7e467a851f3"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="80142bcc-1a1d-4838-9a64-56edc89db3d4"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+        <Atributos>
+            <Atributo id="9464a785-b7d0-4d80-96df-849d6d0f8414" tipo="CARACTERIZACION">
+                <Nombre>cant</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="e188c0d2-2326-41b8-b74f-dbda47a0acaf" tipo="CARACTERIZACION">
+                <Nombre>precioVta</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+    </Relacion>
+    <Jerarquia id="58b68f39-e5c4-4bed-992d-1218713309b9" tipo="TOTAL_EXCLUSIVA">
+        <Generica>
+            <RefEntidad idref="80142bcc-1a1d-4838-9a64-56edc89db3d4"/>
+        </Generica>
+        <Derivadas>
+            <RefEntidad idref="32826d05-48a5-43ee-8460-3e9d37bd3a09"/>
+        </Derivadas>
+    </Jerarquia>
+    <Entidad id="5349499a-e974-46a2-af63-3394aff62d4a" tipo="MAESTRA_COSA">
+        <Nombre>Pago</Nombre>
+        <Atributos>
+            <Atributo id="078b8dcb-6311-4a2f-adf8-51e7e4c77b77" tipo="CARACTERIZACION">
+                <Nombre>monto</Nombre>
+                <Cardinalidad max="" min=""/>
+            </Atributo>
+            <Atributo id="550eaeda-457e-4027-bff3-2727bf37dc50" tipo="CARACTERIZACION">
+                <Nombre>fecha</Nombre>
+                <Cardinalidad max="" min=""/>
+            </Atributo>
+            <Atributo id="8492a739-71a3-4a88-8c6b-589696a5e6f7" tipo="CARACTERIZACION">
+                <Nombre>montoInt</Nombre>
+                <Cardinalidad max="" min=""/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="550eaeda-457e-4027-bff3-2727bf37dc50"/>
+                <RefEntidad idref="a0d95bd6-c452-4d49-afff-42fd925ed222"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="a08da8ff-2f28-41bf-af61-b7e467a851f3" tipo="MAESTRA_COSA">
+        <Nombre>Producto</Nombre>
+        <Atributos>
+            <Atributo id="5d455e3d-7592-4204-b49c-0a3a1aa1f94d" tipo="CARACTERIZACION">
+                <Nombre>nomProd</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="02ede24d-89c0-4864-85fe-742c3faaa054" tipo="CARACTERIZACION">
+                <Nombre>codProd</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="b1d3686c-d207-4e26-9b46-9c35ad2bd69e" tipo="CARACTERIZACION">
+                <Nombre>precio</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="eaa089df-19c8-438c-ab7e-5100e53f766f" tipo="CARACTERIZACION">
+                <Nombre>existencia</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="02ede24d-89c0-4864-85fe-742c3faaa054"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Diagrama id="dd2b9d0b-7056-4633-b6ab-9d6b4da75ec0">
+        <Nombre>CtaCte</Nombre>
+        <Componentes>
+            <Componente idref="a0d95bd6-c452-4d49-afff-42fd925ed222"/>
+            <Componente idref="80142bcc-1a1d-4838-9a64-56edc89db3d4"/>
+            <Componente idref="2dac5341-2f56-4e32-9333-0b06dc27f580"/>
+            <Componente idref="32826d05-48a5-43ee-8460-3e9d37bd3a09"/>
+            <Componente idref="e5671a16-551c-4d61-8338-2e91a531600e"/>
+            <Componente idref="7633989c-3523-4d14-81b0-812a6cdd3bd3"/>
+            <Componente idref="a08e1863-c01a-40e0-ac3c-9d191faa957f"/>
+            <Componente idref="a08da8ff-2f28-41bf-af61-b7e467a851f3"/>
+            <Componente idref="58b68f39-e5c4-4bed-992d-1218713309b9"/>
+            <Componente idref="5349499a-e974-46a2-af63-3394aff62d4a"/>
+            <Componente idref="6a57e963-ae6c-49a5-9d05-805e41d80404"/>
+        </Componentes>
+        <Validacion estado="SIN_VALIDAR">
+            <Observaciones/>
+        </Validacion>
+    </Diagrama>
+    <Relacion id="2dac5341-2f56-4e32-9333-0b06dc27f580" tipo="ASOCIACION">
+        <Nombre>P/C</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="5349499a-e974-46a2-af63-3394aff62d4a"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="a0d95bd6-c452-4d49-afff-42fd925ed222"/>
+                <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="80142bcc-1a1d-4838-9a64-56edc89db3d4" tipo="MAESTRA_COSA">
+        <Nombre>Venta</Nombre>
+        <Atributos>
+            <Atributo id="24614c92-4d1f-4bec-a1be-b20a1f1fb671" tipo="CARACTERIZACION">
+                <Nombre>tipoFac</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="b5186d23-0e37-4f95-b589-f1c88efa5e1f" tipo="CARACTERIZACION">
+                <Nombre>desc</Nombre>
+                <Cardinalidad max="1" min="0"/>
+            </Atributo>
+            <Atributo id="bff196b6-88c4-4387-b94f-a47d4bf4382e" tipo="CARACTERIZACION">
+                <Nombre>formaPago</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="ded28c36-aed0-4cca-a4e0-2277f7d7863b" tipo="CARACTERIZACION">
+                <Nombre>nroFac</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="e88f114b-528e-4422-8c1f-b3776c928946" tipo="CARACTERIZACION">
+                <Nombre>fecha</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="24614c92-4d1f-4bec-a1be-b20a1f1fb671"/>
+                <RefAtributo idref="ded28c36-aed0-4cca-a4e0-2277f7d7863b"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="6a57e963-ae6c-49a5-9d05-805e41d80404" tipo="MAESTRA_COSA">
+        <Nombre>Crédito</Nombre>
+        <Atributos>
+            <Atributo id="fccb49df-dd6f-4ab8-bcbc-b0899cbe7719" tipo="CARACTERIZACION">
+                <Nombre>cuotas</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="812fd0b9-27f8-4661-82cd-700565e47acf" tipo="CARACTERIZACION">
+                <Nombre>interés</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+    </Entidad>
+    <Jerarquia id="a08e1863-c01a-40e0-ac3c-9d191faa957f" tipo="TOTAL_EXCLUSIVA">
+        <Generica>
+            <RefEntidad idref="32826d05-48a5-43ee-8460-3e9d37bd3a09"/>
+        </Generica>
+        <Derivadas>
+            <RefEntidad idref="6a57e963-ae6c-49a5-9d05-805e41d80404"/>
+        </Derivadas>
+    </Jerarquia>
+    <Relacion id="7633989c-3523-4d14-81b0-812a6cdd3bd3" tipo="ASOCIACION">
+        <Nombre>V/C</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="a0d95bd6-c452-4d49-afff-42fd925ed222"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="80142bcc-1a1d-4838-9a64-56edc89db3d4"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="a0d95bd6-c452-4d49-afff-42fd925ed222" tipo="MAESTRA_COSA">
+        <Nombre>Cliente</Nombre>
+        <Atributos>
+            <Atributo id="748d3984-6bc4-417e-95f8-ed74fa2b48c4" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="1a8b48f6-e765-4b2a-8cab-fddf498ce750" tipo="CARACTERIZACION">
+                <Nombre>teléfonos</Nombre>
+                <Cardinalidad max="n" min="1"/>
+            </Atributo>
+            <Atributo id="622a244f-56d6-40b7-8dd5-098dac83b348" tipo="CARACTERIZACION">
+                <Nombre>domic</Nombre>
+                <Cardinalidad max="" min=""/>
+                <Atributos>
+                    <Atributo id="8e78a4e5-2718-46bc-8aa4-32c43b5cf8b3" tipo="CARACTERIZACION">
+                        <Nombre>localidad</Nombre>
+                        <Cardinalidad max="" min=""/>
+                    </Atributo>
+                    <Atributo id="8eda5e47-64aa-4d78-b1d2-9333b2fc4020" tipo="CARACTERIZACION">
+                        <Nombre>calle</Nombre>
+                        <Cardinalidad max="" min=""/>
+                    </Atributo>
+                    <Atributo id="174d9284-8604-4797-84da-77c650d43002" tipo="CARACTERIZACION">
+                        <Nombre>ubic</Nombre>
+                        <Cardinalidad max="" min=""/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+            <Atributo id="e24b4a77-51a8-45f6-8d0b-35f66a050466" tipo="CARACTERIZACION">
+                <Nombre>CUIToL</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="e24b4a77-51a8-45f6-8d0b-35f66a050466"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Validacion estado="SIN_VALIDAR">
+        <Observaciones/>
+    </Validacion>
+</Proyecto>
