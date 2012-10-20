@@ -17,14 +17,14 @@ public abstract class ParserXML {
 	protected DocumentBuilder docBuilder;
 	
 	
-	ParserXML() throws Exception{
+	public ParserXML() throws Exception{
 		this.docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		
 	}
 	public abstract Document generarXml() throws Exception;
 	public abstract Object parsearXml() throws Exception;
 	
-	void setRoot(String path) throws SAXException, IOException{
+	public void setRoot(String path) throws SAXException, IOException{
 		File source = new File(path);
 		this.root = docBuilder.parse(source).getDocumentElement();
 	}
@@ -35,7 +35,7 @@ public abstract class ParserXML {
 	 * @param nombre
 	 * @return
 	 */
-	Element crearElemento(String nombre) {
+	public Element crearElemento(String nombre) {
 		return XmlHelper.getNuevoElemento(this.root, nombre);
 	}
 
@@ -45,22 +45,22 @@ public abstract class ParserXML {
 	 * @param nombre
 	 * @return
 	 */
-	Attr crearAtributo(String nombre) {
+	public Attr crearAtributo(String nombre) {
 		return XmlHelper.getNuevoAtributo(this.root, nombre);
 	}
 
-	Element agregarElemento(Element elemento, String nombre) {
+	public Element agregarElemento(Element elemento, String nombre) {
 		return this.agregarElemento(elemento, nombre, null);
 	}
 
-	Element agregarElemento(Element elemento, String nombre, String valor) {
+	public Element agregarElemento(Element elemento, String nombre, String valor) {
 		Element hijo = this.crearElemento(nombre);
 		hijo.setTextContent(valor);
 		elemento.appendChild(hijo);
 		return hijo;
 	}
 
-	Attr agregarAtributo(Element elemento, String nombre, String valor) {
+	public Attr agregarAtributo(Element elemento, String nombre, String valor) {
 		Attr atributo = this.crearAtributo(nombre);
 		atributo.setNodeValue(valor);
 		elemento.setAttributeNode(atributo);
@@ -73,7 +73,7 @@ public abstract class ParserXML {
 	 * @param elemento
 	 * @return
 	 */
-	String obtenerId(Element elemento) {
+	public String obtenerId(Element elemento) {
 		return elemento.getAttribute(Constants.ID_ATTR);
 	}
 }
