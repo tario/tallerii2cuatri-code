@@ -1,6 +1,5 @@
 package mereditor.xml;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +23,13 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-class ModeloParserXml extends ParserXml {
+class ModeloParserXml extends ParserXML {
+
+	private Proyecto proyecto;
 
 	public ModeloParserXml(Proyecto proyecto, String path) throws Exception {
 		super();
-		File source = new File(path);
-		this.root = docBuilder.parse(source).getDocumentElement();
+		setRoot(path);
 		this.proyecto = proyecto;
 	}
 
@@ -69,7 +69,8 @@ class ModeloParserXml extends ParserXml {
 	 * @return Diagrama principal
 	 * @throws Exception
 	 */
-	void parsearModelo() throws Exception {
+	@Override
+	public Object parsearXml() throws Exception {
 		// Obtener el id del diagrama principal
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
 		Diagrama diagrama = (Diagrama) this.resolver(this.obtenerId(diagramaXml));
@@ -81,12 +82,13 @@ class ModeloParserXml extends ParserXml {
 
 		/*
 		 * Recorrer todos los elemento de primer nivel (menos validacion) para
-		 * tener en cuenta los que existen pero no fueron agregados a ningÃºn
+		 * tener en cuenta los que existen pero no fueron agregados a ningún
 		 * diagrama.
 		 */
 		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
 		for (Element elemento : elementos)
 			this.resolver(this.obtenerId(elemento));
+		return proyecto;
 	}
 
 	/**
@@ -398,7 +400,7 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	/**
-	 * Busca un elemento con el id especificado y trata de parsearlo segÃºn el
+	 * Busca un elemento con el id especificado y trata de parsearlo según el
 	 * tipo de elemento.
 	 * 
 	 * @param id
@@ -416,7 +418,7 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	/**
-	 * Parsea un elemento segÃºn la implementacion de la instancia devuelta por
+	 * Parsea un elemento según la implementacion de la instancia devuelta por
 	 * mapElement.
 	 * 
 	 * @param element
@@ -430,7 +432,7 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	/**
-	 * Devuelve una instancia de la clase correspondiente de parseo segÃºn el
+	 * Devuelve una instancia de la clase correspondiente de parseo según el
 	 * nombre del elemento a parsear.
 	 * 
 	 * @param element
@@ -575,4 +577,6 @@ class ModeloParserXml extends ParserXml {
 	Element agregarRol(Element elemento, String rol) {
 		return this.agregarElemento(elemento, Constants.ROL_TAG, rol);
 	}
+
+	
 }

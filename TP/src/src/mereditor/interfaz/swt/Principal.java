@@ -31,7 +31,7 @@ import mereditor.modelo.Proyecto;
 import mereditor.modelo.ProyectoProxy;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.validacion.Observacion;
-import mereditor.xml.ParserXml;
+import mereditor.xml.SaverLoaderXML;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
@@ -68,40 +68,40 @@ import org.w3c.dom.Document;
  */
 public class Principal extends Observable implements FigureListener {
 	/**
-	 * Color predeterminado del Ã¡rea principal del diagrama.
+	 * Color predeterminado del área principal del diagrama.
 	 */
 	public static final Color defaultBackgroundColor = new Color(null, 255,
 			255, 255);
 	/**
-	 * TÃ­tulo a mostrar de la aplicaciÃ³n.
+	 * Título a mostrar de la aplicación.
 	 */
 	public static final String APP_NOMBRE = "MER Editor";
 	/**
-	 * TÃ­tulo del pop-up "Guardar cambios"
+	 * Título del pop-up "Guardar cambios"
 	 */
-	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "InformaciÃ³n";
+	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
 	/**
 	 * Mensaje del pop-up "Guardar cambios"
 	 */
-	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "Â¿Desea guardar los cambios hechos al diagrama actual?";
+	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
 	/**
-	 * ExtensiÃ³n de los archivos del proyecto.
+	 * Extensión de los archivos del proyecto.
 	 */
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
 	/**
-	 * ExtensiÃ³n de los archivos del validaciÃ³n.
+	 * Extensión de los archivos del validación.
 	 */
 	public static final String[] extensionValidacion = new String[] { "*.txt" };
 	/**
-	 * ExtensiÃ³n de la imagen a exportar.
+	 * Extensión de la imagen a exportar.
 	 */
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
 	/**
-	 * UbicaciÃ³n de los recursos de imÃ¡genes.
+	 * Ubicación de los recursos de imágenes.
 	 */
 	private static final String PATH_IMAGENES = "/recursos/imagenes/";
 	/**
-	 * UbicaciÃ³n de los recursos de iconos.
+	 * Ubicación de los recursos de iconos.
 	 */
 	private static final String PATH_ICONOS = "/recursos/iconos/";
 	/**
@@ -115,7 +115,7 @@ public class Principal extends Observable implements FigureListener {
 	private static Principal instancia;
 
 	/**
-	 * Punto de entrada de la aplicaciÃ³n.
+	 * Punto de entrada de la aplicación.
 	 * 
 	 * @param args
 	 */
@@ -167,7 +167,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Shell de SWT de la aplicaciÃ³n.
+	 * Shell de SWT de la aplicación.
 	 */
 	private Shell shell;
 
@@ -186,7 +186,7 @@ public class Principal extends Observable implements FigureListener {
 	private Proyecto proyecto;
 
 	/**
-	 * Handler del evento cuando se cierra la aplicaciÃ³n. Si hay modificaciones
+	 * Handler del evento cuando se cierra la aplicación. Si hay modificaciones
 	 * pendientes de ser guardadas muestra el prompt.
 	 */
 	private Listener promptClose = new Listener() {
@@ -290,8 +290,8 @@ public class Principal extends Observable implements FigureListener {
 
 			if (path != null) {
 				try {
-					ParserXml modelo = new ParserXml(path);
-					this.proyecto = modelo.parsear();
+					SaverLoaderXML modelo = new SaverLoaderXML(path);
+					this.proyecto = modelo.load();
 					this.cargarProyecto();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -325,7 +325,7 @@ public class Principal extends Observable implements FigureListener {
 	 * Actualiza la barra de estado con el del proyecto y el diagrama actual.
 	 */
 	private void actualizarEstado() {
-		String status = "[NingÃºn proyecto abierto]";
+		String status = "[Ningún proyecto abierto]";
 
 		if (this.proyecto != null) {
 			status = "Proyecto: %s [%s]- Diagrama: %s [%s]";
@@ -341,7 +341,7 @@ public class Principal extends Observable implements FigureListener {
 
 	/**
 	 * Actualiza el titulo dependiendo de si el proyecto tiene modificaciones
-	 * que todavÃ­a no se guardaron.
+	 * que todavía no se guardaron.
 	 */
 	private void actualizarTitulo() {
 		String titulo = APP_NOMBRE;
@@ -382,16 +382,16 @@ public class Principal extends Observable implements FigureListener {
 			File file = new File(path);
 			String dir = file.getParent() + File.separator;
 			this.proyecto.setPath(path);
-			ParserXml modelo;
+			SaverLoaderXML modelo;
 			try {
-				modelo = new ParserXml(this.proyecto);
-				this.guardarXml(modelo.generarXmlProyecto(), path);
-				this.guardarXml(modelo.generarXmlComponentes(), dir
+				modelo = new SaverLoaderXML(this.proyecto);
+				this.guardarXml(modelo.saveProyecto(), path);
+				this.guardarXml(modelo.saveComponentes(), dir
 						+ this.proyecto.getComponentesPath());
-				this.guardarXml(modelo.generarXmlRepresentacion(), dir
+				this.guardarXml(modelo.saveRepresentacion(), dir
 						+ this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
-				this.error("OcurriÃ³ un error al guardar el proyecto.");
+				this.error("Ocurrió un error al guardar el proyecto.");
 				e.printStackTrace();
 			}
 
@@ -410,7 +410,7 @@ public class Principal extends Observable implements FigureListener {
 		TransformerFactory transformerFactory = TransformerFactory
 				.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
-		// Indicar que escriba el xml con indentaciÃ³n.
+		// Indicar que escriba el xml con indentación.
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty(
 				"{http://xml.apache.org/xslt}indent-amount", "4");
@@ -497,7 +497,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diÃ¡logo para agregar una Entidad al diagrama actual.
+	 * Abre el diálogo para agregar una Entidad al diagrama actual.
 	 */
 	public void agregarEntidad() {
 		AgregarEntidadDialog dialog = new AgregarEntidadDialog();
@@ -510,7 +510,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diÃ¡logo para agregar una Relacion al diagrama actual.
+	 * Abre el diálogo para agregar una Relacion al diagrama actual.
 	 */
 	public void agregarRelacion() {
 		AgregarRelacionDialog dialog = new AgregarRelacionDialog();
@@ -523,7 +523,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diÃ¡logo para agregar una Jerarquia al diagrama actual.
+	 * Abre el diálogo para agregar una Jerarquia al diagrama actual.
 	 */
 	public void agregarJerarquia() {
 		AgregarJerarquiaDialog dialog = new AgregarJerarquiaDialog();
@@ -536,7 +536,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * DisminuciÃ³n del zoom.
+	 * Disminución del zoom.
 	 */
 	public void zoomOut(Combo cboZoom) {
 		this.panelDiagrama.zoomOut();
@@ -585,7 +585,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Muestra la pantalla de impresiÃ³n para el digrama actual.
+	 * Muestra la pantalla de impresión para el digrama actual.
 	 */
 	public void imprimir() {
 		PrintDialog printDialog = new PrintDialog(this.shell);
@@ -647,13 +647,13 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Muestra una ventana de diÃ¡logo para seleccionar donde guardar el
+	 * Muestra una ventana de diálogo para seleccionar donde guardar el
 	 * resultado de la validacion.
 	 * 
 	 * @param nombreArchivo
 	 *            Nombre por defecto del archivo de validacion.
 	 * @param resultado
-	 *            Resultado de la validaciÃ³n.
+	 *            Resultado de la validación.
 	 */
 	private void guardarValidacion(String path, String resultado) {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
@@ -676,8 +676,8 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * ImplementaciÃ³n de la interfaz FigureListener por medio de la cual la
-	 * aplicaciÃ³n se entera cuando se mueve alguna de las figuras.
+	 * Implementación de la interfaz FigureListener por medio de la cual la
+	 * aplicación se entera cuando se mueve alguna de las figuras.
 	 * 
 	 * @param source
 	 */
@@ -697,7 +697,7 @@ public class Principal extends Observable implements FigureListener {
 
 	/**
 	 * Devuelve un proxy del proyecto que se encuentra abierto exponiendo solo
-	 * los mÃ©todos de la interfaz <code>ProyectoProxy</code>.
+	 * los métodos de la interfaz <code>ProyectoProxy</code>.
 	 * 
 	 * @return
 	 */
@@ -713,7 +713,7 @@ public class Principal extends Observable implements FigureListener {
 	public void error(String mensaje) {
 		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 		messageBox.setText("Error");
-		messageBox.setMessage(mensaje != null ? mensaje : "OcurriÃ³ un error");
+		messageBox.setMessage(mensaje != null ? mensaje : "Ocurrió un error");
 		messageBox.open();
 	}
 
@@ -735,7 +735,7 @@ public class Principal extends Observable implements FigureListener {
 	 * 
 	 * @param modificado
 	 *            Define el estado del diagrama actual. <code>true</code> si el
-	 *            diagrama tiene alguna modificaciÃ³n pendiente de ser guardada.
+	 *            diagrama tiene alguna modificación pendiente de ser guardada.
 	 *            <code>false</code> si no tiene ninguna.
 	 */
 	private void modificado(boolean modificado) {
@@ -755,10 +755,10 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Muestra o esconde el arbol de jerarquÃ­as segÃºn el valor del parÃ¡metros
+	 * Muestra o esconde el arbol de jerarquías según el valor del parámetros
 	 * 
 	 * @param mostrar
-	 *            indica si se debe mostrar el Ã¡rbol.
+	 *            indica si se debe mostrar el árbol.
 	 */
 	public void mostrarArbol(boolean mostrar) {
 		int peso = mostrar ? 3 : 0;

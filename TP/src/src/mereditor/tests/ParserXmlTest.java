@@ -14,18 +14,18 @@ import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
-import mereditor.xml.ParserXml;
+import mereditor.xml.SaverLoaderXML;
 
 import org.w3c.dom.Document;
 
 public class ParserXmlTest extends TestCase {
 
 	private static final String PATH_TEST = "xml/test/test.xml";
-	private ParserXml parser;
+	private SaverLoaderXML parser;
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.parser = new ParserXml(PATH_TEST);
+		this.parser = new SaverLoaderXML(PATH_TEST);
 	}
 
 	public void testEncontrarEntidadPorId() throws Exception {
@@ -151,17 +151,17 @@ public class ParserXmlTest extends TestCase {
 	}
 
 	public void testCargarProyecto() throws Exception {
-		Proyecto proyecto = this.parser.parsear();
+		Proyecto proyecto = this.parser.load();
 		assertTrue(proyecto != null);
 		assertTrue(proyecto.getComponentes().size() > 0);
 	}
 	
 	public void testCargarProyectoConvertirXml() throws Exception {
-		Proyecto proyecto = this.parser.parsear();
+		Proyecto proyecto = this.parser.load();
 		assertTrue(proyecto != null);
 		// Crear parser nuevo con proyecto parseado.
-		this.parser = new ParserXml(proyecto);
-		Document doc =  this.parser.generarXmlComponentes();
+		this.parser = new SaverLoaderXML(proyecto);
+		Document doc =  this.parser.saveComponentes();
 		assertTrue(doc != null);
 	}
 

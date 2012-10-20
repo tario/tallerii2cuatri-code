@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/Junit/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/org.eclipse.draw2d_3.7.2.v20111017-2020.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/org.eclipse.gef_3.7.2.v20111106-2020.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/swt-debug.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.apache.commons.lang_2.4.0.v201005080502.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.core.commands_3.6.0.I20110111-0800.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.draw2d.source_3.7.2.v20111017-2020.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.draw2d_3.7.2.v20111017-2020.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.equinox.common.source_3.6.0.v20110523.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.equinox.common_3.6.0.v20110523.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.jface.source_3.7.0.v20110928-1505.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/org.eclipse.jface_3.7.0.v20110928-1505.jar"/>
+	<classpathentry kind="lib" path="F:/Romera/Documents/Fer/Facultad/Taller2/TP/tallerii2cuatri-code/Trabajos_Originales/CDTallerII_1C2012/src/libs/win32/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

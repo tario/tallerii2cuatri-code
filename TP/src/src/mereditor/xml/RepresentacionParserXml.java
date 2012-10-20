@@ -1,6 +1,5 @@
 package mereditor.xml;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -17,33 +16,34 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Genera y parsea el xml de representaci贸n del proyecto.
+ * Genera y parsea el xml de representaci髇 del proyecto.
  * 
  * @author jfacorro
  * 
  */
-class RepresentacionParserXml extends ParserXml {
+class RepresentacionParserXml extends ParserXML {
+
+	private Proyecto proyecto;
 
 	/**
 	 * Constructor utilizado para leer el xml del path especificado
 	 * 
 	 * @param proyecto
-	 *            Instancia vac铆a del proyecto.
+	 *            Instancia vac韆 del proyecto.
 	 * @param path
-	 *            Ubicaci贸n del archivo XML de representaci贸n.
+	 *            Ubicaci髇 del archivo XML de representaci髇.
 	 * @throws Exception
 	 */
 	public RepresentacionParserXml(Proyecto proyecto, String path) throws Exception {
 		super();
-		File source = new File(path);
-		this.root = docBuilder.parse(source).getDocumentElement();
+		setRoot(path);
 		this.proyecto = proyecto;
 		if (proyecto.getComponentes().size() > 1)
-			throw new Exception("El proyecto debe contener s贸lo el diagrama ra铆z.");
+			throw new Exception("El proyecto debe contener s髄o el diagrama ra韟.");
 	}
 
 	/**
-	 * Constructor a utilizar cuando se quiere generar el XML de representaci贸n
+	 * Constructor a utilizar cuando se quiere generar el XML de representaci髇
 	 * en base el objeto proyecto.
 	 * 
 	 * @param proyecto
@@ -55,9 +55,10 @@ class RepresentacionParserXml extends ParserXml {
 
 	/**
 	 * Recorre la coleccion de componentes del proyecto y busca sus
-	 * representaciones para cada diagrama en el que est茅n presentes.
+	 * representaciones para cada diagrama en el que est閚 presentes.
 	 */
-	public void parsearRepresentacion() {
+	@Override
+	public Object parsearXml() {
 		// Para cada componente del proyecto
 		for (Componente componente : this.proyecto.getComponentes()) {
 			// Buscar las representaciones en cada diagrama
@@ -67,6 +68,7 @@ class RepresentacionParserXml extends ParserXml {
 			for (String idDiagrama : representaciones.keySet())
 				control.getFigura(idDiagrama).setRepresentacion(representaciones.get(idDiagrama));
 		}
+		return proyecto;
 	}
 
 	/**
@@ -96,7 +98,7 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Parsea un elemento de representaci贸n b谩sico con posici贸n y dimensi贸n.
+	 * Parsea un elemento de representaci髇 b醩ico con posici髇 y dimensi髇.
 	 * 
 	 * @param elemento
 	 * @return
@@ -115,7 +117,7 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Generar el XML de rerpesentaci贸n.
+	 * Generar el XML de rerpesentaci髇.
 	 * @return
 	 */
 	public Document generarXml() {
@@ -129,8 +131,8 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Genera el element de XML de representaci贸n de un diagrama y sus hijos.
-	 * Agrega el elemento generado al nodo ra铆z.
+	 * Genera el element de XML de representaci髇 de un diagrama y sus hijos.
+	 * Agrega el elemento generado al nodo ra韟.
 	 * 
 	 * @param elemento
 	 * @param diagrama
@@ -167,7 +169,7 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Genera un elemento Representaci贸n XML desde una PList.
+	 * Genera un elemento Representaci髇 XML desde una PList.
 	 * 
 	 * @param elemento
 	 * @param repr
