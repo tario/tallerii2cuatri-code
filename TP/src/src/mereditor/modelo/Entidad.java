@@ -122,6 +122,29 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public void setTipo(TipoEntidad tipo) {
 		this.tipo = tipo;
 	}
+	public boolean esGenerica(){
+		for(Componente diagramaPadre: this.getAllPadres()){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
+				if(jerarquia.getGenerica().equals(this))
+					return true;
+			}
+		}
+		return false;
+	}
+	public boolean esDerivada(){
+		for(Componente diagramaPadre: this.getAllPadres()){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
+				for(Entidad derivada: jerarquia.getDerivadas()){
+					if(derivada.equals(this))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	public boolean esJerarquica(){
+		return esGenerica()||esDerivada();
+	}
 
 	@Override
 	public Observacion validar() {
