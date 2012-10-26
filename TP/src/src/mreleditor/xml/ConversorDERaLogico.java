@@ -65,7 +65,7 @@ public class ConversorDERaLogico{
 					//tablaAtributo.addClave_primaria("id");
 					agregarAtributo(atributo,tablaAtributo);
 				}else{
-					tablaAtributo.setClave_primaria(atributo.getNombre());	
+					//tablaAtributo.setClave_primaria(atributo.getNombre());	
 				}
 			}
 		}
