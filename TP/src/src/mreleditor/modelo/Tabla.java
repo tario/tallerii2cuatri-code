@@ -11,21 +11,21 @@ import java.util.ArrayList;
  */
 public class Tabla {
 
-	private String clave_primaria;
-	private String clave_foranea;
+	private ArrayList<String> clave_primaria;
+	private ArrayList<clave_foranea> clave_foranea;
 	private ArrayList<String> atributos;
 	private ArrayList<Relacion> relaciones;
 	
-	public String getClave_primaria() {
+	public ArrayList<String> getClave_primaria() {
 		return clave_primaria;
 	}
-	public void setClave_primaria(String clave_primaria) {
+	public void setClave_primaria(ArrayList<String> clave_primaria) {
 		this.clave_primaria = clave_primaria;
 	}
-	public String getClave_foranea() {
+	public ArrayList<String> getClave_foranea() {
 		return clave_foranea;
 	}
-	public void setClave_foranea(String clave_foranea) {
+	public void setClave_foranea(ArrayList<String> clave_foranea) {
 		this.clave_foranea = clave_foranea;
 	}
 	public ArrayList<String> getAtributos() {
@@ -43,6 +43,10 @@ public class Tabla {
 	}
 	public void setRelaciones(ArrayList<Relacion> relaciones) {
 		this.relaciones = relaciones;
+	}
+	
+	public void agregarAtributo(String atributo) {
+		this.atributos.add(atributo);
 	}
 	
 	
