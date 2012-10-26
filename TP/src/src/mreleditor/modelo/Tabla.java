@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Tabla {
 
 	private ArrayList<String> clave_primaria;
-	private ArrayList<clave_foranea> clave_foranea;
+	private ArrayList<String> clave_foranea;
 	private ArrayList<String> atributos;
 	private ArrayList<Relacion> relaciones;
 	
