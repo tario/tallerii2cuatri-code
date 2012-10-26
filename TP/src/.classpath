@@ -12,5 +12,9 @@
 	<classpathentry kind="lib" path="libs/win32/org.eclipse.jface_3.7.0.v20110928-1505.jar"/>
 	<classpathentry kind="lib" path="libs/win32/org.eclipse.jface.source_3.7.0.v20110928-1505.jar"/>
 	<classpathentry kind="lib" path="libs/win32/swt.jar"/>
+	<classpathentry kind="lib" path="libs/org.eclipse.draw2d_3.7.2.v20111017-2020.jar"/>
+	<classpathentry kind="lib" path="libs/org.eclipse.gef_3.7.2.v20111106-2020.jar"/>
+	<classpathentry kind="lib" path="libs/swt-debug.jar"/>
+	<classpathentry kind="lib" path="libs/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
