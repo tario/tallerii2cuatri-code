@@ -3,13 +3,14 @@
  */
 package mreleditor.modelo;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import mereditor.modelo.base.ComponenteNombre;
 /**
  * @author guido
  *
  */
-public class Tabla {
+public class Tabla extends ComponenteNombre {
 
 	private ArrayList<String> clave_primaria;
 	private ArrayList<String> clave_foranea;
