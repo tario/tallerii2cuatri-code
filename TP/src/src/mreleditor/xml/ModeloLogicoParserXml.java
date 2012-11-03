@@ -23,7 +23,7 @@ public class ModeloLogicoParserXml extends ParserXML {
 	public Document generarXml() throws Exception {
 		ConversorDERaLogico conversor=ConversorDERaLogico.getInstance();
 		Diagrama der=proyecto.getDiagramaRaiz();
-		return conversor.convertir(der);
+		return null;
 	}
 
 	@Override
