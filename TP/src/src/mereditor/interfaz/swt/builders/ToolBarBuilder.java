@@ -146,6 +146,14 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Convertir A Logico");
+		item.setImage(Principal.getImagen("convertir.png"));
+		item.addSelectionListener(AccionesProvider.convertir);
+		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
+		
+		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Salir");
 		item.setImage(Principal.getImagen("salir.png"));
 		item.addSelectionListener(AccionesProvider.salir);

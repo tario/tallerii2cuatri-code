@@ -151,12 +151,22 @@ public class AccionesProvider {
 	};
 
 	/**
-	 * Salir de la aplicaci�n.
+	 * Salir de la aplicaci�ｽn.
 	 */
 	public static final SelectionListener salir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			principal().salir();
+		}
+	};
+	
+	/**
+	 * Convertir DER a Logico
+	 */
+	public static final SelectionListener convertir = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			principal().convertir();
 		}
 	};
 
