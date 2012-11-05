@@ -53,6 +53,14 @@ public class Jerarquia extends Componente {
 		this.tipo = tipo;
 	}
 	
+	public Entidad getRaiz(){
+		Entidad raiz=this.getGenerica();
+		while(raiz.esDerivada()){
+			raiz.getGenerica();
+		}
+		return raiz;
+	}
+	
 	@Override
 	public Observacion validar() {
 		Observacion observacion = super.validar();

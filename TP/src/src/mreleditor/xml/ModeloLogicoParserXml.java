@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.xml.ParserXML;
+import mreleditor.conversor.ConversorDERaLogico;
 
 public class ModeloLogicoParserXml extends ParserXML {
 

@@ -142,6 +142,29 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		}
 		return false;
 	}
+	public Set<Entidad> getDerivadas(){
+
+		for(Componente diagramaPadre: this.getAllPadres()){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
+				if(jerarquia.getGenerica().equals(this))
+					return jerarquia.getDerivadas();
+			}
+		}
+		return new HashSet<Entidad>();
+	}
+	public Entidad getGenerica(){
+
+		for(Componente diagramaPadre: this.getAllPadres()){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
+				for(Entidad derivada: jerarquia.getDerivadas()){
+					if(derivada.equals(this))
+						return jerarquia.getGenerica();
+					
+				}
+			}
+		}
+		return null;
+	}
 	public boolean esJerarquica(){
 		return esGenerica()||esDerivada();
 	}

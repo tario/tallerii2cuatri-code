@@ -1,9 +1,12 @@
-package mreleditor.xml;
+package mreleditor.conversor;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.Stack;
 
 import org.w3c.dom.Document;
 
@@ -12,6 +15,7 @@ import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
+import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.base.Componente;
@@ -31,9 +35,17 @@ public class ConversorDERaLogico{
 		return instance;
 	}
 	
-	
+	private Diagrama der;
 	public Diagrama convertir(Diagrama der){
 		//DiagramaLogico diagramaLogico=new DiagramaLogico();
+		this.der=der;
+		// Primero convierte las jerarquias
+		for (Componente componente : der.getComponentes()) {
+			if (componente.es(Jerarquia.class) )
+				for(Tabla tablaDeJerarquia:convertirJerarquia((Jerarquia)componente))
+					//diagramaLogico.agregar(tablaDeJerarquia);
+					;
+		}
 		for (Componente componente : der.getComponentes()) {
 			if (componente.es(Entidad.class) )
 					for(Tabla tablaDeJerarquia:convertirEntidad((Entidad)componente))
@@ -65,9 +77,7 @@ public class ConversorDERaLogico{
 			agregarEntidadesRelacionadas(entidad,tabla);
 			tablas.add(tabla);
 		}
-		else{
-			tablas=convertirEntidadJerarquica();
-		}
+		
 		return tablas;
 	}
 	private void agregarPK(Entidad entidad,Tabla tabla){
@@ -175,6 +185,19 @@ public class ConversorDERaLogico{
 			tabla.agregarAtributo(atributoComponente);
 		}
 	}
+	private int getCantidadAtributosMonovalentes(Entidad entidad){
+		int cant=0;
+	
+		for(Atributo atributo : entidad.getAtributos()){
+			if(atributo.getCardinalidadMaxima().equals("1")){
+				// monovalente
+				if(atributo.getTipo()==TipoAtributo.CARACTERIZACION){
+					cant+=construirAtributos(atributo).size();
+				}
+			}
+		}
+		return cant;
+	}
 	private void agregarFK(Entidad entidad,Tabla tabla){
 		agregarFK(entidad,tabla,"");
 	}
@@ -243,15 +266,98 @@ public class ConversorDERaLogico{
 		}
 	}
 	
-	private ArrayList<Tabla> convertirEntidadJerarquica(){
+	private enum TipoConversionDeJerarquia{COLAPSAR_EN_PADRE,COLAPSAR_EN_HIJOS,SIN_COLAPSAR};
+	
+	private ArrayList<Tabla> convertirJerarquia(Jerarquia jerarquia){
+		ArrayList<Tabla> tablas=new ArrayList<Tabla>();
+		if(raicesProcesadas.contains(jerarquia.getRaiz()))
+			return tablas;
+		Tree<Entidad> arbol=construirArbol(jerarquia);
+		switch(getTipoDeConversion(arbol)){
+		case COLAPSAR_EN_PADRE:
+				tablas=convertirColapsandoEnPadre(arbol);
+				break;
+		case COLAPSAR_EN_HIJOS: 
+			tablas=convertirColapsandoEnHijos(arbol);
+				break;
+		case SIN_COLAPSAR: 
+			tablas=convertirSinColapsar(arbol);
+				break;
+		}
+		return tablas;
+	}
+	
+	private Set<Entidad> raicesProcesadas;
+	private HashMap<Entidad,Jerarquia.TipoJerarquia> tipoDeJerarquia;
+	private Tree<Entidad> construirArbol(Jerarquia jerarquia){
+		Tree<Entidad> tree;
 		
-		// TODO: implemetar conversion de jerarquias
-		return null;
+		Entidad raiz=jerarquia.getRaiz();
+		
+		tree=new Tree<Entidad>(raiz);
+		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
+		nodosSinProcesar.push(raiz);
+		
+		while(!nodosSinProcesar.empty()){
+			Entidad nodoPadre=nodosSinProcesar.pop();
+			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
+				tree.addLeaf(nodoPadre, nodoHijo);
+				nodosSinProcesar.push(nodoHijo);
+			}	
+		}
+		raicesProcesadas.add(raiz);
+		if(tree.getLevel()==2)
+			tipoDeJerarquia.put(raiz,jerarquia.getTipo());
+			
+		return tree;
+	}
+	
+	private TipoConversionDeJerarquia getTipoDeConversion(Tree<Entidad> arbol){
+		int pesoDePadres=calcularPesoPadres(arbol);
+		int pesoDeHijos=calcularPesoHijos(arbol);
+		
+		if(pesoDePadres > 10 && pesoDeHijos > 10)
+			return TipoConversionDeJerarquia.SIN_COLAPSAR;
+		if (pesoDePadres < pesoDeHijos)
+			return TipoConversionDeJerarquia.COLAPSAR_EN_HIJOS;
+		
+		return TipoConversionDeJerarquia.COLAPSAR_EN_PADRE;
 		
 	}
 	
+	private int calcularPesoPadres(Tree<Entidad> arbol){
+		Jerarquia.TipoJerarquia tipo= tipoDeJerarquia.get(arbol.getRoot());
+		if(tipo == null || tipo != Jerarquia.TipoJerarquia.TOTAL_EXCLUSIVA)
+			return Integer.MAX_VALUE;
+		int peso=getCantidadAtributosMonovalentes(arbol.getRoot());
+		peso+= 4 * arbol.getRoot().getRelaciones().size();
+		return peso;
+	}
+	private int calcularPesoHijos(Tree<Entidad> arbol){
+		int peso=0;
+		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
+		nodosSinProcesar.push(arbol.getRoot());
+		
+		while(!nodosSinProcesar.empty()){
+			Entidad nodoPadre=nodosSinProcesar.pop();
+			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
+				peso+=getCantidadAtributosMonovalentes(nodoHijo);
+				peso+= 2 * nodoHijo.getRelaciones().size();
+				nodosSinProcesar.push(nodoHijo);
+			}	
+		}
+		return peso;
+	}
 	
-
-
+	private ArrayList<Tabla> convertirColapsandoEnPadre(Tree<Entidad> arbol){
+		
+		return null;
+	}
+	private ArrayList<Tabla> convertirColapsandoEnHijos(Tree<Entidad> arbol){
+		return null;
+	}
+	private ArrayList<Tabla> convertirSinColapsar(Tree<Entidad> arbol){
+		return null;
+	}
 
 }
