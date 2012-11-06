@@ -47,14 +47,19 @@ public class ConversorDERaLogico{
 					;
 		}
 		for (Componente componente : der.getComponentes()) {
-			if (componente.es(Entidad.class) )
-					for(Tabla tablaDeJerarquia:convertirEntidad((Entidad)componente))
-						//diagramaLogico.agregar(tablaDeJerarquia);
+			if (componente.es(Entidad.class) ){
+				if(!((Entidad)componente).esJerarquica()){
+					// No forma una jerarquia
+					Tabla tablaEntidad= convertirEntidad((Entidad)componente);
+						//diagramaLogico.agregar(tablaEntidad);
 						;
-				
+				}
+			}
 			else if(componente.es(Relacion.class)){
-				Tabla tabla=convertirRelacion((Relacion) componente);
-				//diagramaLogico.agregar(tabla);
+				if(! relacionesProcesadas.contains((Relacion)componente)){
+					Tabla tabla=convertirRelacion((Relacion) componente);
+					//diagramaLogico.agregar(tabla);
+				}
 			}
 		}
 		
@@ -67,23 +72,22 @@ public class ConversorDERaLogico{
 	 *   					
 	 */						
 	
-	private ArrayList<Tabla> convertirEntidad(Entidad entidad){
-		ArrayList<Tabla> tablas= new ArrayList<Tabla>();
-		if(!entidad.esJerarquica()){
-			// No forma una jerarquia
-			Tabla tabla = new Tabla();
+	private Tabla convertirEntidad(Entidad entidad){
+		Tabla tabla = new Tabla(/*entidad.getNombre()*/);
+			
 			agregarPK(entidad,tabla);
 			agregarAtributos(entidad,tabla);
 			agregarEntidadesRelacionadas(entidad,tabla);
-			tablas.add(tabla);
-		}
 		
-		return tablas;
+		return tabla;
 	}
 	private void agregarPK(Entidad entidad,Tabla tabla){
 		agregarPK(entidad,tabla,"");
 	}
 	private void agregarPK(Entidad entidad,Tabla tabla,String prefijo){
+		Entidad padre=entidadPadre.get(entidad);
+		if(padre==null)
+			padre=entidad;
 		//tabla.addClave_primaria(construirPK(entidad,prefijo));
 	}
 	private ArrayList<String> construirPK(Entidad entidad){
@@ -153,14 +157,16 @@ public class ConversorDERaLogico{
 		}
 		return atributos;
 	}
-	
 	private void agregarAtributos(Entidad entidad,Tabla tabla){
+		agregarAtributos( entidad, tabla,"");
+	}
+	private void agregarAtributos(Entidad entidad,Tabla tabla,String prefijo){
 		for(Atributo atributo : entidad.getAtributos()){
 			if(atributo.getCardinalidadMaxima().equals("1")){
 				// monovalente
 				if(atributo.getTipo()==TipoAtributo.CARACTERIZACION){
 					// solo se convierten los de caracterizacion
-					agregarAtributo(atributo,tabla);
+					agregarAtributo(atributo,tabla,prefijo);
 				}
 			}else{
 				// polivalente
@@ -201,8 +207,14 @@ public class ConversorDERaLogico{
 	private void agregarFK(Entidad entidad,Tabla tabla){
 		agregarFK(entidad,tabla,"");
 	}
+	private Set<Entidad> entidadesBorradas;
 	private void agregarFK(Entidad entidad,Tabla tabla,String prefijo){
-		//tabla.addClave_foranea(construirPK(entidad,entidad.getNombre()+"-"),entidad.getNombre());
+		String nombreTabla=entidad.getNombre();
+		Entidad padre=entidadPadre.get(entidad);
+		boolean borrada=entidadesBorradas.contains(entidad);
+		if( borrada )
+			nombreTabla=padre.getNombre();
+		//tabla.addClave_foranea(construirPK(entidad,entidad.getNombre()+"-"),nombreTabla);
 	}
 	
 
@@ -250,19 +262,43 @@ public class ConversorDERaLogico{
 		return tabla;
 		
 	}
+	private Tabla convertirRelacion(Relacion relacion, Entidad entidadHijo){
+		Tabla tabla=new Tabla();
+		agregarPK(relacion,tabla);
+		agregarFK(relacion,tabla,entidadHijo);
+		agregarAtributos(relacion,tabla);
+		return tabla;
+		
+	}
 	
 	private void agregarPK(Relacion relacion,Tabla tabla){
+		boolean PKagregada=false;
+		EntidadRelacion ultimaEntidadRelacion=null;
 		for(EntidadRelacion entidadRelacion: relacion.getParticipantes()){
+			ultimaEntidadRelacion=entidadRelacion;
 			String cardinalidad=entidadRelacion.getCardinalidadMinima()+
 					entidadRelacion.getCardinalidadMaxima();	
 			if(!cardinalidad.equals("01") && !cardinalidad.equals("11")){
 				agregarPK(entidadRelacion.getEntidad(),tabla);	
+				PKagregada=true;
 			}
 		}
+		if(PKagregada==false)
+			agregarPK(ultimaEntidadRelacion.getEntidad(),tabla);	
+			
 	}
 	private void agregarFK(Relacion relacion,Tabla tabla){
 		for(EntidadRelacion entidadRelacion: relacion.getParticipantes()){
 			agregarFK(entidadRelacion.getEntidad(),tabla);	
+		}
+	}
+	private void agregarFK(Relacion relacion,Tabla tabla, Entidad entidadHijo){
+		Entidad padre= entidadPadre.get(entidadHijo);
+		for(EntidadRelacion entidadRelacion: relacion.getParticipantes()){
+			if(entidadRelacion.getEntidad().equals(padre))
+				agregarFK(entidadHijo,tabla);	
+			else
+				agregarFK(entidadRelacion.getEntidad(),tabla);	
 		}
 	}
 	
@@ -348,16 +384,66 @@ public class ConversorDERaLogico{
 		}
 		return peso;
 	}
-	
+	private HashMap<Entidad,Entidad> entidadPadre;
+	private Set<Relacion> relacionesProcesadas;
 	private ArrayList<Tabla> convertirColapsandoEnPadre(Tree<Entidad> arbol){
+		Entidad padre=arbol.getRoot();
+		ArrayList<Tabla> tablas= new ArrayList<Tabla>();
+		Tabla tablaPadre=convertirEntidad(arbol.getRoot());
+		tablas.add(tablaPadre);
+		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
+		nodosSinProcesar.push(arbol.getRoot());
 		
-		return null;
+		while(!nodosSinProcesar.empty()){
+			Entidad nodoPadre=nodosSinProcesar.pop();
+			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
+				entidadPadre.put(nodoHijo, padre );
+				entidadesBorradas.add(nodoHijo);
+				agregarAtributos(nodoHijo, tablaPadre,nodoHijo.getNombre()+"-");
+				nodosSinProcesar.push(nodoHijo);
+			}	
+		}
+		return tablas;
 	}
 	private ArrayList<Tabla> convertirColapsandoEnHijos(Tree<Entidad> arbol){
-		return null;
+		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
+		Entidad padre=arbol.getRoot();
+		for(Entidad hijo: padre.getDerivadas()){
+			entidadPadre.put(hijo, padre);
+			Tabla tablaHijo= new Tabla(/*hijo.getNombre()*/);
+			agregarPK(padre,tablaHijo);
+			agregarAtributos(padre, tablaHijo, padre.getNombre()+"-");
+			agregarAtributos(hijo, tablaHijo);
+			agregarEntidadesRelacionadas(hijo, tablaHijo);
+			tablas.add(tablaHijo);
+			for(Relacion relacion : padre.getRelaciones()){
+				tablas.add(convertirRelacion(relacion,hijo));
+			}
+		}
+		for(Relacion relacion : padre.getRelaciones()){
+			relacionesProcesadas.add(relacion);
+		}
+			
+		return tablas;
 	}
 	private ArrayList<Tabla> convertirSinColapsar(Tree<Entidad> arbol){
-		return null;
+		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
+		Entidad padre=arbol.getRoot();
+		tablas.add(convertirEntidad(padre));
+		
+		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
+		nodosSinProcesar.push(arbol.getRoot());
+		
+		while(!nodosSinProcesar.empty()){
+			Entidad nodoPadre=nodosSinProcesar.pop();
+			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
+				entidadPadre.put(nodoHijo, padre );
+				tablas.add(convertirEntidad(nodoHijo));
+				nodosSinProcesar.push(nodoHijo);
+			}	
+		}
+		
+		return tablas;
 	}
 
 }
