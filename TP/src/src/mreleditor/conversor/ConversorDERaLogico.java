@@ -39,12 +39,13 @@ public class ConversorDERaLogico{
 	public Diagrama convertir(Diagrama der){
 		//DiagramaLogico diagramaLogico=new DiagramaLogico();
 		this.der=der;
+		
 		// Primero convierte las jerarquias
-		for (Componente componente : der.getComponentes()) {
-			if (componente.es(Jerarquia.class) )
-				for(Tabla tablaDeJerarquia:convertirJerarquia((Jerarquia)componente))
+		for(Tree<Entidad> arbol: construirArboles()){
+			for(Tabla tablaDeJerarquia:convertirJerarquia(arbol)){
 					//diagramaLogico.agregar(tablaDeJerarquia);
 					;
+			}
 		}
 		for (Componente componente : der.getComponentes()) {
 			if (componente.es(Entidad.class) ){
@@ -304,11 +305,19 @@ public class ConversorDERaLogico{
 	
 	private enum TipoConversionDeJerarquia{COLAPSAR_EN_PADRE,COLAPSAR_EN_HIJOS,SIN_COLAPSAR};
 	
-	private ArrayList<Tabla> convertirJerarquia(Jerarquia jerarquia){
+	
+	private ArrayList<Tree<Entidad>> construirArboles(){
+		ArrayList<Tree<Entidad>> arboles= new ArrayList<Tree<Entidad>>();
+		for (Jerarquia jerarquia : der.getJerarquias(true)) {	
+			if(raicesProcesadas.contains(jerarquia.getRaiz()))
+				continue;
+			arboles.add(construirArbol(jerarquia));
+		}
+		return arboles;
+		
+	}
+	private ArrayList<Tabla> convertirJerarquia(Tree<Entidad> arbol){
 		ArrayList<Tabla> tablas=new ArrayList<Tabla>();
-		if(raicesProcesadas.contains(jerarquia.getRaiz()))
-			return tablas;
-		Tree<Entidad> arbol=construirArbol(jerarquia);
 		switch(getTipoDeConversion(arbol)){
 		case COLAPSAR_EN_PADRE:
 				tablas=convertirColapsandoEnPadre(arbol);
@@ -337,6 +346,7 @@ public class ConversorDERaLogico{
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
 			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
+				entidadPadre.put(nodoHijo, nodoPadre );
 				tree.addLeaf(nodoPadre, nodoHijo);
 				nodosSinProcesar.push(nodoHijo);
 			}	
@@ -397,7 +407,6 @@ public class ConversorDERaLogico{
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
 			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
-				entidadPadre.put(nodoHijo, padre );
 				entidadesBorradas.add(nodoHijo);
 				agregarAtributos(nodoHijo, tablaPadre,nodoHijo.getNombre()+"-");
 				nodosSinProcesar.push(nodoHijo);
@@ -409,7 +418,6 @@ public class ConversorDERaLogico{
 		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
 		Entidad padre=arbol.getRoot();
 		for(Entidad hijo: padre.getDerivadas()){
-			entidadPadre.put(hijo, padre);
 			Tabla tablaHijo= new Tabla(/*hijo.getNombre()*/);
 			agregarPK(padre,tablaHijo);
 			agregarAtributos(padre, tablaHijo, padre.getNombre()+"-");
@@ -437,7 +445,6 @@ public class ConversorDERaLogico{
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
 			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
-				entidadPadre.put(nodoHijo, padre );
 				tablas.add(convertirEntidad(nodoHijo));
 				nodosSinProcesar.push(nodoHijo);
 			}	
