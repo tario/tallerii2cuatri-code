@@ -168,6 +168,17 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public boolean esJerarquica(){
 		return esGenerica()||esDerivada();
 	}
+	public int getNivel(){
+		int nivel=0;
+		if(!esGenerica())
+			return nivel;
+		for(Entidad derivada: getDerivadas()){
+			int nivelDerivada=derivada.getNivel();
+			if( nivel < nivelDerivada+1)
+				nivel=nivelDerivada+1;
+		}
+		return nivel;
+	}
 
 	@Override
 	public Observacion validar() {

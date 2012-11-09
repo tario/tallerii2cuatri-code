@@ -4,6 +4,7 @@ package mreleditor.conversor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Stack;
@@ -27,7 +28,17 @@ public class ConversorDERaLogico{
 	
 	private static ConversorDERaLogico instance=null;
 	
-	private ConversorDERaLogico(){}
+	private ConversorDERaLogico(){
+		inicializarVariables();
+		
+	}
+	private void inicializarVariables(){
+		der=null;
+		raicesProcesadas=new HashSet<Entidad>();
+		tipoDeJerarquia= new HashMap<Entidad,Jerarquia.TipoJerarquia>();
+		entidadPadre= new HashMap<Entidad,Entidad>();
+		relacionesProcesadas= new HashSet<Relacion>();
+	}
 	
 	public static ConversorDERaLogico getInstance(){
 		if(instance==null)
@@ -36,13 +47,20 @@ public class ConversorDERaLogico{
 	}
 	
 	private Diagrama der;
+	private enum TipoConversionDeJerarquia{COLAPSAR_EN_PADRE,COLAPSAR_EN_HIJOS,SIN_COLAPSAR};
+	private Set<Entidad> raicesProcesadas;
+	private HashMap<Entidad,Jerarquia.TipoJerarquia> tipoDeJerarquia;
+	private HashMap<Entidad,Entidad> entidadPadre;
+	private Set<Relacion> relacionesProcesadas;
+	
 	public Diagrama convertir(Diagrama der){
+		inicializarVariables();
 		//DiagramaLogico diagramaLogico=new DiagramaLogico();
 		this.der=der;
 		
 		// Primero convierte las jerarquias
-		for(Tree<Entidad> arbol: construirArboles()){
-			for(Tabla tablaDeJerarquia:convertirJerarquia(arbol)){
+		for(Entidad raiz: getRaices()){
+			for(Tabla tablaDeJerarquia:convertirJerarquia(raiz)){
 					//diagramaLogico.agregar(tablaDeJerarquia);
 					;
 			}
@@ -303,64 +321,58 @@ public class ConversorDERaLogico{
 		}
 	}
 	
-	private enum TipoConversionDeJerarquia{COLAPSAR_EN_PADRE,COLAPSAR_EN_HIJOS,SIN_COLAPSAR};
 	
 	
-	private ArrayList<Tree<Entidad>> construirArboles(){
-		ArrayList<Tree<Entidad>> arboles= new ArrayList<Tree<Entidad>>();
+	private ArrayList<Entidad> getRaices(){
+		ArrayList<Entidad> raices= new ArrayList<Entidad>();
 		for (Jerarquia jerarquia : der.getJerarquias(true)) {	
 			if(raicesProcesadas.contains(jerarquia.getRaiz()))
 				continue;
-			arboles.add(construirArbol(jerarquia));
+			procesarRaiz(jerarquia);
+			raices.add(jerarquia.getRaiz());
 		}
-		return arboles;
+		return raices;
 		
 	}
-	private ArrayList<Tabla> convertirJerarquia(Tree<Entidad> arbol){
+	private ArrayList<Tabla> convertirJerarquia(Entidad raiz){
 		ArrayList<Tabla> tablas=new ArrayList<Tabla>();
-		switch(getTipoDeConversion(arbol)){
+		switch(getTipoDeConversion(raiz)){
 		case COLAPSAR_EN_PADRE:
-				tablas=convertirColapsandoEnPadre(arbol);
+				tablas=convertirColapsandoEnPadre(raiz);
 				break;
 		case COLAPSAR_EN_HIJOS: 
-			tablas=convertirColapsandoEnHijos(arbol);
+			tablas=convertirColapsandoEnHijos(raiz);
 				break;
 		case SIN_COLAPSAR: 
-			tablas=convertirSinColapsar(arbol);
+			tablas=convertirSinColapsar(raiz);
 				break;
 		}
 		return tablas;
 	}
 	
-	private Set<Entidad> raicesProcesadas;
-	private HashMap<Entidad,Jerarquia.TipoJerarquia> tipoDeJerarquia;
-	private Tree<Entidad> construirArbol(Jerarquia jerarquia){
-		Tree<Entidad> tree;
-		
+	
+	private void procesarRaiz(Jerarquia jerarquia){
+
 		Entidad raiz=jerarquia.getRaiz();
-		
-		tree=new Tree<Entidad>(raiz);
 		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
 		nodosSinProcesar.push(raiz);
-		
+		int nivel=0;
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
 			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
 				entidadPadre.put(nodoHijo, nodoPadre );
-				tree.addLeaf(nodoPadre, nodoHijo);
 				nodosSinProcesar.push(nodoHijo);
 			}	
 		}
 		raicesProcesadas.add(raiz);
-		if(tree.getLevel()==2)
+		if(raiz.getNivel()==1)
 			tipoDeJerarquia.put(raiz,jerarquia.getTipo());
-			
-		return tree;
+
 	}
 	
-	private TipoConversionDeJerarquia getTipoDeConversion(Tree<Entidad> arbol){
-		int pesoDePadres=calcularPesoPadres(arbol);
-		int pesoDeHijos=calcularPesoHijos(arbol);
+	private TipoConversionDeJerarquia getTipoDeConversion(Entidad raiz){
+		int pesoDePadres=calcularPesoPadres(raiz);
+		int pesoDeHijos=calcularPesoHijos(raiz);
 		
 		if(pesoDePadres > 10 && pesoDeHijos > 10)
 			return TipoConversionDeJerarquia.SIN_COLAPSAR;
@@ -371,18 +383,18 @@ public class ConversorDERaLogico{
 		
 	}
 	
-	private int calcularPesoPadres(Tree<Entidad> arbol){
-		Jerarquia.TipoJerarquia tipo= tipoDeJerarquia.get(arbol.getRoot());
+	private int calcularPesoPadres(Entidad raiz){
+		Jerarquia.TipoJerarquia tipo= tipoDeJerarquia.get(raiz);
 		if(tipo == null || tipo != Jerarquia.TipoJerarquia.TOTAL_EXCLUSIVA)
 			return Integer.MAX_VALUE;
-		int peso=getCantidadAtributosMonovalentes(arbol.getRoot());
-		peso+= 4 * arbol.getRoot().getRelaciones().size();
+		int peso=getCantidadAtributosMonovalentes(raiz);
+		peso+= 4 * raiz.getRelaciones().size();
 		return peso;
 	}
-	private int calcularPesoHijos(Tree<Entidad> arbol){
+	private int calcularPesoHijos(Entidad raiz){
 		int peso=0;
 		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
-		nodosSinProcesar.push(arbol.getRoot());
+		nodosSinProcesar.push(raiz);
 		
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
@@ -394,15 +406,13 @@ public class ConversorDERaLogico{
 		}
 		return peso;
 	}
-	private HashMap<Entidad,Entidad> entidadPadre;
-	private Set<Relacion> relacionesProcesadas;
-	private ArrayList<Tabla> convertirColapsandoEnPadre(Tree<Entidad> arbol){
-		Entidad padre=arbol.getRoot();
+	
+	private ArrayList<Tabla> convertirColapsandoEnPadre(Entidad raiz){
 		ArrayList<Tabla> tablas= new ArrayList<Tabla>();
-		Tabla tablaPadre=convertirEntidad(arbol.getRoot());
+		Tabla tablaPadre=convertirEntidad(raiz);
 		tablas.add(tablaPadre);
 		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
-		nodosSinProcesar.push(arbol.getRoot());
+		nodosSinProcesar.push(raiz);
 		
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
@@ -414,33 +424,31 @@ public class ConversorDERaLogico{
 		}
 		return tablas;
 	}
-	private ArrayList<Tabla> convertirColapsandoEnHijos(Tree<Entidad> arbol){
+	private ArrayList<Tabla> convertirColapsandoEnHijos(Entidad raiz){
 		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
-		Entidad padre=arbol.getRoot();
-		for(Entidad hijo: padre.getDerivadas()){
+		for(Entidad hijo: raiz.getDerivadas()){
 			Tabla tablaHijo= new Tabla(/*hijo.getNombre()*/);
-			agregarPK(padre,tablaHijo);
-			agregarAtributos(padre, tablaHijo, padre.getNombre()+"-");
+			agregarPK(raiz,tablaHijo);
+			agregarAtributos(raiz, tablaHijo, raiz.getNombre()+"-");
 			agregarAtributos(hijo, tablaHijo);
 			agregarEntidadesRelacionadas(hijo, tablaHijo);
 			tablas.add(tablaHijo);
-			for(Relacion relacion : padre.getRelaciones()){
+			for(Relacion relacion : raiz.getRelaciones()){
 				tablas.add(convertirRelacion(relacion,hijo));
 			}
 		}
-		for(Relacion relacion : padre.getRelaciones()){
+		for(Relacion relacion : raiz.getRelaciones()){
 			relacionesProcesadas.add(relacion);
 		}
 			
 		return tablas;
 	}
-	private ArrayList<Tabla> convertirSinColapsar(Tree<Entidad> arbol){
+	private ArrayList<Tabla> convertirSinColapsar(Entidad raiz){
 		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
-		Entidad padre=arbol.getRoot();
-		tablas.add(convertirEntidad(padre));
+		tablas.add(convertirEntidad(raiz));
 		
 		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
-		nodosSinProcesar.push(arbol.getRoot());
+		nodosSinProcesar.push(raiz);
 		
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
