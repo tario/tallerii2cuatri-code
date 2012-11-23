@@ -16,7 +16,7 @@ public class Tabla extends ComponenteNombre {
 
 	private ArrayList<String> clave_primaria;
 	//Primera idea, es un HashMap indexado por nombreTabla de la que es foranea
-	private HashMap<String,String> clave_foranea;
+	private HashMap<String,ArrayList<String> > clave_foranea;
 	private ArrayList<String> atributos;
 	private ArrayList<Relacion> relaciones;
 	private String nombre;
@@ -69,9 +69,16 @@ public class Tabla extends ComponenteNombre {
 	}
 	
 	public void addClave_foranea(ArrayList<String> fks, String nombreTabla) {
-		for (String fk : fks){
-			this.clave_foranea.put(nombreTabla,fk);
+		ArrayList<String> claves_foraneas = this.clave_foranea.get(nombreTabla);
+		if(claves_foraneas == null) {
+			this.clave_foranea.put(nombreTabla,claves_foraneas);
+		} else {
+			for (String fk : fks) {
+				claves_foraneas.add(fk);
+			}
+			this.clave_foranea.put(nombreTabla, claves_foraneas);
 		}
+		
 	}
 	
 	public void addClave_primaria(ArrayList<String> pks) {
