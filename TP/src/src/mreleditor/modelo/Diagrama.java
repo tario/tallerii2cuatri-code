@@ -38,5 +38,9 @@ public class Diagrama extends ComponenteNombre {
 	public void setRelaciones(ArrayList<Relacion> relaciones) {
 		this.relaciones = relaciones;
 	}
+	
+	public void agregar(Tabla tabla) {
+		this.tablas.add(tabla);
+	}
 
 }

@@ -16,7 +16,22 @@ public class Tabla extends ComponenteNombre {
 	private ArrayList<String> clave_foranea;
 	private ArrayList<String> atributos;
 	private ArrayList<Relacion> relaciones;
+	private String nombre;
 	
+	public Tabla() {
+		
+	}
+	
+	public Tabla (String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public ArrayList<String> getClave_primaria() {
 		return clave_primaria;
 	}
@@ -50,7 +65,17 @@ public class Tabla extends ComponenteNombre {
 		this.atributos.add(atributo);
 	}
 	
+	public void addClave_foranea(ArrayList<String> fks) {
+		for (String fk : fks){
+			this.clave_foranea.add(fk);
+		}
+	}
 	
+	public void addClave_primaria(ArrayList<String> pks) {
+		for (String pk : pks) {
+			this.clave_primaria.add(pk);
+		}
+	}
 	
 	
 }
