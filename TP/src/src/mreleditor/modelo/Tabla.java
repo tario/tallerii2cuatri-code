@@ -5,6 +5,8 @@ package mreleditor.modelo;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import mereditor.modelo.base.ComponenteNombre;
 /**
  * @author guido
@@ -13,7 +15,8 @@ import mereditor.modelo.base.ComponenteNombre;
 public class Tabla extends ComponenteNombre {
 
 	private ArrayList<String> clave_primaria;
-	private ArrayList<String> clave_foranea;
+	//Primera idea, es un HashMap indexado por nombreTabla de la que es foranea
+	private HashMap<String,String> clave_foranea;
 	private ArrayList<String> atributos;
 	private ArrayList<Relacion> relaciones;
 	private String nombre;
@@ -38,12 +41,12 @@ public class Tabla extends ComponenteNombre {
 	public void setClave_primaria(ArrayList<String> clave_primaria) {
 		this.clave_primaria = clave_primaria;
 	}
-	public ArrayList<String> getClave_foranea() {
+	public HashMap<String,String> getClave_foranea() {
 		return clave_foranea;
 	}
-	public void setClave_foranea(ArrayList<String> clave_foranea) {
-		this.clave_foranea = clave_foranea;
-	}
+	//public void setClave_foranea(ArrayList<String> clave_foranea) {
+	//	this.clave_foranea = clave_foranea;
+	//}
 	public ArrayList<String> getAtributos() {
 		return atributos;
 	}
@@ -65,9 +68,9 @@ public class Tabla extends ComponenteNombre {
 		this.atributos.add(atributo);
 	}
 	
-	public void addClave_foranea(ArrayList<String> fks) {
+	public void addClave_foranea(ArrayList<String> fks, String nombreTabla) {
 		for (String fk : fks){
-			this.clave_foranea.add(fk);
+			this.clave_foranea.put(nombreTabla,fk);
 		}
 	}
 	
@@ -77,5 +80,8 @@ public class Tabla extends ComponenteNombre {
 		}
 	}
 	
-	
+	public void addClave_primaria(String pk) {
+		this.clave_primaria.add(pk);
+	}
+		
 }

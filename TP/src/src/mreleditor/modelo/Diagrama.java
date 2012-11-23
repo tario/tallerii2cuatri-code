@@ -19,6 +19,10 @@ public class Diagrama extends ComponenteNombre {
 	private ArrayList<Tabla> tablas;
 	private ArrayList<Relacion> relaciones;
 
+	
+	public Diagrama() {
+		
+	}
 	public Diagrama(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}

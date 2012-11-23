@@ -55,7 +55,8 @@ public class ConversorDERaLogico{
 	
 	public Diagrama convertir(Diagrama der){
 		inicializarVariables();
-		//DiagramaLogico diagramaLogico=new DiagramaLogico();
+		//TODO Fernando, aca vas a usar la clase del modelo relacional? osea la que hice yo? ya tenes el metodo agregarTabla(Tabla tabla)
+		//DiagramaLogico diagramaLogico=new Diagrama();
 		this.der=der;
 		
 		// Primero convierte las jerarquias
@@ -107,7 +108,7 @@ public class ConversorDERaLogico{
 		Entidad padre=entidadPadre.get(entidad);
 		if(padre==null)
 			padre=entidad;
-		//tabla.addClave_primaria(construirPK(entidad,prefijo));
+		tabla.addClave_primaria(construirPK(entidad,prefijo));
 	}
 	private ArrayList<String> construirPK(Entidad entidad){
 		return construirPK(entidad,"");
@@ -194,9 +195,10 @@ public class ConversorDERaLogico{
 				agregarFK(entidad,tablaAtributo,entidad.getNombre()+"-");
 				
 				if(atributo.esCompuesto()){
-					//tablaAtributo.addClave_primaria("id");
+					tablaAtributo.addClave_primaria("id");
 					agregarAtributo(atributo,tablaAtributo);
 				}else{
+					//TODO fernando, aca no podrias usar tablaAtributo.addClave_primaria(String nombre)??
 					//tablaAtributo.setClave_primaria(atributo.getNombre());	
 				}
 			}
@@ -233,7 +235,7 @@ public class ConversorDERaLogico{
 		boolean borrada=entidadesBorradas.contains(entidad);
 		if( borrada )
 			nombreTabla=padre.getNombre();
-		//tabla.addClave_foranea(construirPK(entidad,entidad.getNombre()+"-"),nombreTabla);
+			tabla.addClave_foranea(construirPK(entidad,entidad.getNombre()+"-"),nombreTabla);
 	}
 	
 
