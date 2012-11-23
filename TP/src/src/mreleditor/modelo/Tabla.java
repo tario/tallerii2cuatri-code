@@ -41,7 +41,7 @@ public class Tabla extends ComponenteNombre {
 	public void setClave_primaria(ArrayList<String> clave_primaria) {
 		this.clave_primaria = clave_primaria;
 	}
-	public HashMap<String,String> getClave_foranea() {
+	public HashMap<String,ArrayList<String> > getClave_foranea() {
 		return clave_foranea;
 	}
 	//public void setClave_foranea(ArrayList<String> clave_foranea) {
