@@ -12,18 +12,18 @@ import mereditor.modelo.base.ComponenteNombre;
  * @author guido
  * 
  */
-public class Diagrama extends ComponenteNombre {
+public class DiagramaLogico extends ComponenteNombre {
 	
 	
-	private Proyecto proyecto;
-	private ArrayList<Tabla> tablas;
-	private ArrayList<Relacion> relaciones;
+	private Proyecto proyecto=null;
+	private ArrayList<Tabla> tablas=new ArrayList<Tabla>();
+	private ArrayList<Relacion> relaciones= new ArrayList<Relacion>();
 
 	
-	public Diagrama() {
+	public DiagramaLogico() {
 		
 	}
-	public Diagrama(Proyecto proyecto) {
+	public DiagramaLogico(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}
 	

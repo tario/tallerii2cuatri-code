@@ -15,17 +15,17 @@ import mereditor.modelo.Entidad;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Entidad.Identificador;
-import mreleditor.modelo.Diagrama;
+import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
 
-public class DiagramaLogicoControl extends Diagrama implements Control<Diagrama>{
+public class DiagramaLogicoControl extends DiagramaLogico implements Control<DiagramaLogico>{
 
 	public DiagramaLogicoControl(Proyecto proyecto) {
 		super(proyecto);
 	}
 	
 	@Override
-	public Figura<Diagrama> getFigura(String idDiagrama) {
+	public Figura<DiagramaLogico> getFigura(String idDiagrama) {
 		return null;
 	}
 
@@ -58,11 +58,11 @@ public class DiagramaLogicoControl extends Diagrama implements Control<Diagrama>
 	/**
 	 * Se encarga de la logica de dibujar las conexiones entre los diferentes
 	 * elementos de los <code>Identificador</code>es de las <code>Entidad</code>
-	 * es que pertenecen a este <code>Diagrama</code>.
+	 * es que pertenecen a este <code>DiagramaLogico</code>.
 	 * 
 	 * @param identificadores
 	 *            Lista de todos los <code>Identificador</code>es de las
-	 *            <code>Entidad</code>es del <code>Diagrama</code>.
+	 *            <code>Entidad</code>es del <code>DiagramaLogico</code>.
 	 */
 	private void dibujarIdentificadores(List<Identificador> identificadores) {
 		for (Identificador identificador : identificadores) {

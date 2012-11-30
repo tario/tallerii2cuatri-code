@@ -2,14 +2,11 @@ package mreleditor.conversor;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Stack;
-
-import org.w3c.dom.Document;
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
@@ -20,7 +17,7 @@ import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.base.Componente;
-import mereditor.modelo.base.ComponenteAtributos;
+import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
 
 
@@ -53,17 +50,15 @@ public class ConversorDERaLogico{
 	private HashMap<Entidad,Entidad> entidadPadre;
 	private Set<Relacion> relacionesProcesadas;
 	
-	public Diagrama convertir(Diagrama der){
+	public DiagramaLogico convertir(Diagrama der){
 		inicializarVariables();
-		//TODO Fernando, aca vas a usar la clase del modelo relacional? osea la que hice yo? ya tenes el metodo agregarTabla(Tabla tabla)
-		//DiagramaLogico diagramaLogico=new Diagrama();
+		DiagramaLogico diagramaLogico=new DiagramaLogico();
 		this.der=der;
 		
 		// Primero convierte las jerarquias
 		for(Entidad raiz: getRaices()){
 			for(Tabla tablaDeJerarquia:convertirJerarquia(raiz)){
-					//diagramaLogico.agregar(tablaDeJerarquia);
-					;
+					diagramaLogico.agregar(tablaDeJerarquia);
 			}
 		}
 		for (Componente componente : der.getComponentes()) {
@@ -71,19 +66,18 @@ public class ConversorDERaLogico{
 				if(!((Entidad)componente).esJerarquica()){
 					// No forma una jerarquia
 					Tabla tablaEntidad= convertirEntidad((Entidad)componente);
-						//diagramaLogico.agregar(tablaEntidad);
-						;
+						diagramaLogico.agregar(tablaEntidad);
 				}
 			}
 			else if(componente.es(Relacion.class)){
 				if(! relacionesProcesadas.contains((Relacion)componente)){
 					Tabla tabla=convertirRelacion((Relacion) componente);
-					//diagramaLogico.agregar(tabla);
+						diagramaLogico.agregar(tabla);
 				}
 			}
 		}
 		
-		return null;
+		return diagramaLogico;
 		
 	}
 	
@@ -93,7 +87,7 @@ public class ConversorDERaLogico{
 	 */						
 	
 	private Tabla convertirEntidad(Entidad entidad){
-		Tabla tabla = new Tabla(/*entidad.getNombre()*/);
+		Tabla tabla = new Tabla(entidad.getNombre());
 			
 			agregarPK(entidad,tabla);
 			agregarAtributos(entidad,tabla);
@@ -108,11 +102,9 @@ public class ConversorDERaLogico{
 		Entidad padre=entidadPadre.get(entidad);
 		if(padre==null)
 			padre=entidad;
-		tabla.addClave_primaria(construirPK(entidad,prefijo));
+		tabla.addClavePrimaria(construirPK(entidad,prefijo));
 	}
-	private ArrayList<String> construirPK(Entidad entidad){
-		return construirPK(entidad,"");
-	}
+	
 	private ArrayList<String> construirPK(Entidad entidad,String prefijo){
 		ArrayList<String> PK = new ArrayList<String>();
 		
@@ -131,9 +123,7 @@ public class ConversorDERaLogico{
 		}
 		return PK;
 	}
-	private ArrayList<String> construirPKdeAtributos(Identificador identificador){
-		return construirPKdeAtributos(identificador,"");
-	}
+	
 	private ArrayList<String> construirPKdeAtributos(Identificador identificador, String prefijo){
 		ArrayList<String> PK = new ArrayList<String>();
 		for (Atributo atributoId: identificador.getAtributos()){
@@ -144,9 +134,6 @@ public class ConversorDERaLogico{
 	
 		}
 		return PK;
-	}
-	private ArrayList<String> construirPKdeEntidades(Identificador identificador){
-		return construirPKdeEntidades(identificador,"");
 	}
 	private ArrayList<String> construirPKdeEntidades(Identificador identificador, String prefijo){
 		ArrayList<String> PK = new ArrayList<String>();
@@ -190,16 +177,15 @@ public class ConversorDERaLogico{
 				}
 			}else{
 				// polivalente
-				Tabla tablaAtributo=new Tabla(/*atributo.getNombre()+"_de_"+entidad.getNombre()*/);
+				Tabla tablaAtributo=new Tabla(atributo.getNombre()+"_de_"+entidad.getNombre());
 				agregarPK(entidad,tablaAtributo,entidad.getNombre()+"-");
 				agregarFK(entidad,tablaAtributo,entidad.getNombre()+"-");
 				
 				if(atributo.esCompuesto()){
-					tablaAtributo.addClave_primaria("id");
+					tablaAtributo.addClavePrimaria("id");
 					agregarAtributo(atributo,tablaAtributo);
 				}else{
-					//TODO fernando, aca no podrias usar tablaAtributo.addClave_primaria(String nombre)??
-					//tablaAtributo.setClave_primaria(atributo.getNombre());	
+					tablaAtributo.addClavePrimaria(atributo.getNombre());	
 				}
 			}
 		}
@@ -209,7 +195,7 @@ public class ConversorDERaLogico{
 	}
 	private void agregarAtributo(Atributo atributo,Tabla tabla,String prefijo){
 		for(String atributoComponente: construirAtributos(atributo, prefijo)){
-			tabla.agregarAtributo(atributoComponente);
+			tabla.addAtributo(atributoComponente);
 		}
 	}
 	private int getCantidadAtributosMonovalentes(Entidad entidad){
@@ -235,7 +221,7 @@ public class ConversorDERaLogico{
 		boolean borrada=entidadesBorradas.contains(entidad);
 		if( borrada )
 			nombreTabla=padre.getNombre();
-			tabla.addClave_foranea(construirPK(entidad,entidad.getNombre()+"-"),nombreTabla);
+			tabla.addClaveForanea(construirPK(entidad,entidad.getNombre()+"-"),nombreTabla);
 	}
 	
 
@@ -358,7 +344,7 @@ public class ConversorDERaLogico{
 		Entidad raiz=jerarquia.getRaiz();
 		Stack<Entidad> nodosSinProcesar= new Stack<Entidad>();
 		nodosSinProcesar.push(raiz);
-		int nivel=0;
+		
 		while(!nodosSinProcesar.empty()){
 			Entidad nodoPadre=nodosSinProcesar.pop();
 			for(Entidad nodoHijo:nodoPadre.getDerivadas()){
@@ -429,7 +415,7 @@ public class ConversorDERaLogico{
 	private ArrayList<Tabla> convertirColapsandoEnHijos(Entidad raiz){
 		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
 		for(Entidad hijo: raiz.getDerivadas()){
-			Tabla tablaHijo= new Tabla(/*hijo.getNombre()*/);
+			Tabla tablaHijo= new Tabla(hijo.getNombre());
 			agregarPK(raiz,tablaHijo);
 			agregarAtributos(raiz, tablaHijo, raiz.getNombre()+"-");
 			agregarAtributos(hijo, tablaHijo);

@@ -5,7 +5,9 @@ package mreleditor.modelo;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import mereditor.modelo.base.ComponenteNombre;
 /**
@@ -14,11 +16,13 @@ import mereditor.modelo.base.ComponenteNombre;
  */
 public class Tabla extends ComponenteNombre {
 
-	private ArrayList<String> clave_primaria;
+	private Set<String> clavePrimaria=new HashSet<String>();
 	//Primera idea, es un HashMap indexado por nombreTabla de la que es foranea
-	private HashMap<String,ArrayList<String> > clave_foranea;
-	private ArrayList<String> atributos;
-	private ArrayList<Relacion> relaciones;
+	//private HashMap<String,ArrayList<String> > clave_foranea=new HashMap<String,ArrayList<String>>();
+	// Segunda idea
+	private Set<ClaveForanea> clavesForaneas=new HashSet<ClaveForanea>();
+	private Set<String> atributos=new HashSet<String>();
+
 	private String nombre;
 	
 	public Tabla() {
@@ -35,60 +39,111 @@ public class Tabla extends ComponenteNombre {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public ArrayList<String> getClave_primaria() {
-		return clave_primaria;
+	public Set<String> getClavePrimaria() {
+		return clavePrimaria;
 	}
-	public void setClave_primaria(ArrayList<String> clave_primaria) {
-		this.clave_primaria = clave_primaria;
+	public void setClavePrimaria(Collection<String> clavePrimaria) {
+		this.clavePrimaria.addAll( clavePrimaria);
 	}
-	public HashMap<String,ArrayList<String> > getClave_foranea() {
-		return clave_foranea;
+	public Set<ClaveForanea> getClavesForaneas() {
+		return clavesForaneas;
 	}
 	//public void setClave_foranea(ArrayList<String> clave_foranea) {
 	//	this.clave_foranea = clave_foranea;
 	//}
-	public ArrayList<String> getAtributos() {
+	public Set<String> getAtributos() {
 		return atributos;
 	}
-	public void setAtributos(ArrayList<String> atributos) {
-		this.atributos = atributos;
+	public void setAtributos(Collection <String> atributos) {
+		this.atributos .addAll( atributos);
 	}
 	
-	public void setAtributo(String atributo, int posicion) {
-		this.atributos.add(posicion, atributo);
-	}
-	public ArrayList<Relacion> getRelaciones() {
-		return relaciones;
-	}
-	public void setRelaciones(ArrayList<Relacion> relaciones) {
-		this.relaciones = relaciones;
-	}
 	
-	public void agregarAtributo(String atributo) {
+	public void addAtributo(String atributo) {
 		this.atributos.add(atributo);
 	}
 	
-	public void addClave_foranea(ArrayList<String> fks, String nombreTabla) {
-		ArrayList<String> claves_foraneas = this.clave_foranea.get(nombreTabla);
-		if(claves_foraneas == null) {
-			this.clave_foranea.put(nombreTabla,claves_foraneas);
-		} else {
-			for (String fk : fks) {
-				claves_foraneas.add(fk);
-			}
-			this.clave_foranea.put(nombreTabla, claves_foraneas);
+	public void addClaveForanea(Collection<String> fks, String nombreTabla) {
+		for(String atributo:fks){
+			atributos.add(atributo);
 		}
+		clavesForaneas.add(new ClaveForanea(fks,nombreTabla));
+	}
+	
+	public void addClavePrimaria(Collection<String> pks) {
+		this.clavePrimaria.addAll(pks);
 		
 	}
 	
-	public void addClave_primaria(ArrayList<String> pks) {
-		for (String pk : pks) {
-			this.clave_primaria.add(pk);
-		}
+	public void addClavePrimaria(String pk) {
+		this.clavePrimaria.add(pk);
 	}
-	
-	public void addClave_primaria(String pk) {
-		this.clave_primaria.add(pk);
+	@Override
+	public boolean equals(Object object){
+		Tabla tabla=(Tabla)object;
+		if(!nombre.equals(tabla.nombre))
+			return false;
+		if(atributos.size()!= tabla.atributos.size())
+			return false;
+		for(String atributo:atributos){
+			if(!tabla.atributos.contains(atributo))
+				return false;
+		}
+		if(clavePrimaria.size()!= tabla.clavePrimaria.size())
+			return false;
+		for(String clave:clavePrimaria){
+			if(!tabla.clavePrimaria.contains(clave))
+				return false;
+		}
+		if(clavesForaneas.size()!= tabla.clavesForaneas.size())
+			return false;
+		for(ClaveForanea foranea:clavesForaneas){
+			if(!tabla.clavesForaneas.contains(foranea))
+				return false;
+		}
+		
+		return true;
+	}
+	public class ClaveForanea{
+		Set<String> atributos;
+		
+
+		String tablaReferenciada;
+		
+		public ClaveForanea(){
+			atributos=new HashSet<String>();
+		}
+		public ClaveForanea(Collection<String> atributos,String tablaReferenciada){
+			this.atributos=new HashSet<String>();
+			this.atributos.addAll(atributos);
+			this.tablaReferenciada=tablaReferenciada;
+		}
+		public Set<String> getAtributos() {
+			return atributos;
+		}
+
+		public void setAtributos(Collection<String> atributos) {
+			this.atributos.addAll(atributos);
+		}
+		public String getTablaReferenciada() {
+			return tablaReferenciada;
+		}
+		public void setTablaReferenciada(String tablaReferenciada) {
+			this.tablaReferenciada = tablaReferenciada;
+		}
+		@Override
+		public boolean equals(Object object){
+			ClaveForanea foranea=(ClaveForanea)object;
+			if(!tablaReferenciada.equals(foranea.tablaReferenciada))
+				return false;
+			if(atributos.size()!=foranea.atributos.size())
+				return false;
+			for(String atributo:atributos){
+				if(!foranea.atributos.contains(atributo))
+					return false;
+			}
+			return true;
+		}
 	}
 		
 }
