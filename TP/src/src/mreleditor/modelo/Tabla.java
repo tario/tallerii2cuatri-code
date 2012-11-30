@@ -7,6 +7,7 @@ package mreleditor.modelo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import mereditor.modelo.base.ComponenteNombre;
@@ -63,6 +64,14 @@ public class Tabla extends ComponenteNombre {
 		this.atributos.add(atributo);
 	}
 	
+	public void addClaveForanea(String fk, String nombreTabla) {
+		
+		atributos.add(fk);
+		Set<String> fkSet=new HashSet<String>();
+		fkSet.add(fk);
+		clavesForaneas.add(new ClaveForanea(fkSet,nombreTabla));
+	}
+	
 	public void addClaveForanea(Collection<String> fks, String nombreTabla) {
 		for(String atributo:fks){
 			atributos.add(atributo);
@@ -98,7 +107,7 @@ public class Tabla extends ComponenteNombre {
 		if(clavesForaneas.size()!= tabla.clavesForaneas.size())
 			return false;
 		for(ClaveForanea foranea:clavesForaneas){
-			if(!tabla.clavesForaneas.contains(foranea))
+			if(!(tabla.clavesForaneas.contains(foranea)))
 				return false;
 		}
 		
@@ -144,6 +153,21 @@ public class Tabla extends ComponenteNombre {
 			}
 			return true;
 		}
+		 @Override
+		    public int hashCode() {
+			 	String strCode=tablaReferenciada;
+			 	int code=0;
+				for(String atributo:atributos){
+					strCode=strCode+atributo;
+				}
+				byte[] bytes=strCode.getBytes();
+				for(int i=0;i<bytes.length;i++){
+					code+=(int)bytes[i];
+				}
+				code*=strCode.length();
+		        return code;
+		    }
 	}
+	
 		
 }
