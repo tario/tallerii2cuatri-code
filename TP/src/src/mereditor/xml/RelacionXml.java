@@ -24,7 +24,9 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 	}
 
 	@Override
-	public Element toXml(ModeloParserXml parser) throws Exception {
+	public Element toXml(ParserXML parser_) throws Exception {
+		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		
 		Element elemento = parser.crearElemento(Constants.RELACION_TAG);
 		parser.agregarId(elemento, this.id.toString());
 		parser.agregarTipo(elemento, this.tipo.toString());
@@ -48,7 +50,9 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 	}
 
 	@Override
-	public void fromXml(Element elemento, ModeloParserXml parser) throws Exception {
+	public void fromXml(Element elemento, ParserXML parser_) throws Exception {
+		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		
 		this.id = parser.obtenerId(elemento);
 		this.nombre = parser.obtenerNombre(elemento);
 		this.tipo = TipoRelacion.valueOf(parser.obtenerTipo(elemento));

@@ -25,7 +25,8 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 	}
 
 	@Override
-	public Element toXml(ModeloParserXml parser) throws Exception {
+	public Element toXml(ParserXML parser_) throws Exception {
+		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
 		Element elemento = parser.crearElemento(Constants.DIAGRAMA_TAG);
 		parser.agregarId(elemento, this.id.toString());
 		parser.agregarNombre(elemento, nombre);
@@ -53,7 +54,9 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 	}
 
 	@Override
-	public void fromXml(Element elemento, ModeloParserXml parser) throws Exception {
+	public void fromXml(Element elemento, ParserXML parser_) throws Exception {
+		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		
 		this.id = elemento.getAttribute(Constants.ID_ATTR);
 		this.nombre = XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
 

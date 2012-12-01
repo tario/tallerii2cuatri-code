@@ -15,7 +15,7 @@ public class SaverLoaderXML {
 	protected Proyecto proyecto;
 
 	private ProyectoParserXml proyectoParser;
-	private ModeloParserXml modeloParser;
+	private ModeloDERParserXml modeloParser;
 	private RepresentacionParserXml representacionParser;
 
 	public SaverLoaderXML() {
@@ -24,7 +24,7 @@ public class SaverLoaderXML {
 	public SaverLoaderXML(Proyecto proyecto) throws Exception {
 		this.proyecto = proyecto;
 		this.proyectoParser = new ProyectoParserXml(this.proyecto);
-		this.modeloParser = new ModeloParserXml(this.proyecto);
+		this.modeloParser = new ModeloDERParserXml(this.proyecto);
 		this.representacionParser = new RepresentacionParserXml(this.proyecto);
 	}
 
@@ -32,7 +32,7 @@ public class SaverLoaderXML {
 		this.proyecto = new Proyecto();
 		this.proyecto.setPath(path);
 		this.proyectoParser=new ProyectoParserXml (path);
-		this.modeloParser=new ModeloParserXml(proyecto, proyectoParser.getModeloPath());
+		this.modeloParser=new ModeloDERParserXml(proyecto, proyectoParser.getModeloPath());
 		this.representacionParser=new RepresentacionParserXml(proyecto, proyectoParser.getRepresentacionPath());
 	}
 

@@ -16,29 +16,18 @@ import mereditor.modelo.base.ComponenteNombre;
  */
 public class Tabla extends ComponenteNombre {
 
-	private Set<String> clavePrimaria=new HashSet<String>();
-	//Primera idea, es un HashMap indexado por nombreTabla de la que es foranea
-	//private HashMap<String,ArrayList<String> > clave_foranea=new HashMap<String,ArrayList<String>>();
-	// Segunda idea
-	private Set<ClaveForanea> clavesForaneas=new HashSet<ClaveForanea>();
-	private Set<String> atributos=new HashSet<String>();
-
-	private String nombre;
+	protected Set<String> clavePrimaria=new HashSet<String>();
+	protected Set<ClaveForanea> clavesForaneas=new HashSet<ClaveForanea>();
+	protected Set<String> atributos=new HashSet<String>();
 	
 	public Tabla() {
 		
 	}
 	
 	public Tabla (String nombre) {
-		this.nombre = nombre;
+		super(nombre);
 	}
 	
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 	public Set<String> getClavePrimaria() {
 		return clavePrimaria;
 	}
@@ -48,16 +37,13 @@ public class Tabla extends ComponenteNombre {
 	public Set<ClaveForanea> getClavesForaneas() {
 		return clavesForaneas;
 	}
-	//public void setClave_foranea(ArrayList<String> clave_foranea) {
-	//	this.clave_foranea = clave_foranea;
-	//}
+	
 	public Set<String> getAtributos() {
 		return atributos;
 	}
 	public void setAtributos(Collection <String> atributos) {
 		this.atributos .addAll( atributos);
 	}
-	
 	
 	public void addAtributo(String atributo) {
 		this.atributos.add(atributo);

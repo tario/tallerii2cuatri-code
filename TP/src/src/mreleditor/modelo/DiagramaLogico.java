@@ -5,6 +5,7 @@ package mreleditor.modelo;
 
 import java.util.ArrayList;
 
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.ComponenteNombre;
 
@@ -16,15 +17,15 @@ public class DiagramaLogico extends ComponenteNombre {
 	
 	
 	private Proyecto proyecto=null;
-	private ArrayList<Tabla> tablas=new ArrayList<Tabla>();
-	private ArrayList<Relacion> relaciones= new ArrayList<Relacion>();
+	protected ArrayList<Tabla> tablas=new ArrayList<Tabla>();
+	protected Diagrama der=null;
 
 	
 	public DiagramaLogico() {
 		
 	}
 	public DiagramaLogico(Proyecto proyecto) {
-		this.proyecto = proyecto;
+		this.setProyecto(proyecto);
 	}
 	
 	public ArrayList<Tabla> getTablas() {
@@ -34,17 +35,22 @@ public class DiagramaLogico extends ComponenteNombre {
 	public void setTablas(ArrayList<Tabla> tablas) {
 		this.tablas = tablas;
 	}
-
-	public ArrayList<Relacion> getRelaciones() {
-		return relaciones;
-	}
-
-	public void setRelaciones(ArrayList<Relacion> relaciones) {
-		this.relaciones = relaciones;
-	}
 	
 	public void agregar(Tabla tabla) {
+		tabla.setPadre(this);
 		this.tablas.add(tabla);
+	}
+	public Diagrama getDer() {
+		return der;
+	}
+	public void setDer(Diagrama der) {
+		this.der = der;
+	}
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
 	}
 
 }

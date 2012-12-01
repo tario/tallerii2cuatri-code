@@ -35,7 +35,6 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 
 		ArrayList<Tabla> entidades = this.getTablas();
 		this.dibujar(contenedor, idDiagrama, entidades);
-		this.dibujar(contenedor, idDiagrama, this.getRelaciones());
 
 		List<Identificador> identificadores = new ArrayList<>();
 		for (Tabla entidad : entidades) {

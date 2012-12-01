@@ -77,4 +77,20 @@ public class Constants {
 	public static final String DIAGRAMA_PADRE_QUERY = "./ancestor::Diagrama";
 	public static final String REPRESENTACION_ID_QUERY = "//Representacion[@id='%s']";
 	public static final String ELEMENTOS_PRIMER_NIVEL_QUERY = "./*[name()!='Validacion']";
+	
+	/*******************************************************************************************/
+	
+	public static final String DIAGRAMA_LOGICO_QUERY = "./DiagramaLogico";
+	
+	public static final String DIAGRAMA_LOGICO_TAG = "DiagramaLogico";
+	public static final String TABLA_TAG = "Tabla";
+	public static final String CLAVE_PRIMARIA_TAG = "ClavePrimaria";
+	public static final String CLAVE_FORANEA_TAG = "ClaveForanea";
+	public static final String TABLAS_TAG = "Tablas";
+	public static final String DIAGRAMA_TABLAS_QUERY = "./Tablas/Tabla";
+	public static final String TABLA_REFERENCIADA_TAG = "TablaReferenciada";
+	public static final String FORANEAS_QUERY = "./ClaveForanea";
+	public static final String TABLA_REFERENCIADA_QUERY = "./TablaReferenciada";
+	public static final String CLAVE_PRIMARIA_QUERY = "./ClavePrimaria";
+
 }
