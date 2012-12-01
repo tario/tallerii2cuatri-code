@@ -4,11 +4,10 @@
 package mreleditor.modelo;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
+
 
 import mereditor.modelo.base.ComponenteNombre;
 /**
@@ -81,11 +80,13 @@ public class Tabla extends ComponenteNombre {
 	
 	public void addClavePrimaria(Collection<String> pks) {
 		this.clavePrimaria.addAll(pks);
+		atributos.addAll(pks);
 		
 	}
 	
 	public void addClavePrimaria(String pk) {
 		this.clavePrimaria.add(pk);
+		atributos.add(pk);
 	}
 	@Override
 	public boolean equals(Object object){

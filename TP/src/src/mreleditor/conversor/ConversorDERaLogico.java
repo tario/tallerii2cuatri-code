@@ -22,6 +22,7 @@ import mreleditor.modelo.Tabla;
 public class ConversorDERaLogico {
 
 	private static ConversorDERaLogico instance = null;
+	DiagramaLogico diagramaLogico;
 
 	private ConversorDERaLogico() {
 		inicializarVariables();
@@ -35,6 +36,7 @@ public class ConversorDERaLogico {
 		entidadPadre = new HashMap<Entidad, Entidad>();
 		relacionesProcesadas = new HashSet<Relacion>();
 		entidadesBorradas = new HashSet<Entidad>();
+		diagramaLogico = new DiagramaLogico();
 	}
 
 	public static ConversorDERaLogico getInstance() {
@@ -56,7 +58,6 @@ public class ConversorDERaLogico {
 
 	public DiagramaLogico convertir(Diagrama der) {
 		inicializarVariables();
-		DiagramaLogico diagramaLogico = new DiagramaLogico();
 		this.der = der;
 
 		// Primero convierte las jerarquias
@@ -162,17 +163,15 @@ public class ConversorDERaLogico {
 
 	private ArrayList<String> construirAtributos(Atributo atributoPadre, String prefijo) {
 		ArrayList<String> atributos = new ArrayList<String>();
-		if (atributoPadre.getCardinalidadMaxima().equals("1")) {
-			// monovalente
 
-			if (!atributoPadre.esCompuesto())
-				atributos.add(prefijo + atributoPadre.getNombre());
-			else {
-				for (Atributo atributoComponente : atributoPadre.getAtributos()) {
-					atributos.addAll(construirAtributos(atributoComponente, atributoPadre.getNombre() + "-"));
-				}
+		if (!atributoPadre.esCompuesto())
+			atributos.add(prefijo + atributoPadre.getNombre());
+		else {
+			for (Atributo atributoComponente : atributoPadre.getAtributos()) {
+				atributos.addAll(construirAtributos(atributoComponente, atributoPadre.getNombre() + "-"));
 			}
 		}
+
 		return atributos;
 	}
 
@@ -181,25 +180,32 @@ public class ConversorDERaLogico {
 	}
 
 	private void agregarAtributos(Entidad entidad, Tabla tabla, String prefijo) {
+		agregarAtributos(entidad, tabla, prefijo, true);
+	}
+
+	private void agregarAtributos(Entidad entidad, Tabla tabla, String prefijo, boolean incluirPK) {
 		for (Atributo atributo : entidad.getAtributos()) {
 			if (atributo.getCardinalidadMaxima().equals("1")) {
 				// monovalente
 				if (atributo.getTipo() == TipoAtributo.CARACTERIZACION) {
 					// solo se convierten los de caracterizacion
-					agregarAtributo(atributo, tabla, prefijo);
+					if (incluirPK || !construirPK(entidad, "").contains(atributo.getNombre()))
+						agregarAtributo(atributo, tabla, prefijo);
 				}
 			} else {
 				// polivalente
 				Tabla tablaAtributo = new Tabla(atributo.getNombre() + "_de_" + entidad.getNombre());
 				agregarPK(entidad, tablaAtributo, entidad.getNombre() + "-");
-				agregarFK(entidad, tablaAtributo, entidad.getNombre() + "-");
+				agregarFK(entidad, tablaAtributo);
 
 				if (atributo.esCompuesto()) {
 					tablaAtributo.addClavePrimaria("id");
 					agregarAtributo(atributo, tablaAtributo);
+
 				} else {
 					tablaAtributo.addClavePrimaria(atributo.getNombre());
 				}
+				diagramaLogico.agregar(tablaAtributo);
 			}
 		}
 	}
@@ -311,7 +317,7 @@ public class ConversorDERaLogico {
 			ultimaEntidadRelacion = entidadRelacion;
 			String cardinalidad = entidadRelacion.getCardinalidadMinima() + entidadRelacion.getCardinalidadMaxima();
 			if (!cardinalidad.equals("01") && !cardinalidad.equals("11")) {
-				agregarPK(entidadRelacion.getEntidad(), tabla,entidadRelacion.getEntidad().getNombre()+"-");
+				agregarPK(entidadRelacion.getEntidad(), tabla, entidadRelacion.getEntidad().getNombre() + "-");
 				PKagregada = true;
 			}
 		}
@@ -444,7 +450,7 @@ public class ConversorDERaLogico {
 		for (Entidad hijo : raiz.getDerivadas()) {
 			Tabla tablaHijo = new Tabla(hijo.getNombre());
 			agregarPK(raiz, tablaHijo);
-			agregarAtributos(raiz, tablaHijo, raiz.getNombre() + "-");
+			agregarAtributos(raiz, tablaHijo, raiz.getNombre() + "-", false);
 			agregarAtributos(hijo, tablaHijo);
 			agregarEntidadesRelacionadas(hijo, tablaHijo);
 			tablas.add(tablaHijo);
