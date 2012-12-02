@@ -2,13 +2,19 @@ package mereditor.interfaz.swt.figuras;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
+import mereditor.modelo.Entidad;
 import mreleditor.modelo.Tabla;
 
-public class TablaLogicaFigure extends Figura<Tabla> {
+public class TablaFigure extends Figura<Tabla> {
 
-	public TablaLogicaFigure(Tabla componente, Dimension dim) {
+	public TablaFigure(Tabla componente, Dimension dim) {
 		super(componente, dim);
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	public TablaFigure(Tabla tabla) {
+		super(tabla);
+		
 	}
 
 	@Override
