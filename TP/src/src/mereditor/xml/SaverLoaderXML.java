@@ -5,6 +5,7 @@ import java.util.Map;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
+import mreleditor.xml.ParserRepresentacionDER;
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -17,6 +18,7 @@ public class SaverLoaderXML {
 	private ProyectoParserXml proyectoParser;
 	private ModeloDERParserXml modeloParser;
 	private RepresentacionParserXml representacionParser;
+	private ParserRepresentacionDER representacionParserDER;
 
 	public SaverLoaderXML() {
 	}
@@ -26,6 +28,7 @@ public class SaverLoaderXML {
 		this.proyectoParser = new ProyectoParserXml(this.proyecto);
 		this.modeloParser = new ModeloDERParserXml(this.proyecto);
 		this.representacionParser = new RepresentacionParserXml(this.proyecto);
+		this.representacionParserDER = new ParserRepresentacionDER(this.proyecto);
 	}
 
 	public SaverLoaderXML(String path) throws Exception {
@@ -34,6 +37,7 @@ public class SaverLoaderXML {
 		this.proyectoParser=new ProyectoParserXml (path);
 		this.modeloParser=new ModeloDERParserXml(proyecto, proyectoParser.getModeloPath());
 		this.representacionParser=new RepresentacionParserXml(proyecto, proyectoParser.getRepresentacionPath());
+		this.representacionParserDER = new ParserRepresentacionDER(proyecto, proyectoParser.getRepresentacionPath());
 	}
 
 
@@ -47,6 +51,7 @@ public class SaverLoaderXML {
 	public Proyecto load() throws Exception {
 		this.modeloParser.parsearXml();
 		this.representacionParser.parsearXml();
+		this.representacionParserDER.parsearXml();
 		return this.proyecto;
 	}
 
@@ -95,6 +100,17 @@ public class SaverLoaderXML {
 	public Document saveRepresentacion() throws DOMException, Exception {
 		return this.representacionParser.generarXml();
 	}
+	
+	/**
+	 * Generar el documento XML de representacion DER.
+	 * 
+	 * @return
+	 * @throws DOMException
+	 * @throws Exception
+	 */
+	public Document saveRepresentacionDER() throws DOMException, Exception {
+		return this.representacionParserDER.generarXml();
+	}
 
 	/**
 	 * Método que se hace disponible para fines de testing. Encuentra y devuelve
@@ -108,6 +124,15 @@ public class SaverLoaderXML {
 		return this.representacionParser.obtenerRepresentaciones(string);
 	}
 
-
-
+	/**
+	 * Método que se hace disponible para fines de testing. Encuentra y devuelve
+	 * las representaciones de un componente para cada diagrama en el que este
+	 * presente en el archivo.
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public Map<String, PList> obtenerRepresentacionesDER(String string) {
+		return this.representacionParserDER.obtenerRepresentaciones(string);
+	}
 }

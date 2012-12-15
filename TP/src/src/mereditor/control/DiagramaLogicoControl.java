@@ -2,19 +2,10 @@ package mereditor.control;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 
-import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
-import mereditor.modelo.Atributo;
-import mereditor.modelo.Entidad;
 import mereditor.modelo.Proyecto;
-import mereditor.modelo.Relacion;
-import mereditor.modelo.Entidad.Identificador;
 import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
 

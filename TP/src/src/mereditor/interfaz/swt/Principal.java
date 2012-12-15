@@ -33,6 +33,7 @@ import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.validacion.Observacion;
 import mereditor.xml.SaverLoaderXML;
 import mreleditor.conversor.ConversorDERaLogico;
+import mreleditor.modelo.DiagramaLogico;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
@@ -390,6 +391,8 @@ public class Principal extends Observable implements FigureListener {
 				this.guardarXml(modelo.saveComponentes(), dir
 						+ this.proyecto.getComponentesPath());
 				this.guardarXml(modelo.saveRepresentacion(), dir
+						+ this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.saveRepresentacionDER(), dir
 						+ this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
 				this.error("Ocurriï¿½un error al guardar el proyecto.");
@@ -771,7 +774,7 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	public void convertir() {
 		ConversorDERaLogico conversor = ConversorDERaLogico.getInstance();
-		conversor.convertir(this.proyecto.getDiagramaActual());
+		this.proyecto.setDiagramaLogico(conversor.convertir(this.proyecto.getDiagramaActual()));
 		
 	}
 	

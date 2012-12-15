@@ -15,6 +15,7 @@ import mereditor.modelo.validacion.Observacion;
 import mereditor.modelo.validacion.ValidarEquilibrioAtributos;
 import mereditor.modelo.validacion.ValidarEquilibrioComponentes;
 import mereditor.modelo.validacion.ValidarEquilibrioRelaciones;
+import mreleditor.modelo.DiagramaLogico;
 
 public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	/**
@@ -47,6 +48,8 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	public Proyecto() {
 		this.validacion = new Validacion();
 	}
+	
+	protected DiagramaLogico diagramaLogico;
 
 	/**
 	 * Constructor para crear un proyecto con un diagrama con nombre.
@@ -122,6 +125,27 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 */
 	public Diagrama getDiagramaActual() {
 		return this.diagramaActual;
+	}
+	
+	/**
+	 * Devuelve el diagrama Logico Actual
+	 * 
+	 * @return diagramaLogico
+	 */
+	public DiagramaLogico getDiagramaLogico() {
+		return this.diagramaLogico;
+	}
+	
+
+	/**
+	 * Establece el diagrama logico del proyecto.
+	 * 
+	 * @return
+	 */
+	public void setDiagramaLogico(DiagramaLogico dLog) {
+		this.diagramaLogico = dLog;
+		if (!this.componentes.containsKey(diagramaLogico.getId()))
+			this.agregar(diagramaLogico);
 	}
 
 	/**

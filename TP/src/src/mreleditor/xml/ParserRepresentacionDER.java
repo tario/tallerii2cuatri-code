@@ -62,7 +62,8 @@ public class ParserRepresentacionDER extends ParserXML {
 		this.root = doc.createElement(Constants.PROYECTO_TAG);
 		doc.appendChild(this.root);
 
-		this.generarDiagramaXml(this.root, this.proyecto.getDiagramaRaiz());
+		// TODO revisar si es getDER o deberia utiliza el diagramalogico
+		this.generarDiagramaXml(this.root, this.proyecto.getDiagramaLogico().getDer());
 
 		return doc;
 	}
