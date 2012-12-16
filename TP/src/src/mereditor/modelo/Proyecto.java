@@ -1,6 +1,7 @@
 package mereditor.modelo;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mereditor.control.DiagramaControl;
+import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
@@ -50,6 +52,8 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	}
 	
 	protected DiagramaLogico diagramaLogico;
+	@SuppressWarnings("rawtypes")
+	protected ArrayList<Figura> listaObjetosLogicos;
 
 	/**
 	 * Constructor para crear un proyecto con un diagrama con nombre.
@@ -63,7 +67,17 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 		this.raiz.setNombre(nombre);
 		this.agregar(this.raiz);
 	}
-
+	
+	@SuppressWarnings("rawtypes")
+	public void setListaObjetosLogicos(ArrayList<Figura> lista) {
+		this.listaObjetosLogicos = lista;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public ArrayList<Figura> getListaObjetosLogicos() {
+		return this.listaObjetosLogicos;
+	}
+	
 	/**
 	 * Obtener diagrama raiz del proyecto.
 	 * 

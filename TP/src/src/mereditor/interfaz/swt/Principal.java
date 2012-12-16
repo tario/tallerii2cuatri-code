@@ -32,8 +32,8 @@ import mereditor.modelo.ProyectoProxy;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.validacion.Observacion;
 import mereditor.xml.SaverLoaderXML;
+import mreleditor.conversor.ConversorDERRepresentacion;
 import mreleditor.conversor.ConversorDERaLogico;
-import mreleditor.modelo.DiagramaLogico;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
@@ -775,6 +775,9 @@ public class Principal extends Observable implements FigureListener {
 	public void convertir() {
 		ConversorDERaLogico conversor = ConversorDERaLogico.getInstance();
 		this.proyecto.setDiagramaLogico(conversor.convertir(this.proyecto.getDiagramaActual()));
+		
+		ConversorDERRepresentacion converRep = new ConversorDERRepresentacion();
+		this.proyecto.setListaObjetosLogicos(converRep.createRepresentation(this.proyecto.getDiagramaLogico()));
 		
 	}
 	
