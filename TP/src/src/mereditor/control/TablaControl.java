@@ -38,7 +38,6 @@ public class TablaControl extends Tabla implements Control<Tabla>{
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		TablaFigure figuraTabla = (TablaFigure) this.getFigura(idDiagrama);
 		contenedor.add(figuraTabla);
-
 	}
 
 	public Map<String, TablaFigure> getFiguras() {

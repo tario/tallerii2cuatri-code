@@ -27,6 +27,7 @@ import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
 import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;
 import mereditor.interfaz.swt.figuras.DiagramaFigura;
+import mereditor.interfaz.swt.figuras.DiagramaLogicoFigura;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.ProyectoProxy;
 import mereditor.modelo.Validacion.EstadoValidacion;
@@ -34,6 +35,7 @@ import mereditor.modelo.validacion.Observacion;
 import mereditor.xml.SaverLoaderXML;
 import mreleditor.conversor.ConversorDERRepresentacion;
 import mreleditor.conversor.ConversorDERaLogico;
+import mreleditor.modelo.DiagramaLogico;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
@@ -182,6 +184,12 @@ public class Principal extends Observable implements FigureListener {
 	 * Figura sobre la que se dibuja el diagrama.
 	 */
 	private DiagramaFigura panelDiagrama;
+	
+	/**
+	 * Figura sobre la que se dibuja el diagrama logico.
+	 */
+	private DiagramaLogicoFigura panelDiagramaLogico;
+	
 	/**
 	 * Proyecto que se encuentra abierto.
 	 */
@@ -779,6 +787,9 @@ public class Principal extends Observable implements FigureListener {
 		ConversorDERRepresentacion converRep = new ConversorDERRepresentacion();
 		this.proyecto.setListaObjetosLogicos(converRep.createRepresentation(this.proyecto.getDiagramaLogico()));
 		
+		// Usamos otro panel para dibujar el diagrama logico del diagrama actual
+		this.panelDiagramaLogico = new DiagramaLogicoFigura(this.figureCanvas, this.proyecto.getDiagramaLogico());
+		this.panelDiagramaLogico.actualizar();
 	}
 	
 }
