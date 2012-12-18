@@ -10,8 +10,7 @@ import mreleditor.modelo.Tabla;
 
 public class DiagramaLogicoControl extends DiagramaLogico implements Control<DiagramaLogico>{
 
-	public DiagramaLogicoControl(Proyecto proyecto) {
-		super(proyecto);
+	public DiagramaLogicoControl() {
 	}
 	
 	@Override

@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import mereditor.modelo.Atributo;
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad.TipoEntidad;
@@ -32,7 +32,7 @@ public class ConversorTest {
 
 	@Test
 	public void conversionDeUnaEntidadSimple() {
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 		Entidad auto = new Entidad("Auto");
 		auto.setTipo(TipoEntidad.MAESTRA_COSA);
 		Atributo patente = new Atributo("patente");
@@ -70,7 +70,7 @@ public class ConversorTest {
 
 	@Test
 	public void convertirEntidadConAtributoCompuesto() {
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 		Entidad auto = new Entidad("Auto");
 		auto.setTipo(TipoEntidad.MAESTRA_COSA);
 		Atributo patente = new Atributo("patente");
@@ -121,7 +121,7 @@ public class ConversorTest {
 
 	@Test
 	public void convertirEntidadConAtributoCompuestoComoClave() {
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 		Entidad auto = new Entidad("Auto");
 		auto.setTipo(TipoEntidad.MAESTRA_COSA);
 		Atributo patente = new Atributo("patente");
@@ -163,7 +163,7 @@ public class ConversorTest {
 
 	@Test
 	public void convertirEntidadesRelacionadasUnoAMuchos() {
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 
 		Entidad auto = new Entidad("Auto");
 		auto.setTipo(TipoEntidad.MAESTRA_COSA);
@@ -243,7 +243,7 @@ public class ConversorTest {
 
 	@Test
 	public void convertirEntidadesRelacionadasMuchosAMuchos() {
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 
 		Entidad alumno = new Entidad("Alumno");
 		alumno.setTipo(TipoEntidad.MAESTRA_COSA);
@@ -328,7 +328,7 @@ public class ConversorTest {
 	}
 	@Test
 	public void convertirJerarquiaColapsandoEnPadre(){
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 
 		Entidad persona = new Entidad("Persona");
 		persona.setTipo(TipoEntidad.MAESTRA_COSA);
@@ -420,7 +420,7 @@ public class ConversorTest {
 	}
 	@Test
 	public void convertirJerarquiaColapsandoEnHijos(){
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 
 		Entidad todo = new Entidad("Todo");
 		todo.setTipo(TipoEntidad.MAESTRA_COSA);
@@ -521,7 +521,7 @@ public class ConversorTest {
 	
 	@Test
 	public void convertirEntidadConAtributosPolivalentes(){
-		Diagrama der = new Diagrama(null);
+		DiagramaDER der = new DiagramaDER(null);
 
 		Entidad persona = new Entidad("Persona");
 		persona.setTipo(TipoEntidad.MAESTRA_COSA);

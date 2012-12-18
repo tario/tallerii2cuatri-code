@@ -6,7 +6,7 @@ import java.util.Map;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.JerarquiaFigura;
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 
@@ -33,7 +33,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		// Obtener el diagrama padre correspondiente
-		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
+		DiagramaDER padre = (DiagramaDER) this.getPadre(idDiagrama);
 		// Dibujar solo si la generica está en el diagrama
 		if (padre.contiene(this.generica)) {
 			JerarquiaFigura figJerarquia = (JerarquiaFigura) this

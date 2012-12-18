@@ -12,8 +12,7 @@ import mreleditor.modelo.Tabla;
 
 public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizable {
 	
-	public DiagramaLogicoXml(Proyecto proyecto, DiagramaLogicoControl componente){
-		super(proyecto);
+	public DiagramaLogicoXml( DiagramaLogicoControl componente){
 		this.id = componente.getId();
 		this.nombre = componente.getNombre();
 
@@ -22,8 +21,7 @@ public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizabl
 	}
 
 
-	public DiagramaLogicoXml(Proyecto proyecto) {
-		super(proyecto);
+	public DiagramaLogicoXml() {
 	}
 
 	@Override

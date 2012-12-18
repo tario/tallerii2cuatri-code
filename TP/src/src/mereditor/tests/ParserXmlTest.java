@@ -5,7 +5,7 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mereditor.modelo.Jerarquia;
@@ -135,17 +135,17 @@ public class ParserXmlTest extends TestCase {
 	}
 
 	public void testEncontrarDiagramaPorId() throws Exception {
-		Diagrama diagrama = (Diagrama) this.parser.resolver("_41");
+		DiagramaDER diagrama = (DiagramaDER) this.parser.resolver("_41");
 		assertTrue(diagrama != null);
 	}
 
 	public void testEncontrarDiagramaPorIdVerificarComponentes() throws Exception {
-		Diagrama diagrama = (Diagrama) this.parser.resolver("_41");
+		DiagramaDER diagrama = (DiagramaDER) this.parser.resolver("_41");
 		assertEquals(diagrama.getComponentes().size(), 7);
 	}
 
 	public void testEncontrarDiagramaPorIdVerificarValidacion() throws Exception {
-		Diagrama diagrama = (Diagrama) this.parser.resolver("_41");
+		DiagramaDER diagrama = (DiagramaDER) this.parser.resolver("_41");
 		assertEquals(diagrama.getValidacion().getEstado(), EstadoValidacion.SIN_VALIDAR);
 		assertEquals(diagrama.getValidacion().getObservaciones(), "Falta validar");
 	}

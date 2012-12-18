@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt.figuras;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class TablaFigure extends Figura<Tabla> {
 	@Override
 	public void init() {
 		Tabla tabla = this.componente;
-		
+		labels=new HashSet<Label>();
 		this.lblName = new Label();
 		this.lblName.setFont(this.getFont());
 		this.lblName.setText(tabla.getNombre());

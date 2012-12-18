@@ -3,6 +3,7 @@ package mereditor.interfaz.swt.builders;
 import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;
@@ -159,7 +160,7 @@ public class MenuArbolBuilder {
 			TreeItem current = getItem();
 			TreeItem parent = current.getParentItem();
 			if (parent != null) {
-				Diagrama diagrama = (Diagrama) parent.getData();
+				DiagramaDER diagrama = (DiagramaDER) parent.getData();
 				diagrama.eliminar(componente);
 
 				Principal.getInstance().actualizarVista();

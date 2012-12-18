@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
 
@@ -13,7 +13,7 @@ public class ValidarClaridadAtributos implements Validacion {
 	public List<Observacion> validar(Validable componente) {
 		List<Observacion> observaciones = new ArrayList<>();
 
-		Diagrama diagrama = (Diagrama) componente;
+		DiagramaDER diagrama = (DiagramaDER) componente;
 		Set<ComponenteAtributos> componentes = Componente.filtrarComponentes(
 				ComponenteAtributos.class, diagrama.getComponentes());
 

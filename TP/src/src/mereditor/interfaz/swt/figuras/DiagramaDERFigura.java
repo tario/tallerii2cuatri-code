@@ -3,11 +3,19 @@ package mereditor.interfaz.swt.figuras;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import mereditor.control.DiagramaDERControl;
+import mereditor.interfaz.swt.listeners.AreaSeleccionControlador;
+import mereditor.interfaz.swt.listeners.ArrastreControlador;
+import mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador;
+import mereditor.interfaz.swt.listeners.MovimientoControlador;
+import mereditor.interfaz.swt.listeners.SeleccionControlador;
+import mereditor.modelo.Proyecto;
+
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.SWTGraphics;
@@ -18,29 +26,19 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
-import mereditor.control.DiagramaLogicoControl;
-import mereditor.interfaz.swt.listeners.AreaSeleccionControlador;
-import mereditor.interfaz.swt.listeners.ArrastreControlador;
-import mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador;
-import mereditor.interfaz.swt.listeners.MovimientoControlador;
-import mereditor.interfaz.swt.listeners.SeleccionControlador;
-import mereditor.modelo.Proyecto;
-import mreleditor.modelo.DiagramaLogico;
-
-public class DiagramaLogicoFigura extends DiagramaFigure {
-
-
+/**
+ * Figura sobre la que se dibuja el diagrama. Implementa lógica para realizar
+ * zoom sobre las figuras que contiene.
+ * 
+ */
+public class DiagramaDERFigura extends DiagramaFigure {
 	
-	/**
-	 * Constructor
-	 * @param canvas
-	 * @param diagrama
-	 */
-	public DiagramaLogicoFigura(FigureCanvas canvas,Proyecto proyecto) {
-		this.proyecto = proyecto;
+
+	public DiagramaDERFigura(FigureCanvas canvas, Proyecto proyecto) {
 		this.canvas = canvas;
 		this.canvas.setContents(this);
-		
+		this.proyecto = proyecto;
+
 		// Agregar el handler que deselecciona todas las figuras cuando se hace
 		// click sobre el fondo.
 		this.addMouseListener(this.selection);
@@ -55,14 +53,7 @@ public class DiagramaLogicoFigura extends DiagramaFigure {
 		// que se encuentran dentro del área establecida.
 		new AreaSeleccionControlador(this);
 	}
-	
-	
-	
-	
-	
 
-	
-	
 	@Override
 	public void add(IFigure figure, Object constraint, int index) {
 		super.add(figure, constraint, index);
@@ -77,15 +68,12 @@ public class DiagramaLogicoFigura extends DiagramaFigure {
 		figure.removeFigureListener(this);
 		super.remove(figure);
 	}
-	
+
 	@Override
 	public void figureMoved(IFigure source) {
 		this.checkResizeBounds(source);
 	}
-	
-	
-	
-	
+
 	/**
 	 * Verifica si la figura se encuentra fuera de los límites de esta figura.
 	 * Si lo está se expande según sea necesario.
@@ -125,7 +113,9 @@ public class DiagramaLogicoFigura extends DiagramaFigure {
 			figure.addFigureListener(this);
 		}
 	}
+
 	
+
 	/**
 	 * @see org.eclipse.draw2d.Figure#translateToParent(Translatable)
 	 */

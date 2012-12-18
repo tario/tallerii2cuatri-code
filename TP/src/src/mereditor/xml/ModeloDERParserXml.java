@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mereditor.control.AtributoControl;
-import mereditor.control.DiagramaControl;
+import mereditor.control.DiagramaDERControl;
 import mereditor.control.EntidadControl;
 import mereditor.control.JerarquiaControl;
 import mereditor.control.RelacionControl;
 import mereditor.modelo.Atributo;
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.Jerarquia;
@@ -63,14 +63,14 @@ public class ModeloDERParserXml extends ModeloParserXml {
 	 * Parsea y devuelve el modelo del proyecto contenido en el archivo XML
 	 * asociado.
 	 * 
-	 * @return Diagrama principal
+	 * @return DiagramaDER principal
 	 * @throws Exception
 	 */
 	@Override
 	public Object parsearXml() throws Exception {
 		// Obtener el id del diagrama principal
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
-		Diagrama diagrama = (Diagrama) this.resolver(this.obtenerId(diagramaXml));
+		DiagramaDER diagrama = (DiagramaDER) this.resolver(this.obtenerId(diagramaXml));
 		// Obtener la validacion principal
 		Validacion validacion = (Validacion) this.obtenerValidacion(this.root);
 
@@ -382,8 +382,8 @@ public class ModeloDERParserXml extends ModeloParserXml {
 			return new RelacionXml((RelacionControl) componente);
 		if (Jerarquia.class.isInstance(componente))
 			return new JerarquiaXml((JerarquiaControl) componente);
-		if (Diagrama.class.isInstance(componente))
-			return new DiagramaXml(this.proyecto, (DiagramaControl) componente);
+		if (DiagramaDER.class.isInstance(componente))
+			return new DiagramaXml(this.proyecto, (DiagramaDERControl) componente);
 		if (Atributo.class.isInstance(componente))
 			return new AtributoXml((AtributoControl) componente);
 		if (Validacion.class.isInstance(componente))

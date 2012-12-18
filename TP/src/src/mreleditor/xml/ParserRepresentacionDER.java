@@ -10,7 +10,7 @@ import org.w3c.dom.Element;
 
 import mereditor.control.Control;
 import mereditor.interfaz.swt.figuras.Figura;
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
@@ -63,7 +63,7 @@ public class ParserRepresentacionDER extends ParserXML {
 		doc.appendChild(this.root);
 
 		// TODO revisar si es getDER o deberia utiliza el diagramalogico
-		this.generarDiagramaXml(this.root, this.proyecto.getDiagramaLogico().getDer());
+		//this.generarDiagramaXml(this.root, this.proyecto.getDiagramaLogico().getDer());
 
 		return doc;
 	}
@@ -140,14 +140,14 @@ public class ParserRepresentacionDER extends ParserXML {
 	 * @param elemento
 	 * @param diagrama
 	 */
-	protected void generarDiagramaXml(Element elemento, Diagrama diagrama) {
+	protected void generarDiagramaXml(Element elemento, DiagramaDER diagrama) {
 		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_TAG);
 		this.agregarAtributo(diagramaElem, Constants.ID_ATTR, diagrama.getId());
 
 		this.generarDiagramaXml(diagramaElem, diagrama.getId(), diagrama.getComponentes());
 
 		// Recorrer todos los diagramas hijos del principal
-		for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
+		for (DiagramaDER diagramaHijo : diagrama.getDiagramasDER()) {
 			this.generarDiagramaXml(elemento, diagramaHijo);
 		}
 	}

@@ -3,7 +3,7 @@ package mereditor.modelo.validacion;
 import java.util.ArrayList;
 import java.util.List;
 
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.base.Componente;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,7 +14,7 @@ public class ValidarSuperposicion implements Validacion {
 	public List<Observacion> validar(Validable componente) {
 		List<Observacion> observaciones = new ArrayList<>();
 
-		Diagrama diagrama = (Diagrama) componente;
+		DiagramaDER diagrama = (DiagramaDER) componente;
 
 		for (Componente comp : diagrama.getComponentes()) {
 			if (comp.getAllPadres().size() > 1) {

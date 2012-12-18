@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
@@ -16,7 +16,7 @@ public class ValidarAcoplamiento implements Validacion {
 	public List<Observacion> validar(Validable componente) {
 		List<Observacion> observaciones = new ArrayList<>();
 
-		Diagrama diagrama = (Diagrama) componente;
+		DiagramaDER diagrama = (DiagramaDER) componente;
 		Set<Entidad> entidades = diagrama.getEntidades(false);
 		Set<Relacion> relaciones = diagrama.getRelaciones(false);
 

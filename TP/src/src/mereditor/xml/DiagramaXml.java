@@ -1,25 +1,25 @@
 package mereditor.xml;
 
-import mereditor.control.DiagramaControl;
-import mereditor.modelo.Diagrama;
+import mereditor.control.DiagramaDERControl;
+import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
 
-public class DiagramaXml extends DiagramaControl implements Xmlizable {
+public class DiagramaXml extends DiagramaDERControl implements Xmlizable {
 
 	public DiagramaXml(Proyecto proyecto) {
 		super(proyecto);
 	}
 
-	public DiagramaXml(Proyecto proyecto, DiagramaControl componente) {
+	public DiagramaXml(Proyecto proyecto, DiagramaDERControl componente) {
 		this(proyecto);
 		this.id = componente.getId();
 		this.nombre = componente.getNombre();
 
 		this.componentes = componente.getComponentes();
-		this.diagramas = componente.getDiagramas();
+		setDiagramasDER(componente.getDiagramasDER());
 		
 		this.validacion = componente.getValidacion();
 	}
@@ -42,7 +42,7 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 		// Agregar los diagramas hijos
 		if (this.diagramas.size() > 0) {
 			Element diagramasElement = parser.agregarDiagramas(elemento);
-			for (Diagrama diagrama : this.diagramas) {
+			for (DiagramaDER diagrama : getDiagramasDER()) {
 				diagramasElement.appendChild(parser.convertirXmlizable(diagrama).toXml(parser));
 			}
 		}
@@ -71,7 +71,7 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 		// Diagramas
 		for (Componente componente : parser.obtenerDiagramas(elemento)) {
 			componente.setPadre(this);
-			this.diagramas.add((Diagrama) componente);
+			this.diagramas.add((DiagramaDER) componente);
 		}
 
 		this.validacion = parser.obtenerValidacion(elemento);

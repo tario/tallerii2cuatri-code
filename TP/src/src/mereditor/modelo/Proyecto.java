@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import mereditor.control.DiagramaControl;
+import mereditor.control.DiagramaDERControl;
+import mereditor.control.DiagramaLogicoControl;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
@@ -21,11 +23,11 @@ import mreleditor.modelo.DiagramaLogico;
 
 public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	/**
-	 * Diagrama raiz del proyecto.
+	 * DiagramaDER raiz del proyecto.
 	 */
-	protected Diagrama raiz;
+	protected DiagramaDER raiz;
 	/**
-	 * Diagrama que se encuetra abierto.
+	 * DiagramaDER que se encuetra abierto.
 	 */
 	protected Diagrama diagramaActual;
 	/**
@@ -63,7 +65,7 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 */
 	public Proyecto(String nombre) {
 		this();
-		this.raiz = new DiagramaControl(this);
+		this.raiz = new DiagramaDERControl(this);
 		this.raiz.setNombre(nombre);
 		this.agregar(this.raiz);
 	}
@@ -83,7 +85,7 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
-	public Diagrama getDiagramaRaiz() {
+	public DiagramaDER getDiagramaRaiz() {
 		return raiz;
 	}
 
@@ -92,11 +94,11 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
-	public void setDiagramaRaiz(Diagrama raiz) {
+	public void setDiagramaRaiz(DiagramaDER raiz) {
 		if (this.raiz != null)
 			throw new RuntimeException("El diagrama raiz ya esta establecido.");
 
-		this.raiz = (DiagramaControl) raiz;
+		this.raiz = (DiagramaDERControl) raiz;
 		if (!this.componentes.containsKey(raiz.getId()))
 			this.agregar(raiz);
 	}
@@ -127,8 +129,9 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	public void setDiagramaActual(String id) {
 		if (this.componentes.containsKey(id)) {
 			Componente diagrama = this.componentes.get(id);
-			if (DiagramaControl.class.isInstance(diagrama))
-				this.diagramaActual = (DiagramaControl) diagrama;
+			if (DiagramaDERControl.class.isInstance(diagrama) ||
+					DiagramaLogicoControl.class.isInstance(diagrama))
+				this.diagramaActual = (Diagrama) diagrama;
 		}
 	}
 
@@ -141,26 +144,6 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 		return this.diagramaActual;
 	}
 	
-	/**
-	 * Devuelve el diagrama Logico Actual
-	 * 
-	 * @return diagramaLogico
-	 */
-	public DiagramaLogico getDiagramaLogico() {
-		return this.diagramaLogico;
-	}
-	
-
-	/**
-	 * Establece el diagrama logico del proyecto.
-	 * 
-	 * @return
-	 */
-	public void setDiagramaLogico(DiagramaLogico dLog) {
-		this.diagramaLogico = dLog;
-		if (!this.componentes.containsKey(diagramaLogico.getId()))
-			this.agregar(diagramaLogico);
-	}
 
 	/**
 	 * Agregar un componente nuevo al proyecto y al diagrama actual si es que
@@ -288,8 +271,8 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
-	public Set<Diagrama> getDiagramas() {
-		return Componente.filtrarComponentes(Diagrama.class,
+	public Set<DiagramaDER> getDiagramas() {
+		return Componente.filtrarComponentes(DiagramaDER.class,
 				this.componentes.values());
 	}
 
@@ -302,38 +285,52 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 
 	@Override
 	public Set<Entidad> getEntidadesDisponibles() {
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Entidad>();
 		// Obtener las entidades de los ancestros
-		return this.diagramaActual.getEntidades(true);
+		return ((DiagramaDER)this.diagramaActual).getEntidades(true);
 	}
 
 	@Override
 	public Set<Entidad> getEntidadesDiagrama() {
-		return this.diagramaActual.getEntidades(false);
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Entidad>();
+		return ((DiagramaDER)this.diagramaActual).getEntidades(false);
 	}
 
 	@Override
 	public Collection<Atributo> getAtributosDiagrama() {
-		return this.diagramaActual.getAtributos(false);
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Atributo>();
+		return ((DiagramaDER)this.diagramaActual).getAtributos(false);
 	}
 
 	@Override
 	public Set<Relacion> getRelacionesDisponibles() {
-		return this.diagramaActual.getRelaciones(true);
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Relacion>();
+		return ((DiagramaDER)this.diagramaActual).getRelaciones(true);
 	}
 
 	@Override
 	public Set<Relacion> getRelacionesDiagrama() {
-		return this.diagramaActual.getRelaciones(false);
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Relacion>();
+		return ((DiagramaDER)this.diagramaActual).getRelaciones(false);
 	}
 
 	@Override
 	public Set<Jerarquia> getJerarquiasDisponibles() {
-		return this.diagramaActual.getJerarquias(true);
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Jerarquia>();
+		return ((DiagramaDER)this.diagramaActual).getJerarquias(true);
 	}
 
 	@Override
 	public Set<Jerarquia> getJerarquiasDiagrama() {
-		return this.diagramaActual.getJerarquias(false);
+		if(!DiagramaDER.class.isInstance(diagramaActual))
+			return new HashSet<Jerarquia>();
+		return ((DiagramaDER)this.diagramaActual).getJerarquias(false);
 	}
 
 	@Override
@@ -347,7 +344,7 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	public Observacion validar() {
 		Observacion observacion = super.validar();
 		
-		for (Diagrama diagrama : this.getDiagramas())
+		for (DiagramaDER diagrama : this.getDiagramas())
 			observacion.addObservacion(diagrama.validar());
 
 		if (observacion.isEmpty())
