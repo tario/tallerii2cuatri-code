@@ -7,7 +7,7 @@ import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.RelacionFigure;
 import mereditor.modelo.Atributo;
-import mereditor.modelo.DiagramaDER;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
 
@@ -74,7 +74,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 		}
 
 		// Obtener el diagrama padre correspondiente
-		DiagramaDER diagrama = (DiagramaDER) this.getPadre(idDiagrama);
+		Diagrama diagrama = (Diagrama) this.getPadre(idDiagrama);
 
 		// Conectar las entidades participantes.
 		for (EntidadRelacion entidadRelacion : this.getParticipantes()) {

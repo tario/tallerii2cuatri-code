@@ -1,6 +1,6 @@
 package mreleditor.xml;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +9,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import mereditor.control.Control;
+import mereditor.control.DiagramaLogicoControl;
 import mereditor.interfaz.swt.figuras.Figura;
-import mereditor.modelo.DiagramaDER;
+import mereditor.interfaz.swt.figuras.TablaFigure;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 import mereditor.xml.Constants;
 import mereditor.xml.ParserXML;
 import mereditor.xml.XmlHelper;
+import mreleditor.modelo.DiagramaLogico;
 
 public class ParserRepresentacionDER extends ParserXML {
 
@@ -63,7 +65,7 @@ public class ParserRepresentacionDER extends ParserXML {
 		doc.appendChild(this.root);
 
 		// TODO revisar si es getDER o deberia utiliza el diagramalogico
-		//this.generarDiagramaXml(this.root, this.proyecto.getDiagramaLogico().getDer());
+		this.generarDiagramaXml(this.root, this.proyecto.getDiagramaLogicoControl());
 
 		return doc;
 	}
@@ -120,11 +122,11 @@ public class ParserRepresentacionDER extends ParserXML {
 		HashMap<String, PList> representaciones = new HashMap<>();
 
 		// Buscar todas las representaciones para el id
-		String query = String.format(Constants.REPRESENTACION_ID_QUERY, id);
+		String query = String.format(Constants.REPRESENTACION_LOGICA_ID_QUERY, id);
 		List<Element> representacionesXml = XmlHelper.query(this.root, query);
 
 		for (Element representacionXml : representacionesXml) {
-			Element diagramaXml = XmlHelper.querySingle(representacionXml, Constants.DIAGRAMA_PADRE_QUERY);
+			Element diagramaXml = XmlHelper.querySingle(representacionXml, Constants.DIAGRAMA_LOGICO_PADRE_QUERY);
 
 			String idDiagrama = this.obtenerId(diagramaXml);
 			representaciones.put(idDiagrama, this.obtenerRepresentacion(representacionXml));
@@ -140,33 +142,34 @@ public class ParserRepresentacionDER extends ParserXML {
 	 * @param elemento
 	 * @param diagrama
 	 */
-	protected void generarDiagramaXml(Element elemento, DiagramaDER diagrama) {
-		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_TAG);
+	protected void generarDiagramaXml(Element elemento, DiagramaLogico diagrama) {
+		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_LOGICO_TAG);
 		this.agregarAtributo(diagramaElem, Constants.ID_ATTR, diagrama.getId());
 
-		this.generarDiagramaXml(diagramaElem, diagrama.getId(), diagrama.getComponentes());
+		this.generarDiagramaXml(diagramaElem, diagrama.getId(), ((DiagramaLogicoControl)diagrama).getListaObjetosLogicos());
 
 		// Recorrer todos los diagramas hijos del principal
-		for (DiagramaDER diagramaHijo : diagrama.getDiagramasDER()) {
+		/*for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
 			this.generarDiagramaXml(elemento, diagramaHijo);
-		}
+		}*/
 	}
 	
-	protected void generarDiagramaXml(Element diagramaElem, String idDiagrama, Collection<Componente> componentes) {
+	@SuppressWarnings("rawtypes")
+	protected void generarDiagramaXml(Element diagramaElem, String idDiagrama, ArrayList<Figura> componentes) {
 		// Recorrer todos los componentes y sus hijos.
 		if(componentes != null) {
-			for (Componente componente : componentes) {
-				Control<?> control = (Control<?>) componente;
-				Figura<?> figura = control.getFigura(idDiagrama);
+			for (Figura figura : componentes) {
+				//Control<?> control = (Control<?>) componente;
+				//Figura<?> figura = control.getFigura(idDiagrama);
 	
 				if (figura != null && figura.getRepresentacion() != null) {
 					PList plist = figura.getRepresentacion();
-					Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_TAG);
-					this.agregarAtributo(reprElement, Constants.ID_ATTR, componente.getId());
+					Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_LOGICA_TAG);
+					this.agregarAtributo(reprElement, Constants.ID_ATTR, ((TablaFigure)figura).getID());
 					this.agregarRepresentacion(reprElement, plist);
 				}
 				
-				this.generarDiagramaXml(diagramaElem, idDiagrama, componente.getComponentes());
+				//this.generarDiagramaXml(diagramaElem, idDiagrama, componente.getComponentes());
 			}
 		}
 	}

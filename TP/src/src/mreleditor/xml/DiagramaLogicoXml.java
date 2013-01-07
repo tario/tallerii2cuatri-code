@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 
 import mereditor.control.DiagramaLogicoControl;
 import mereditor.modelo.Proyecto;
+import mereditor.modelo.base.Componente;
 import mereditor.xml.Constants;
 import mereditor.xml.ParserXML;
 import mereditor.xml.XmlHelper;
@@ -12,7 +13,8 @@ import mreleditor.modelo.Tabla;
 
 public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizable {
 	
-	public DiagramaLogicoXml( DiagramaLogicoControl componente){
+	public DiagramaLogicoXml(Proyecto proyecto, DiagramaLogicoControl componente){
+		super(proyecto);
 		this.id = componente.getId();
 		this.nombre = componente.getNombre();
 
@@ -21,22 +23,23 @@ public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizabl
 	}
 
 
-	public DiagramaLogicoXml() {
+	public DiagramaLogicoXml(Proyecto proyecto) {
+		super(proyecto);
 	}
 
 	@Override
 	public Element toXml(ParserXML parser_) throws Exception {
 		ModeloLogicoParserXml parser=(ModeloLogicoParserXml) parser_;
 		
-		Element elemento = parser.crearElemento(Constants.DIAGRAMA_TAG);
+		Element elemento = parser.crearElemento(Constants.DIAGRAMA_LOGICO_TAG);
 		parser.agregarId(elemento, this.id.toString());
 		parser.agregarNombre(elemento, nombre);
 
 		// Agregar las referencias a las tablas
 		if (this.tablas.size() > 0) {
 			Element tablasElement = parser.agregarTablas(elemento);
-			for (Tabla tabla : this.tablas) {
-				parser.agregarTabla(tablasElement, tabla.getId());
+			for (Componente tabla : this.tablas) {
+				parser.agregarTabla(tablasElement, ((Tabla)tabla).getId());
 			}
 		}
 

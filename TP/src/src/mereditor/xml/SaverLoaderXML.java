@@ -5,18 +5,19 @@ import java.util.Map;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
+import mreleditor.xml.ModeloLogicoParserXml;
 import mreleditor.xml.ParserRepresentacionDER;
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-
 
 public class SaverLoaderXML {
 
 	protected Proyecto proyecto;
 
 	private ProyectoParserXml proyectoParser;
-	private ModeloDERParserXml modeloParser;
+	private ModeloBaseParserXml modeloParser;
+	private ModeloLogicoParserXml modeloLogicoParser;
 	private RepresentacionParserXml representacionParser;
 	private ParserRepresentacionDER representacionParserDER;
 
@@ -26,20 +27,26 @@ public class SaverLoaderXML {
 	public SaverLoaderXML(Proyecto proyecto) throws Exception {
 		this.proyecto = proyecto;
 		this.proyectoParser = new ProyectoParserXml(this.proyecto);
-		this.modeloParser = new ModeloDERParserXml(this.proyecto);
+		this.modeloParser = new ModeloBaseParserXml(this.proyecto);
+		this.modeloLogicoParser = new ModeloLogicoParserXml(this.proyecto);
 		this.representacionParser = new RepresentacionParserXml(this.proyecto);
-		this.representacionParserDER = new ParserRepresentacionDER(this.proyecto);
+		this.representacionParserDER = new ParserRepresentacionDER(
+				this.proyecto);
 	}
 
 	public SaverLoaderXML(String path) throws Exception {
 		this.proyecto = new Proyecto();
 		this.proyecto.setPath(path);
-		this.proyectoParser=new ProyectoParserXml (path);
-		this.modeloParser=new ModeloDERParserXml(proyecto, proyectoParser.getModeloPath());
-		this.representacionParser=new RepresentacionParserXml(proyecto, proyectoParser.getRepresentacionPath());
-		this.representacionParserDER = new ParserRepresentacionDER(proyecto, proyectoParser.getRepresentacionPath());
+		this.proyectoParser = new ProyectoParserXml(path);
+		this.modeloParser = new ModeloBaseParserXml(proyecto,
+				proyectoParser.getModeloPath());
+		this.modeloLogicoParser = new ModeloLogicoParserXml(proyecto,
+				proyectoParser.getModeloLogicoPath());
+		this.representacionParser = new RepresentacionParserXml(proyecto,
+				proyectoParser.getRepresentacionPath());
+		this.representacionParserDER = new ParserRepresentacionDER(proyecto,
+				proyectoParser.getRepresentacionDERPath());
 	}
-
 
 	/**
 	 * Parsea los componentes y representaciones de un archivo de XML de un
@@ -50,11 +57,11 @@ public class SaverLoaderXML {
 	 */
 	public Proyecto load() throws Exception {
 		this.modeloParser.parsearXml();
+		this.modeloLogicoParser.parsearXml();
 		this.representacionParser.parsearXml();
 		this.representacionParserDER.parsearXml();
 		return this.proyecto;
 	}
-
 
 	/**
 	 * Devuelve el componente con el id asociado. Si no se encuentra registrado
@@ -65,7 +72,12 @@ public class SaverLoaderXML {
 	 * @throws Exception
 	 */
 	public Componente resolver(String id) throws Exception {
-		return this.modeloParser.resolver(id);
+		try {
+			return this.modeloParser.resolver(id);
+		} catch (Exception e) {
+			return this.modeloLogicoParser.resolver(id);
+		}
+		
 	}
 
 	/**
@@ -89,6 +101,10 @@ public class SaverLoaderXML {
 	public Document saveComponentes() throws DOMException, Exception {
 		return this.modeloParser.generarXml();
 	}
+	
+	public Document saveComponentesLogicos() throws DOMException, Exception {
+		return this.modeloLogicoParser.generarXml();
+	}
 
 	/**
 	 * Generar el documento XML de representacion.
@@ -100,7 +116,7 @@ public class SaverLoaderXML {
 	public Document saveRepresentacion() throws DOMException, Exception {
 		return this.representacionParser.generarXml();
 	}
-	
+
 	/**
 	 * Generar el documento XML de representacion DER.
 	 * 

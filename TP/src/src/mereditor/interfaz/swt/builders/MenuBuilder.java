@@ -111,7 +111,7 @@ public class MenuBuilder implements Observer {
 		menuItem.setMenu(menu);
 
 		menuItem = new MenuItem(menu, SWT.PUSH);
-		menuItem.setText("&Nuevo DiagramaDER");
+		menuItem.setText("&Nuevo Diagrama");
 		menuItem.addSelectionListener(AccionesProvider.nuevoDiagrama);
 		proyectoItems.add(menuItem);
 		
@@ -133,7 +133,7 @@ public class MenuBuilder implements Observer {
 		menuItem = new MenuItem(menu, SWT.SEPARATOR);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
-		menuItem.setText("&Validar DiagramaDER");
+		menuItem.setText("&Validar Diagrama");
 		menuItem.addSelectionListener(AccionesProvider.validar);
 		proyectoItems.add(menuItem);
 		

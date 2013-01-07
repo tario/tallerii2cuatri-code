@@ -1,32 +1,33 @@
 package mereditor.xml;
 
-import mereditor.control.DiagramaDERControl;
-import mereditor.modelo.DiagramaDER;
+import mereditor.control.DiagramaControl;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
+import mreleditor.modelo.DiagramaLogico;
 
 import org.w3c.dom.Element;
 
-public class DiagramaXml extends DiagramaDERControl implements Xmlizable {
+public class DiagramaXml extends DiagramaControl implements Xmlizable {
 
 	public DiagramaXml(Proyecto proyecto) {
 		super(proyecto);
 	}
 
-	public DiagramaXml(Proyecto proyecto, DiagramaDERControl componente) {
+	public DiagramaXml(Proyecto proyecto, DiagramaControl componente) {
 		this(proyecto);
 		this.id = componente.getId();
 		this.nombre = componente.getNombre();
 
 		this.componentes = componente.getComponentes();
-		setDiagramasDER(componente.getDiagramasDER());
+		this.diagramas = componente.getDiagramas();
 		
 		this.validacion = componente.getValidacion();
 	}
 
 	@Override
 	public Element toXml(ParserXML parser_) throws Exception {
-		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		ModeloBaseParserXml parser=(ModeloBaseParserXml) parser_;
 		Element elemento = parser.crearElemento(Constants.DIAGRAMA_TAG);
 		parser.agregarId(elemento, this.id.toString());
 		parser.agregarNombre(elemento, nombre);
@@ -35,14 +36,15 @@ public class DiagramaXml extends DiagramaDERControl implements Xmlizable {
 		if (this.componentes.size() > 0) {
 			Element componentesElement = parser.agregarComponentes(elemento);
 			for (Componente componente : this.componentes) {
-				parser.agregarComponente(componentesElement, componente.getId());
+				if (!componente.es(DiagramaLogico.class))
+					parser.agregarComponente(componentesElement, componente.getId());
 			}
 		}
 
 		// Agregar los diagramas hijos
 		if (this.diagramas.size() > 0) {
 			Element diagramasElement = parser.agregarDiagramas(elemento);
-			for (DiagramaDER diagrama : getDiagramasDER()) {
+			for (Diagrama diagrama : this.diagramas) {
 				diagramasElement.appendChild(parser.convertirXmlizable(diagrama).toXml(parser));
 			}
 		}
@@ -55,7 +57,7 @@ public class DiagramaXml extends DiagramaDERControl implements Xmlizable {
 
 	@Override
 	public void fromXml(Element elemento, ParserXML parser_) throws Exception {
-		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		ModeloBaseParserXml parser=(ModeloBaseParserXml) parser_;
 		
 		this.id = elemento.getAttribute(Constants.ID_ATTR);
 		this.nombre = XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
@@ -71,7 +73,7 @@ public class DiagramaXml extends DiagramaDERControl implements Xmlizable {
 		// Diagramas
 		for (Componente componente : parser.obtenerDiagramas(elemento)) {
 			componente.setPadre(this);
-			this.diagramas.add((DiagramaDER) componente);
+			this.diagramas.add((Diagrama) componente);
 		}
 
 		this.validacion = parser.obtenerValidacion(elemento);

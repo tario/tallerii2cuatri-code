@@ -12,7 +12,9 @@ import org.w3c.dom.Element;
 public class ProyectoParserXml extends ParserXML {
 
 	private String modeloPath;
+	private String modeloLogicoPath;
 	private String representacionPath;
+	private String representacionDERPath;
 	private Proyecto proyecto;
 
 	
@@ -30,6 +32,10 @@ public class ProyectoParserXml extends ParserXML {
 	modeloPath = dir + XmlHelper.querySingle(this.root, "./Modelo").getTextContent();
 	representacionPath = dir + XmlHelper.querySingle(this.root, "./Representacion")
 			.getTextContent();
+	representacionDERPath  = dir + XmlHelper.querySingle(this.root, "./RepresentacionLogica")
+			.getTextContent();
+	modeloLogicoPath = dir + XmlHelper.querySingle(this.root, "./DiagramaLogico")
+			.getTextContent();
 	}
 	
 	String getModeloPath(){
@@ -38,11 +44,21 @@ public class ProyectoParserXml extends ParserXML {
 	String getRepresentacionPath(){
 		return representacionPath;
 	}
+	
+	String getRepresentacionDERPath() {
+		return representacionDERPath;
+	}
+	
+	String getModeloLogicoPath() {
+		return modeloLogicoPath;
+	}
 
 	
 	private boolean validarFormato(Element root) {
 		if (XmlHelper.querySingle(root, "./Modelo") != null
-				&& XmlHelper.querySingle(root, "./Representacion") != null)
+				&& XmlHelper.querySingle(root, "./Representacion") != null
+					&& XmlHelper.querySingle(root, "./RepresentacionLogica") != null
+						&& XmlHelper.querySingle(root, "./DiagramaLogico") != null)
 			return true;
 
 		return false;
@@ -55,11 +71,17 @@ public class ProyectoParserXml extends ParserXML {
 
 		Element modelo = this.crearElemento(Constants.MODELO_TAG);
 		Element representacion = this.crearElemento(Constants.REPRESENTACION_TAG);
+		Element representacionDER = this.crearElemento(Constants.REPRESENTACION_LOGICA_TAG);
+		Element modeloLogico = this.crearElemento(Constants.DIAGRAMA_LOGICO_TAG);
 		modelo.setTextContent(this.proyecto.getComponentesPath());
 		representacion.setTextContent(this.proyecto.getRepresentacionPath());
+		representacionDER.setTextContent(this.proyecto.getRepresentacionDERPath());
+		modeloLogico.setTextContent(this.proyecto.getComponentesLogicosPath());
 
 		this.root.appendChild(modelo);
 		this.root.appendChild(representacion);
+		this.root.appendChild(representacionDER);
+		this.root.appendChild(modeloLogico);
 
 		return doc;
 	}

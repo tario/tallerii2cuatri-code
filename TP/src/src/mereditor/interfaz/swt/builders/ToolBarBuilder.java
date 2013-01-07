@@ -6,7 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import mereditor.interfaz.swt.Principal;
-import mereditor.interfaz.swt.figuras.DiagramaDERFigura;
+import mereditor.interfaz.swt.figuras.DiagramaFigura;
 import mereditor.interfaz.swt.listeners.AccionesProvider;
 
 import org.eclipse.swt.SWT;
@@ -65,7 +65,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nuevo DiagramaDER");
+		item.setToolTipText("Nuevo Diagrama");
 		item.setImage(Principal.getImagen("diagrama.png"));
 		item.addSelectionListener(AccionesProvider.nuevoDiagrama);
 		proyectoItems.add(item);
@@ -91,7 +91,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Validar DiagramaDER");
+		item.setToolTipText("Validar Diagrama");
 		item.setImage(Principal.getImagen("validar-diagrama.png"));
 		item.addSelectionListener(AccionesProvider.validar);
 		proyectoItems.add(item);
@@ -113,11 +113,11 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		Combo cboZoom = new Combo(this.toolBar, SWT.READ_ONLY);
-		cboZoom.setItems(DiagramaDERFigura.zoomOptions.keySet().toArray(
-				new String[DiagramaDERFigura.zoomOptions.size()]));
+		cboZoom.setItems(DiagramaFigura.zoomOptions.keySet().toArray(
+				new String[DiagramaFigura.zoomOptions.size()]));
 		cboZoom.pack();
 		cboZoom.setEnabled(false);
-		cboZoom.setText(DiagramaDERFigura.zoom100);
+		cboZoom.setText(DiagramaFigura.zoom100);
 		cboZoom.addSelectionListener(AccionesProvider.zoom);
 
 		item.setWidth(cboZoom.getSize().x);

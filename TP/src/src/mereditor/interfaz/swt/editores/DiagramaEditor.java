@@ -2,7 +2,7 @@ package mereditor.interfaz.swt.editores;
 
 import java.util.List;
 
-import mereditor.modelo.DiagramaDER;
+import mereditor.modelo.Diagrama;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -12,10 +12,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
-public class DiagramaEditor extends Editor<DiagramaDER> {
+public class DiagramaEditor extends Editor<Diagrama> {
 	protected Text txtNombre;
 	
-	public DiagramaEditor(DiagramaDER diagrama) {
+	public DiagramaEditor(Diagrama diagrama) {
 		super(diagrama);
 		this.titulo = "Editor - " + componente.getNombre();
 	}

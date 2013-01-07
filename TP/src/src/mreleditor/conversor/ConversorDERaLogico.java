@@ -7,11 +7,9 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Stack;
 
-import mereditor.control.DiagramaLogicoControl;
-import mereditor.control.TablaControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
-import mereditor.modelo.DiagramaDER;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.Jerarquia;
@@ -24,7 +22,7 @@ import mreleditor.modelo.Tabla;
 public class ConversorDERaLogico {
 
 	private static ConversorDERaLogico instance = null;
-	DiagramaLogicoControl diagramaLogico;
+	DiagramaLogico diagramaLogico;
 
 	private ConversorDERaLogico() {
 		inicializarVariables();
@@ -38,7 +36,7 @@ public class ConversorDERaLogico {
 		entidadPadre = new HashMap<Entidad, Entidad>();
 		relacionesProcesadas = new HashSet<Relacion>();
 		entidadesBorradas = new HashSet<Entidad>();
-		diagramaLogico = new DiagramaLogicoControl();
+		diagramaLogico = new DiagramaLogico();
 	}
 
 	public static ConversorDERaLogico getInstance() {
@@ -47,7 +45,7 @@ public class ConversorDERaLogico {
 		return instance;
 	}
 
-	private DiagramaDER der;
+	private Diagrama der;
 
 	private enum TipoConversionDeJerarquia {
 		COLAPSAR_EN_PADRE, COLAPSAR_EN_HIJOS, SIN_COLAPSAR
@@ -58,10 +56,9 @@ public class ConversorDERaLogico {
 	private HashMap<Entidad, Entidad> entidadPadre;
 	private Set<Relacion> relacionesProcesadas;
 
-	public DiagramaLogico convertir(DiagramaDER der) {
+	public DiagramaLogico convertir(Diagrama der) {
 		inicializarVariables();
 		this.der = der;
-		diagramaLogico.setNombre(der.getNombre()+" - Logico");
 
 		// Primero convierte las jerarquias
 		for (Entidad raiz : getRaices()) {
@@ -93,9 +90,12 @@ public class ConversorDERaLogico {
 
 	}
 
+	/*
+	 * Interfaz privada
+	 */
 
 	private Tabla convertirEntidad(Entidad entidad) {
-		Tabla tabla = new TablaControl(entidad.getNombre());
+		Tabla tabla = new Tabla(entidad.getNombre());
 
 		agregarPK(entidad, tabla);
 		agregarAtributos(entidad, tabla);
@@ -194,7 +194,7 @@ public class ConversorDERaLogico {
 				}
 			} else {
 				// polivalente
-				Tabla tablaAtributo = new TablaControl(atributo.getNombre() + "_de_" + entidad.getNombre());
+				Tabla tablaAtributo = new Tabla(atributo.getNombre() + "_de_" + entidad.getNombre());
 				agregarPK(entidad, tablaAtributo, entidad.getNombre() + "-");
 				agregarFK(entidad, tablaAtributo);
 
@@ -293,7 +293,7 @@ public class ConversorDERaLogico {
 	}
 
 	private Tabla convertirRelacion(Relacion relacion) {
-		Tabla tabla = new TablaControl(relacion.getNombre());
+		Tabla tabla = new Tabla(relacion.getNombre());
 		agregarPK(relacion, tabla);
 		agregarFK(relacion, tabla);
 		agregarAtributos(relacion, tabla);
@@ -302,7 +302,7 @@ public class ConversorDERaLogico {
 	}
 
 	private Tabla convertirRelacion(Relacion relacion, Entidad entidadHijo) {
-		Tabla tabla = new TablaControl(relacion.getNombre());
+		Tabla tabla = new Tabla(relacion.getNombre());
 		agregarPK(relacion, tabla);
 		agregarFK(relacion, tabla, entidadHijo);
 		agregarAtributos(relacion, tabla);
@@ -448,7 +448,7 @@ public class ConversorDERaLogico {
 	private ArrayList<Tabla> convertirColapsandoEnHijos(Entidad raiz) {
 		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
 		for (Entidad hijo : raiz.getDerivadas()) {
-			Tabla tablaHijo = new TablaControl(hijo.getNombre());
+			Tabla tablaHijo = new Tabla(hijo.getNombre());
 			agregarPK(raiz, tablaHijo);
 			agregarAtributos(raiz, tablaHijo, raiz.getNombre() + "-", false);
 			agregarAtributos(hijo, tablaHijo);

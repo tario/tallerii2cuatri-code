@@ -7,7 +7,7 @@ import java.util.Map;
 
 import mereditor.control.Control;
 import mereditor.interfaz.swt.figuras.Figura;
-import mereditor.modelo.DiagramaDER;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Genera y parsea el xml de representación del proyecto.
+ * Genera y parsea el xml de representaciï¿½n del proyecto.
  * 
  * @author jfacorro
  * 
@@ -29,9 +29,9 @@ class RepresentacionParserXml extends ParserXML {
 	 * Constructor utilizado para leer el xml del path especificado
 	 * 
 	 * @param proyecto
-	 *            Instancia vacía del proyecto.
+	 *            Instancia vacï¿½a del proyecto.
 	 * @param path
-	 *            Ubicación del archivo XML de representación.
+	 *            Ubicaciï¿½n del archivo XML de representaciï¿½n.
 	 * @throws Exception
 	 */
 	public RepresentacionParserXml(Proyecto proyecto, String path) throws Exception {
@@ -39,11 +39,11 @@ class RepresentacionParserXml extends ParserXML {
 		setRoot(path);
 		this.proyecto = proyecto;
 		if (proyecto.getComponentes().size() > 1)
-			throw new Exception("El proyecto debe contener sólo el diagrama raíz.");
+			throw new Exception("El proyecto debe contener sï¿½lo el diagrama raï¿½z.");
 	}
 
 	/**
-	 * Constructor a utilizar cuando se quiere generar el XML de representación
+	 * Constructor a utilizar cuando se quiere generar el XML de representaciï¿½n
 	 * en base el objeto proyecto.
 	 * 
 	 * @param proyecto
@@ -55,7 +55,7 @@ class RepresentacionParserXml extends ParserXML {
 
 	/**
 	 * Recorre la coleccion de componentes del proyecto y busca sus
-	 * representaciones para cada diagrama en el que estén presentes.
+	 * representaciones para cada diagrama en el que estï¿½n presentes.
 	 */
 	@Override
 	public Object parsearXml() {
@@ -98,7 +98,7 @@ class RepresentacionParserXml extends ParserXML {
 	}
 
 	/**
-	 * Parsea un elemento de representación básico con posición y dimensión.
+	 * Parsea un elemento de representaciï¿½n bï¿½sico con posiciï¿½n y dimensiï¿½n.
 	 * 
 	 * @param elemento
 	 * @return
@@ -117,7 +117,7 @@ class RepresentacionParserXml extends ParserXML {
 	}
 
 	/**
-	 * Generar el XML de rerpesentación.
+	 * Generar el XML de rerpesentacion.
 	 * @return
 	 */
 	public Document generarXml() {
@@ -131,20 +131,20 @@ class RepresentacionParserXml extends ParserXML {
 	}
 
 	/**
-	 * Genera el element de XML de representación de un diagrama y sus hijos.
-	 * Agrega el elemento generado al nodo raíz.
+	 * Genera el element de XML de representaciï¿½n de un diagrama y sus hijos.
+	 * Agrega el elemento generado al nodo raï¿½z.
 	 * 
 	 * @param elemento
 	 * @param diagrama
 	 */
-	protected void generarDiagramaXml(Element elemento, DiagramaDER diagrama) {
+	protected void generarDiagramaXml(Element elemento, Diagrama diagrama) {
 		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_TAG);
 		this.agregarAtributo(diagramaElem, Constants.ID_ATTR, diagrama.getId());
 
 		this.generarDiagramaXml(diagramaElem, diagrama.getId(), diagrama.getComponentes());
 
 		// Recorrer todos los diagramas hijos del principal
-		for (DiagramaDER diagramaHijo : diagrama.getDiagramasDER()) {
+		for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
 			this.generarDiagramaXml(elemento, diagramaHijo);
 		}
 	}
@@ -169,7 +169,7 @@ class RepresentacionParserXml extends ParserXML {
 	}
 
 	/**
-	 * Genera un elemento Representación XML desde una PList.
+	 * Genera un elemento Representaciï¿½n XML desde una PList.
 	 * 
 	 * @param elemento
 	 * @param repr

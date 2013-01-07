@@ -26,7 +26,7 @@ public class Constants {
 	public static final String PARTICIPANTES_TAG = "Participantes";
 	public static final String PARTICIPANTE_TAG = "Participante";
 	public static final String ROL_TAG = "Rol";
-	public static final String DIAGRAMA_TAG = "DiagramaDER";
+	public static final String DIAGRAMA_TAG = "Diagrama";
 	public static final String DIAGRAMAS_TAG = "Diagramas";
 	public static final String JERARQUIA_TAG = "Jerarquia";
 	public static final String VALIDACION_TAG = "Validacion";
@@ -48,8 +48,8 @@ public class Constants {
 	/**********************************************************************************/
 	
 	public static final String DIAGRAMA_COMPONENTES_QUERY = "./Componentes/Componente";
-	public static final String DIAGRAMA_DIAGRAMAS_QUERY = "./Diagramas/DiagramaDER";
-	public static final String DIAGRAMA_QUERY = "./DiagramaDER";
+	public static final String DIAGRAMA_DIAGRAMAS_QUERY = "./Diagramas/Diagrama";
+	public static final String DIAGRAMA_QUERY = "./Diagrama";
 	
 	public static final String ATRIBUTOS_QUERY = "./Atributos/Atributo";
 
@@ -72,9 +72,9 @@ public class Constants {
 	public static final String POSICION_QUERY = "./Posicion";
 	public static final String DIMENSION_QUERY = "./Dimension";
 	/**
-	 * Busca el elemento padre que sea DiagramaDER para el elemento con id especificado.
+	 * Busca el elemento padre que sea Diagrama para el elemento con id especificado.
 	 */
-	public static final String DIAGRAMA_PADRE_QUERY = "./ancestor::DiagramaDER";
+	public static final String DIAGRAMA_PADRE_QUERY = "./ancestor::Diagrama";
 	public static final String REPRESENTACION_ID_QUERY = "//Representacion[@id='%s']";
 	public static final String ELEMENTOS_PRIMER_NIVEL_QUERY = "./*[name()!='Validacion']";
 	
@@ -92,5 +92,8 @@ public class Constants {
 	public static final String FORANEAS_QUERY = "./ClaveForanea";
 	public static final String TABLA_REFERENCIADA_QUERY = "./TablaReferenciada";
 	public static final String CLAVE_PRIMARIA_QUERY = "./ClavePrimaria";
-
+	
+	public static final String REPRESENTACION_LOGICA_TAG = "RepresentacionLogica";
+	public static final String REPRESENTACION_LOGICA_ID_QUERY = "//RepresentacionLogica[@id='%s']";
+	public static final String DIAGRAMA_LOGICO_PADRE_QUERY = "./ancestor::DiagramaLogico";
 }

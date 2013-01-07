@@ -3,7 +3,6 @@ package mereditor.interfaz.swt.builders;
 import mereditor.control.Control;
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Diagrama;
-import mereditor.modelo.DiagramaDER;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 
@@ -72,18 +71,14 @@ public class TreeManager {
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
 
-		if(DiagramaDER.class.isInstance(diagrama)){
-			DiagramaDER der=(DiagramaDER)diagrama;
-
-		for (Componente componente : der.getEntidades(false))
+		for (Componente componente : diagrama.getEntidades(false))
 			agregar(componente, item);
 
-		for (Componente componente : der.getRelaciones(false))
+		for (Componente componente : diagrama.getRelaciones(false))
 			agregar(componente, item);
 
-		for (Componente componente : der.getJerarquias(false))
+		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
-		}
 
 		item.setExpanded(true);
 	}
@@ -103,21 +98,15 @@ public class TreeManager {
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
-		
-		if(DiagramaDER.class.isInstance(diagrama)){
-			DiagramaDER der=(DiagramaDER)diagrama;
 
-		for (Componente componente : der.getEntidades(false))
+		for (Componente componente : diagrama.getEntidades(false))
 			agregar(componente, item);
 
-		for (Componente componente : der.getRelaciones(false))
+		for (Componente componente : diagrama.getRelaciones(false))
 			agregar(componente, item);
 
-		for (Componente componente : der.getJerarquias(false))
+		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
-		}
-		
-		
 	}
 
 	/**
@@ -153,8 +142,8 @@ public class TreeManager {
 		agregar(nuevoComponente, diagramaActivo);
 	}
 	
-	public static DiagramaDER getDiagramaActual() {
-		return (DiagramaDER) diagramaActivo.getData();
+	public static Diagrama getDiagramaActual() {
+		return (Diagrama) diagramaActivo.getData();
 	}
 
 	public static void setDiagramaActivo(TreeItem diagramaActivo) {

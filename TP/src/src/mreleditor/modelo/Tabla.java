@@ -24,6 +24,16 @@ public class Tabla extends ComponenteNombre {
 		
 	}
 	
+	public Tabla(Tabla tab) {
+		this.setAtributos(tab.getAtributos());
+		this.setClavePrimaria(tab.getClavePrimaria());
+		this.setNombre(tab.getNombre());
+		this.setPadre(tab.getPadre());
+		this.clavesForaneas.addAll(tab.getClavesForaneas());
+		this.id = tab.id;
+		this.validaciones.addAll(tab.validaciones);
+	}
+	
 	public Tabla (String nombre) {
 		super(nombre);
 	}

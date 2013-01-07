@@ -124,7 +124,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	}
 	public boolean esGenerica(){
 		for(Componente diagramaPadre: this.getAllPadres()){
-			for(Jerarquia jerarquia: ((DiagramaDER)diagramaPadre).getJerarquias(true)){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
 				if(jerarquia.getGenerica().equals(this))
 					return true;
 			}
@@ -133,7 +133,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	}
 	public boolean esDerivada(){
 		for(Componente diagramaPadre: this.getAllPadres()){
-			for(Jerarquia jerarquia: ((DiagramaDER)diagramaPadre).getJerarquias(true)){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
 				for(Entidad derivada: jerarquia.getDerivadas()){
 					if(derivada.equals(this))
 						return true;
@@ -145,7 +145,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public Set<Entidad> getDerivadas(){
 
 		for(Componente diagramaPadre: this.getAllPadres()){
-			for(Jerarquia jerarquia: ((DiagramaDER)diagramaPadre).getJerarquias(true)){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
 				if(jerarquia.getGenerica().equals(this))
 					return jerarquia.getDerivadas();
 			}
@@ -155,7 +155,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public Entidad getGenerica(){
 
 		for(Componente diagramaPadre: this.getAllPadres()){
-			for(Jerarquia jerarquia: ((DiagramaDER)diagramaPadre).getJerarquias(true)){
+			for(Jerarquia jerarquia: ((Diagrama)diagramaPadre).getJerarquias(true)){
 				for(Entidad derivada: jerarquia.getDerivadas()){
 					if(derivada.equals(this))
 						return jerarquia.getGenerica();

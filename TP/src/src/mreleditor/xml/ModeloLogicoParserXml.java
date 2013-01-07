@@ -49,7 +49,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 		if (Tabla.class.isInstance(componente))
 			return new TablaXml((TablaControl) componente);
 		if (DiagramaLogico.class.isInstance(componente))
-			return new DiagramaLogicoXml((DiagramaLogicoControl) componente);
+			return new DiagramaLogicoXml(this.proyecto,(DiagramaLogicoControl) componente);
 
 		throw new Exception("No existe un mapeo para: " + componente.toString());
 	}
@@ -84,7 +84,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 	protected Xmlizable mapeoXmlizable(Element element) throws Exception {
 		switch (element.getNodeName()) {
 		case Constants.DIAGRAMA_LOGICO_TAG:
-			return new DiagramaLogicoXml();
+			return new DiagramaLogicoXml(this.proyecto);
 		case Constants.TABLA_TAG:
 			return new TablaXml();
 		

@@ -16,7 +16,7 @@ public class ValidacionXml extends Validacion implements Xmlizable {
 
 	@Override
 	public Element toXml(ParserXML parser_) throws Exception {
-		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		ModeloBaseParserXml parser=(ModeloBaseParserXml) parser_;
 		
 		Element elemento = parser.crearElemento(Constants.VALIDACION_TAG);
 		parser.agregarEstado(elemento, this.estado.toString());
@@ -27,7 +27,7 @@ public class ValidacionXml extends Validacion implements Xmlizable {
 
 	@Override
 	public void fromXml(Element elemento, ParserXML parser_) throws Exception {
-		ModeloDERParserXml parser=(ModeloDERParserXml) parser_;
+		ModeloBaseParserXml parser=(ModeloBaseParserXml) parser_;
 		
 		this.estado = EstadoValidacion.valueOf(parser.obtenerEstado(elemento));
 		this.observaciones = parser.obtenerObservaciones(elemento);
