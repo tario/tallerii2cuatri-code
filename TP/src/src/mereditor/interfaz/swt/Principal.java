@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Observable;
 
 import javax.xml.transform.OutputKeys;
@@ -36,6 +38,7 @@ import mereditor.xml.SaverLoaderXML;
 import mreleditor.conversor.ConversorDERRepresentacion;
 import mreleditor.conversor.ConversorDERaLogico;
 import mreleditor.modelo.DiagramaLogico;
+import mreleditor.modelo.Tabla;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
@@ -791,6 +794,15 @@ public class Principal extends Observable implements FigureListener {
 				.getDiagramaActual());
 		DiagramaLogicoControl diaControl = new DiagramaLogicoControl(diaLog);
 		this.proyecto.setDiagramaLogico(diaControl);
+		
+		
+		/*ArrayList<Tabla> tablas = diaLog.getTablas();
+		
+		Iterator<Tabla> it = tablas.iterator();
+		
+		while (it.hasNext()) {
+			this.proyecto.agregar(it.next());
+		}*/
 
 		ConversorDERRepresentacion converRep = new ConversorDERRepresentacion();
 		this.proyecto.getDiagramaLogicoControl().setListaObjetosLogicos(

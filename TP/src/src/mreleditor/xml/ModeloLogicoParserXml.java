@@ -1,6 +1,7 @@
 package mreleditor.xml;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -38,8 +39,25 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 		doc.appendChild(this.root);
 
 		for (Componente componente : proyecto.getComponentes()) {
-			if (componente.es(Tabla.class) || componente.es(DiagramaLogico.class))
+			if (componente.es(DiagramaLogico.class)) {
 				this.root.appendChild(this.convertirXmlizable(componente).toXml(this));
+			}
+		}
+		
+		for (Componente componente : proyecto.getComponentes()) {
+			if (componente.es(DiagramaLogico.class)) {
+				DiagramaLogicoControl log = (DiagramaLogicoControl) componente;
+				
+				ArrayList<Tabla> tablas = log.getTablas();
+				Iterator<Tabla> it = tablas.iterator();
+				
+				while(it.hasNext()) {
+					TablaControl tabControl = new TablaControl(it.next());
+					this.root.appendChild(this.convertirXmlizable(tabControl).toXml(this));
+				}
+				
+			}
+				
 		}
 
 		return doc;
@@ -64,7 +82,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 
 		/*
 		 * Recorrer todos los elemento de primer nivel (menos validacion) para
-		 * tener en cuenta los que existen pero no fueron agregados a ningún
+		 * tener en cuenta los que existen pero no fueron agregados a ningï¿½n
 		 * diagrama.
 		 */
 		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
@@ -74,7 +92,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 	}
 
 	/**
-	 * Devuelve una instancia de la clase correspondiente de parseo según el
+	 * Devuelve una instancia de la clase correspondiente de parseo segï¿½n el
 	 * nombre del elemento a parsear.
 	 * 
 	 * @param element
