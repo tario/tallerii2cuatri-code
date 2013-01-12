@@ -371,4 +371,12 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 		String nombre = file.getName().replaceFirst("[.][^.]+$", "");
 		return nombre + "-logicos-comp.xml";
 	}
+
+	public void setDiagramaLogico(String id) {
+		if (this.componentes.containsKey(id)) {
+			Componente diagrama = this.componentes.get(id);
+			if (DiagramaLogicoControl.class.isInstance(diagrama))
+				this.diagramaLogico = (DiagramaLogicoControl) diagrama;
+		}
+	}
 }

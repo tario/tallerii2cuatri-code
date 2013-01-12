@@ -58,12 +58,12 @@ public class TablaControl extends Tabla implements Control<Tabla>, MouseListener
 	
 	@Override
 	public String getNombreIcono() {
-		return "tabla.png";
+		return "table.png";
 	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		EditorFactory.getEditor(this).open();
+		//EditorFactory.getEditor(this).open();
 	}
 
 	@Override

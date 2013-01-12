@@ -6,7 +6,6 @@ import org.eclipse.draw2d.Figure;
 
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Proyecto;
-import mereditor.modelo.base.Componente;
 import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
 
@@ -62,7 +61,7 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 
 	@Override
 	public String getNombreIcono() {
-		return "diagrama.png";
+		return "logicdiagram.png";
 	}
 
 }

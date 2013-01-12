@@ -4,6 +4,8 @@ import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
+import mreleditor.modelo.DiagramaLogico;
+import mreleditor.modelo.Tabla;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -12,6 +14,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -19,7 +22,7 @@ public class MenuArbolBuilder {
 	private Tree arbol;
 	private Menu menu;
 	/**
-	 * Opción Pegar del menú desplegable. 
+	 * Opción Pegar del menú desplegable.
 	 */
 	private MenuItem menuItemPegar;
 	/**
@@ -119,13 +122,19 @@ public class MenuArbolBuilder {
 		@Override
 		public void handleEvent(Event event) {
 			Componente componente = getComponente();
-			if (Diagrama.class.isInstance(componente)){
+			if (Diagrama.class.isInstance(componente)) {
 				Principal.getInstance().abrirDiagrama(componente.getId());
 				getItem().setExpanded(true);
 				TreeManager.setDiagramaActivo(getItem());
+			} else {
+				if (DiagramaLogico.class.isInstance(componente)) {
+					Principal.getInstance().abrirDiagramaLogico(componente.getId());
+					getItem().setExpanded(true);
+					TreeManager.setDiagramaLogicoActivo(getItem());
+				} else if (!Tabla.class.isInstance(componente))
+					EditorFactory.getEditor(componente).open();
 			}
-			else
-				EditorFactory.getEditor(componente).open();
+
 		}
 	};
 

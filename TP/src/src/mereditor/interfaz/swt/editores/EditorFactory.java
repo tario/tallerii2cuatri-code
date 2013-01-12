@@ -24,6 +24,7 @@ public class EditorFactory {
 
 		if (Jerarquia.class.isInstance(componente))
 			return new JerarquiaEditor((Jerarquia) componente);
+		
 
 		throw new RuntimeException("No existe un editor para el componente de tipo " + componente.getClass().getName());
 	}

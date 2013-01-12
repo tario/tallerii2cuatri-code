@@ -1,10 +1,13 @@
 package mereditor.interfaz.swt.builders;
 
 import mereditor.control.Control;
+import mereditor.control.TablaControl;
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
+import mreleditor.modelo.DiagramaLogico;
+import mreleditor.modelo.Tabla;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -22,6 +25,7 @@ public class TreeManager {
 	private static CTabItem tab;
 	private static CTabFolder folder;
 	private static TreeItem diagramaActivo;
+	private static TreeItem diagramaLogicoActivo;
 
 	public static Tree build(Composite composite) {
 		new TreeManager(composite);
@@ -83,6 +87,26 @@ public class TreeManager {
 		item.setExpanded(true);
 	}
 
+	private static void agregarLogico(DiagramaLogico diagrama, TreeItem tree) {
+		// Crear el item raiz.
+		TreeItem item = new TreeItem(tree, SWT.NULL);
+		item.setText("Diagrama Logico");
+		item.setData(diagrama);
+		// Cargar el icono del item.
+		String nombreIcono = ((Control<?>) diagrama).getNombreIcono();
+		item.setImage(Principal.getIcono(nombreIcono));
+
+		diagramaActivo = item;
+
+
+		for (Componente componente : diagrama.getTablas()){
+			TablaControl tabControl = new TablaControl((Tabla)componente);
+			agregar(tabControl, item);
+		}
+		
+		item.setExpanded(true);
+	}
+	
 	/**
 	 * Agregado de diagrama no principal y sus hijos.
 	 * 
@@ -107,6 +131,8 @@ public class TreeManager {
 
 		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
+		
+		
 	}
 
 	/**
@@ -130,12 +156,18 @@ public class TreeManager {
 	 */
 	public static void cargar(Proyecto proyecto) {
 		TreeManager.agregar(proyecto.getDiagramaRaiz(), TreeManager.tree);
+		if (proyecto.getDiagramaLogico() != null)
+			TreeManager.agregarADiagramaActual(proyecto.getDiagramaLogico());
 		tab.setText(proyecto.getNombre());
 		folder.setEnabled(true);
 	}
 
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
 		agregar(nuevoDiagrama, diagramaActivo);
+	}
+	
+	public static void agregarADiagramaActual(DiagramaLogico diagrama) {
+		agregarLogico(diagrama, diagramaActivo);
 	}
 
 	public static void agregarADiagramaActual(Componente nuevoComponente) {
@@ -148,6 +180,10 @@ public class TreeManager {
 
 	public static void setDiagramaActivo(TreeItem diagramaActivo) {
 		TreeManager.diagramaActivo = diagramaActivo;
+	}
+	
+	public static void setDiagramaLogicoActivo(TreeItem diagramaActivo) {
+		TreeManager.diagramaLogicoActivo = diagramaActivo;
 	}
 	
 	private CTabFolder2Listener minimizar = new CTabFolder2Adapter() {
