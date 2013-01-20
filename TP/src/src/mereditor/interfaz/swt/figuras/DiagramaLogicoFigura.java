@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import mereditor.control.DiagramaControl;
+import mereditor.control.DiagramaLogicoControl;
 import mereditor.interfaz.swt.listeners.AreaSeleccionControlador;
 import mereditor.interfaz.swt.listeners.ArrastreControlador;
 import mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador;
@@ -141,7 +142,7 @@ public class DiagramaLogicoFigura extends Figure implements FigureListener {
 	 */
 	public void actualizar() {
 		this.removeAll();
-		DiagramaControl diagrama = (DiagramaControl) this.proyecto.getDiagramaActual();
+		DiagramaLogicoControl diagrama = this.proyecto.getDiagramaLogicoControl();
 		diagrama.dibujar(this);
 	}
 

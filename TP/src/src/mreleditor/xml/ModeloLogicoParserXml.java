@@ -77,8 +77,8 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 		// Obtener el id del diagrama principal
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_LOGICO_QUERY);
 		DiagramaLogico diagrama = (DiagramaLogico) this.resolver(this.obtenerId(diagramaXml));
-
-		this.proyecto.agregar(diagrama);
+		
+		this.proyecto.setDiagramaLogico(new DiagramaLogicoControl(diagrama));
 
 		/*
 		 * Recorrer todos los elemento de primer nivel (menos validacion) para

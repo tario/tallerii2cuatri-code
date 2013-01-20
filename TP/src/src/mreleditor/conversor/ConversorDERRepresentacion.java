@@ -39,7 +39,7 @@ public class ConversorDERRepresentacion {
 		while (it.hasNext()) {
 			Tabla tab = it.next();
 			Dimension dim = new Dimension(getMaxStringSize(tab.getAtributos()) * defaultFontWidth, tab.getAtributos().size() * defaultFontHeight);
-			TablaControl tabControl = new TablaControl(tab);
+			TablaControl tabControl = new TablaControl(tab, diag.getId());
 			TablaFigure tFig = new TablaFigure(tabControl, dim);
 			
 			// Cargo valores que despues se usan para dibujar y los que se guardan en el xml

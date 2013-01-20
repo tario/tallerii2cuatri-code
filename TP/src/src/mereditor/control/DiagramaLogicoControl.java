@@ -2,6 +2,8 @@ package mereditor.control;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
 import org.eclipse.draw2d.Figure;
 
 import mereditor.interfaz.swt.figuras.Figura;
@@ -13,6 +15,8 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 
 	@SuppressWarnings("rawtypes")
 	protected ArrayList<Figura> listaObjetosLogicos;
+	
+	protected ArrayList<TablaControl> listaTablasControl;
 	
 	public DiagramaLogicoControl(Proyecto proyecto) {
 		super(proyecto);
@@ -31,11 +35,19 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		idDiagrama = idDiagrama != null ? idDiagrama : this.id;
 
-		ArrayList<Tabla> tablas = this.getTablas();
-		this.dibujar(contenedor, idDiagrama, tablas);
-
+		if (this.listaTablasControl == null) {
+			
+			this.listaTablasControl = new ArrayList<TablaControl>();
+			
+			ArrayList<Tabla> tablas = this.getTablas();
+			Iterator<Tabla> it = tablas.iterator();
+			
+			while (it.hasNext()) {
+				this.listaTablasControl.add(new TablaControl(it.next()));
+			}
+		}
 		
-		
+		this.dibujar(contenedor, idDiagrama, this.listaTablasControl);
 	}
 	
 	@SuppressWarnings("rawtypes")

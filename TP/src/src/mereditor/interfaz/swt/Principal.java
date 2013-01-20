@@ -499,7 +499,7 @@ public class Principal extends Observable implements FigureListener {
 	 **/
 	public void abrirDiagrama(String id) {
 		String idActual = this.proyecto.getDiagramaActual().getId();
-		//cargarInterfazNormal();
+		cargarInterfazNormal();
 		this.panelDiagrama.setVisible(true);
 		this.panelDiagramaLogico.setVisible(false);
 		
@@ -515,12 +515,12 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	public void abrirDiagramaLogico(String id) {
-		/*this.panelDiagrama.setVisible(false);
+		this.panelDiagrama.setVisible(false);
 		this.panelDiagramaLogico.setVisible(true);
 		this.proyecto.setDiagramaLogico(id);
-		//this.cargarInterfazLogica();
+		this.cargarInterfazLogica();
 		this.actualizarVistaLogica();
-		this.panelDiagramaLogico.actualizar();*/
+		this.panelDiagramaLogico.actualizar();
 	}
 
 	/**
@@ -847,7 +847,7 @@ public class Principal extends Observable implements FigureListener {
 		this.proyecto.getDiagramaLogicoControl().setListaObjetosLogicos(
 				converRep.createRepresentation(this.proyecto
 						.getDiagramaLogico()));
-
+		
 		TreeManager.agregarADiagramaActual(diaControl);
 		this.modificado(true);
 	}
