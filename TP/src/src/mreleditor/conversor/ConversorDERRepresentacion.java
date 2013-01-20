@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
+import mereditor.control.DiagramaLogicoControl;
 import mereditor.control.TablaControl;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.TablaFigure;
@@ -41,6 +42,7 @@ public class ConversorDERRepresentacion {
 			Dimension dim = new Dimension(getMaxStringSize(tab.getAtributos()) * defaultFontWidth, tab.getAtributos().size() * defaultFontHeight);
 			TablaControl tabControl = new TablaControl(tab, diag.getId());
 			TablaFigure tFig = new TablaFigure(tabControl, dim);
+
 			
 			// Cargo valores que despues se usan para dibujar y los que se guardan en el xml
 			PList params = new PList();
@@ -60,6 +62,7 @@ public class ConversorDERRepresentacion {
 			initY += dim.height() + 15;
 			
 			figuras.add(tFig);
+			tabControl.addFigure(tFig, diag.getId());
 		}
 		
 		return figuras;

@@ -99,17 +99,22 @@ public class MenuArbolBuilder {
 	public final Listener mostrar = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			// Mostrar el menu si no es el boton derecho
-			if (event.button > 1) {
-				TreeItem treeItem = getItem();
 
-				if (treeItem != null) {
-					Rectangle area = treeItem.getBounds();
-					Point posicion = new Point(area.x, area.y + area.height);
-					posicion = arbol.toDisplay(posicion);
-					menu.setLocation(posicion.x, posicion.y);
-					menu.setVisible(true);
-					habilitarOpciones();
+			if (!(DiagramaLogico.class.isInstance(getComponente()))
+					&& !(Tabla.class.isInstance(getComponente()))) {
+
+				// Mostrar el menu si no es el boton derecho
+				if (event.button > 1) {
+					TreeItem treeItem = getItem();
+
+					if (treeItem != null) {
+						Rectangle area = treeItem.getBounds();
+						Point posicion = new Point(area.x, area.y + area.height);
+						posicion = arbol.toDisplay(posicion);
+						menu.setLocation(posicion.x, posicion.y);
+						menu.setVisible(true);
+						habilitarOpciones();
+					}
 				}
 			}
 		}
@@ -128,7 +133,8 @@ public class MenuArbolBuilder {
 				TreeManager.setDiagramaActivo(getItem());
 			} else {
 				if (DiagramaLogico.class.isInstance(componente)) {
-					Principal.getInstance().abrirDiagramaLogico(componente.getId());
+					Principal.getInstance().abrirDiagramaLogico(
+							componente.getId());
 					getItem().setExpanded(true);
 					TreeManager.setDiagramaLogicoActivo(getItem());
 				} else if (!Tabla.class.isInstance(componente))

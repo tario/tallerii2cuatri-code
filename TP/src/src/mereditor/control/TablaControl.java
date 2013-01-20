@@ -51,6 +51,12 @@ public class TablaControl extends Tabla implements Control<Tabla>,
 	private void setPosicionInicial(Figure figura) {
 		figura.setBounds(figura.getBounds().getTranslated(100, 100));
 	}
+	
+	public void addFigure(Figure figura, String idDiagrama) {
+		if (!this.figures.containsKey(idDiagrama)) {
+			this.figures.put(idDiagrama, (TablaFigure)figura);
+		}
+	}
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {

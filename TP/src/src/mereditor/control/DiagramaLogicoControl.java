@@ -30,6 +30,24 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 	public Figura<DiagramaLogico> getFigura(String idDiagrama) {
 		return null;
 	}
+	
+	private boolean checkTable(String id) {
+		Iterator<TablaControl> it = listaTablasControl.iterator();
+		while (it.hasNext()) {
+			if (id == it.next().getId())
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public void addTablaControl(TablaControl tab) {
+		if (this.listaTablasControl == null) {
+			this.listaTablasControl = new ArrayList<TablaControl>();
+		} else if (!checkTable(tab.getId())) {
+			this.listaTablasControl.add(tab);
+		}
+	}
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {

@@ -846,7 +846,7 @@ public class Principal extends Observable implements FigureListener {
 		ConversorDERRepresentacion converRep = new ConversorDERRepresentacion();
 		this.proyecto.getDiagramaLogicoControl().setListaObjetosLogicos(
 				converRep.createRepresentation(this.proyecto
-						.getDiagramaLogico()));
+						.getDiagramaLogicoControl()));
 		
 		TreeManager.agregarADiagramaActual(diaControl);
 		this.modificado(true);
