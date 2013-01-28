@@ -21,8 +21,11 @@ public class DiagramaDER extends Diagrama {
 	
 	protected Validacion validacion = new Validacion();
 
+	
+	
+	
 	public DiagramaDER(Proyecto proyecto) {
-		super();
+		super(proyecto);
 		this.proyecto = proyecto;
 	}
 

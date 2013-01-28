@@ -79,7 +79,7 @@ public class ModeloDERParserXml extends ModeloParserXml {
 
 		/*
 		 * Recorrer todos los elemento de primer nivel (menos validacion) para
-		 * tener en cuenta los que existen pero no fueron agregados a ningún
+		 * tener en cuenta los que existen pero no fueron agregados a ningï¿½n
 		 * diagrama.
 		 */
 		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
@@ -349,7 +349,7 @@ public class ModeloDERParserXml extends ModeloParserXml {
 	}
 
 	/**
-	 * Devuelve una instancia de la clase correspondiente de parseo según el
+	 * Devuelve una instancia de la clase correspondiente de parseo segï¿½n el
 	 * nombre del elemento a parsear.
 	 * 
 	 * @param element
@@ -382,8 +382,8 @@ public class ModeloDERParserXml extends ModeloParserXml {
 			return new RelacionXml((RelacionControl) componente);
 		if (Jerarquia.class.isInstance(componente))
 			return new JerarquiaXml((JerarquiaControl) componente);
-		if (DiagramaDER.class.isInstance(componente))
-			return new DiagramaXml(this.proyecto, (DiagramaDERControl) componente);
+//		if (DiagramaDER.class.isInstance(componente))
+//			return new DiagramaXml(this.proyecto, (DiagramaDERControl) componente);
 		if (Atributo.class.isInstance(componente))
 			return new AtributoXml((AtributoControl) componente);
 		if (Validacion.class.isInstance(componente))
