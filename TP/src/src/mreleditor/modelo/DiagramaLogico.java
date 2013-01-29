@@ -31,6 +31,7 @@ public class DiagramaLogico extends ComponenteNombre {
 	
 	public DiagramaLogico(DiagramaLogico dia) {
 		super();
+		this.id=dia.id;
 		if (dia.getDer() != null)
 			this.setDer(dia.getDer());
 		

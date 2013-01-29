@@ -87,7 +87,8 @@ public abstract class Componente implements Comparable<Componente>, Validable {
 	 * @param padre
 	 */
 	public void setPadre(Componente padre) {
-		this.padres.put(padre.getId(), padre);
+		if ( padre != null)
+			this.padres.put(padre.getId(), padre);
 	}
 
 	/**

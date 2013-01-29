@@ -34,7 +34,9 @@ public class TablaControl extends Tabla implements Control<Tabla>,
 	public TablaControl(Tabla tab) {
 		super(tab);
 	}
-
+	public TablaControl(String nombre) {
+		super(new Tabla(nombre));
+	}
 	public TablaControl() {
 	}
 	

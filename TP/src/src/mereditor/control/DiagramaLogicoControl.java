@@ -16,7 +16,7 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 	@SuppressWarnings("rawtypes")
 	protected ArrayList<Figura> listaObjetosLogicos;
 	
-	protected ArrayList<TablaControl> listaTablasControl;
+	//protected ArrayList<TablaControl> listaTablasControl;
 	
 	public DiagramaLogicoControl(Proyecto proyecto) {
 		super(proyecto);
@@ -31,7 +31,7 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 		return null;
 	}
 	
-	private boolean checkTable(String id) {
+	/*private boolean checkTable(String id) {
 		Iterator<TablaControl> it = listaTablasControl.iterator();
 		while (it.hasNext()) {
 			if (id == it.next().getId())
@@ -39,21 +39,15 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 		}
 		
 		return false;
-	}
+	}*/
 	
-	public void addTablaControl(TablaControl tab) {
-		if (this.listaTablasControl == null) {
-			this.listaTablasControl = new ArrayList<TablaControl>();
-		} else if (!checkTable(tab.getId())) {
-			this.listaTablasControl.add(tab);
-		}
-	}
+	
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		idDiagrama = idDiagrama != null ? idDiagrama : this.id;
 
-		if (this.listaTablasControl == null) {
+	/*	if (this.listaTablasControl == null) {
 			
 			this.listaTablasControl = new ArrayList<TablaControl>();
 			
@@ -64,8 +58,8 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 				this.listaTablasControl.add(new TablaControl(it.next()));
 			}
 		}
-		
-		this.dibujar(contenedor, idDiagrama, this.listaTablasControl);
+		*/
+		this.dibujar(contenedor, idDiagrama, this.tablas);
 	}
 	
 	@SuppressWarnings("rawtypes")

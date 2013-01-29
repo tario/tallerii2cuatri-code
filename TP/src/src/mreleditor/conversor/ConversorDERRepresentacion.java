@@ -28,7 +28,7 @@ public class ConversorDERRepresentacion {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public ArrayList<Figura> createRepresentation(DiagramaLogico diag) {
+	public ArrayList<Figura> createRepresentation(DiagramaLogicoControl diag) {
 		
 		ArrayList<Figura> figuras = new ArrayList<Figura>();
 	
@@ -40,7 +40,7 @@ public class ConversorDERRepresentacion {
 		while (it.hasNext()) {
 			Tabla tab = it.next();
 			Dimension dim = new Dimension(getMaxStringSize(tab.getAtributos()) * defaultFontWidth, tab.getAtributos().size() * defaultFontHeight);
-			TablaControl tabControl = new TablaControl(tab, diag.getId());
+			TablaControl tabControl =  (TablaControl)tab;
 			TablaFigure tFig = new TablaFigure(tabControl, dim);
 
 			

@@ -52,7 +52,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 				Iterator<Tabla> it = tablas.iterator();
 				
 				while(it.hasNext()) {
-					TablaControl tabControl = new TablaControl(it.next());
+					TablaControl tabControl = (TablaControl)(it.next());
 					this.root.appendChild(this.convertirXmlizable(tabControl).toXml(this));
 				}
 				
@@ -133,11 +133,11 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 	}
 
 	public Element agregarClavePrimaria(Element elemento) {
-		return this.agregarElemento(elemento, Constants.ATRIBUTOS_TAG, "");
+		return this.agregarElemento(elemento, Constants.CLAVE_PRIMARIA_TAG, "");
 	}
 
 	public Element agregarAtributoClavePrimaria(Element pkElement, String atributo) {
-		return this.agregarElemento(pkElement, Constants.ATRIBUTOS_TAG, atributo);
+		return this.agregarElemento(pkElement, Constants.ATRIBUTO_TAG, atributo);
 		
 	}
 
@@ -146,7 +146,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 	}
 
 	public Element agregarAtributo(Element atributosXml, String atributo) {
-		return this.agregarElemento(atributosXml, Constants.ATRIBUTOS_TAG, atributo);
+		return this.agregarElemento(atributosXml, Constants.ATRIBUTO_TAG, atributo);
 		
 	}
 
@@ -175,7 +175,7 @@ public class ModeloLogicoParserXml extends ModeloParserXml {
 		List<String> primarias = new ArrayList<>();
 
 		for (Element primariaXml : primariasXml) {
-			primarias.add(primariaXml.getTextContent());
+			primarias.add(primariaXml.getTextContent().trim());
 		}
 
 		return primarias;
