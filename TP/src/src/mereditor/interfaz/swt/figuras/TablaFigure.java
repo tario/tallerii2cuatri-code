@@ -22,7 +22,7 @@ public class TablaFigure extends Figura<Tabla> {
 
 	public TablaFigure(Tabla tabla) {
 		super(tabla);
-		// uso el mismo tipo de estilo que las entidades... ni ganas de hacer uno nuevo.
+		id = new String(tabla.getId());
 		this.setRepresentacion(EstilosFiguras.get(Entidad.class, TipoEntidad.MAESTRA_COSA));
 	}
 	

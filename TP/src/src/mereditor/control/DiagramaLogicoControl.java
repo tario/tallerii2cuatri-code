@@ -13,8 +13,8 @@ import mreleditor.modelo.Tabla;
 
 public class DiagramaLogicoControl extends DiagramaLogico implements Control<DiagramaLogico>{
 
-	@SuppressWarnings("rawtypes")
-	protected ArrayList<Figura> listaObjetosLogicos;
+	/*@SuppressWarnings("rawtypes")
+	protected ArrayList<Figura> listaObjetosLogicos;*/
 	
 	//protected ArrayList<TablaControl> listaTablasControl;
 	
@@ -62,14 +62,19 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 		this.dibujar(contenedor, idDiagrama, this.tablas);
 	}
 	
-	@SuppressWarnings("rawtypes")
+	/*@SuppressWarnings("rawtypes")
 	public void setListaObjetosLogicos(ArrayList<Figura> lista) {
 		this.listaObjetosLogicos = lista;
-	}
+	}*/
 	
 	@SuppressWarnings("rawtypes")
 	public ArrayList<Figura> getListaObjetosLogicos() {
-		return this.listaObjetosLogicos;
+		ArrayList<Figura> objetosLogicos= new ArrayList<Figura>();
+		
+		for(Tabla tabla: tablas){
+			objetosLogicos.add(((TablaControl)tabla).getFigura(id));
+		}
+		return objetosLogicos;
 	}
 	
 	private void dibujar(Figure contenedor, String id, Collection<?> componentes) {

@@ -75,8 +75,7 @@ public class Principal extends Observable implements FigureListener {
 	/**
 	 * Color predeterminado del ç–µea principal del diagrama.
 	 */
-	public static final Color defaultBackgroundColor = new Color(null, 255,
-			255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
 	/**
 	 * Tå’œulo a mostrar de la aplicaciî‰¢.
 	 */
@@ -167,8 +166,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	private static Image loadImagen(String path) {
-		Image img = new Image(Display.getDefault(),
-				Principal.class.getResourceAsStream(path));
+		Image img = new Image(Display.getDefault(), Principal.class.getResourceAsStream(path));
 		return img;
 	}
 
@@ -257,12 +255,9 @@ public class Principal extends Observable implements FigureListener {
 	 * Inicializa el canvas donde se dibuja el diagrama.
 	 */
 	private void initFigureCanvas() {
-		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL
-				| SWT.H_SCROLL);
-		this.figureCanvas
-				.setHorizontalScrollBarVisibility(FigureCanvas.AUTOMATIC);
-		this.figureCanvas
-				.setVerticalScrollBarVisibility(FigureCanvas.AUTOMATIC);
+		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL | SWT.H_SCROLL);
+		this.figureCanvas.setHorizontalScrollBarVisibility(FigureCanvas.AUTOMATIC);
+		this.figureCanvas.setVerticalScrollBarVisibility(FigureCanvas.AUTOMATIC);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
@@ -277,8 +272,7 @@ public class Principal extends Observable implements FigureListener {
 		int resultadoGuardar = this.preguntarGuardar();
 
 		if (resultadoGuardar != SWT.CANCEL) {
-			PromptResult resultado = DialogBuilder.prompt(this.shell,
-					"Ingresar nombre", "Nombre");
+			PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 
 			if (resultado.result == Resultado.OK) {
 				this.proyecto = new Proyecto(resultado.value);
@@ -315,12 +309,9 @@ public class Principal extends Observable implements FigureListener {
 	 * Carga el proyecto actual.
 	 */
 	private void cargarProyecto() {
-		this.proyecto
-				.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
-		this.panelDiagramaLogico = new DiagramaLogicoFigura(this.figureCanvas,
-				this.proyecto);
-		this.panelDiagrama = new DiagramaFigura(this.figureCanvas,
-				this.proyecto);
+		this.proyecto.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
+		this.panelDiagramaLogico = new DiagramaLogicoFigura(this.figureCanvas, this.proyecto);
+		this.panelDiagrama = new DiagramaFigura(this.figureCanvas, this.proyecto);
 		this.panelDiagrama.actualizar();
 
 		// Carga inicial del arbol.
@@ -333,16 +324,14 @@ public class Principal extends Observable implements FigureListener {
 		this.modificado(false);
 		this.actualizarEstado();
 	}
-	
+
 	private void cargarInterfazLogica() {
-		this.panelDiagramaLogico = new DiagramaLogicoFigura(this.figureCanvas,
-				this.proyecto);
+		this.panelDiagramaLogico = new DiagramaLogicoFigura(this.figureCanvas, this.proyecto);
 		this.panelDiagramaLogico.actualizar();
 	}
-	
+
 	private void cargarInterfazNormal() {
-		this.panelDiagrama = new DiagramaFigura(this.figureCanvas,
-				this.proyecto);
+		this.panelDiagrama = new DiagramaFigura(this.figureCanvas, this.proyecto);
 		this.panelDiagrama.actualizar();
 	}
 
@@ -354,11 +343,9 @@ public class Principal extends Observable implements FigureListener {
 
 		if (this.proyecto != null) {
 			status = "Proyecto: %s [%s]- Diagrama: %s [%s]";
-			status = String.format(status, this.proyecto.getNombre(),
-					this.proyecto.getValidacion().getEstado().toString(),
-					this.proyecto.getDiagramaActual().getNombre(),
-					this.proyecto.getDiagramaActual().getValidacion()
-							.getEstado().toString());
+			status = String.format(status, this.proyecto.getNombre(), this.proyecto.getValidacion().getEstado()
+					.toString(), this.proyecto.getDiagramaActual().getNombre(), this.proyecto.getDiagramaActual()
+					.getValidacion().getEstado().toString());
 		}
 
 		this.lblStatus.setText(status);
@@ -412,17 +399,13 @@ public class Principal extends Observable implements FigureListener {
 				modelo = new SaverLoaderXML(this.proyecto);
 				this.guardarXml(modelo.saveProyecto(), path);
 
-				this.guardarXml(modelo.saveComponentes(),
-						dir + this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.saveComponentes(), dir + this.proyecto.getComponentesPath());
 
-				this.guardarXml(modelo.saveRepresentacion(), dir
-						+ this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.saveRepresentacion(), dir + this.proyecto.getRepresentacionPath());
 
-				this.guardarXml(modelo.saveComponentesLogicos(), dir
-						+ this.proyecto.getComponentesLogicosPath());
+				this.guardarXml(modelo.saveComponentesLogicos(), dir + this.proyecto.getComponentesLogicosPath());
 
-				this.guardarXml(modelo.saveRepresentacionDER(), dir
-						+ this.proyecto.getRepresentacionDERPath());
+				this.guardarXml(modelo.saveRepresentacionDER(), dir + this.proyecto.getRepresentacionDERPath());
 
 			} catch (Exception e) {
 				this.error("Ocurrio un error al guardar el proyecto.");
@@ -441,13 +424,11 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		// Indicar que escriba el xml con indentaciî‰¢.
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty(
-				"{http://xml.apache.org/xslt}indent-amount", "4");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(path));
 		transformer.transform(source, result);
@@ -457,8 +438,7 @@ public class Principal extends Observable implements FigureListener {
 	 * Agrega un Diagrama al proyecto.
 	 */
 	public void agregarDiagrama() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl(this.proyecto);
 			nuevoDiagrama.setNombre(resultado.value);
@@ -481,7 +461,7 @@ public class Principal extends Observable implements FigureListener {
 
 	public void actualizarVistaLogica() {
 		this.panelDiagramaLogico.actualizar();
-		
+
 	}
 
 	/**
@@ -502,7 +482,7 @@ public class Principal extends Observable implements FigureListener {
 		cargarInterfazNormal();
 		this.panelDiagrama.setVisible(true);
 		this.panelDiagramaLogico.setVisible(false);
-		
+
 		if (!id.equals(idActual)) {
 			int resultado = this.preguntarGuardar();
 
@@ -620,8 +600,7 @@ public class Principal extends Observable implements FigureListener {
 	public void exportar() {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
-		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
-				+ ".jpg");
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre() + ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
@@ -662,8 +641,7 @@ public class Principal extends Observable implements FigureListener {
 		if (printerData != null) {
 			Printer printer = new Printer(printerData);
 
-			PrintFigureOperation printerOperation = new PrintFigureOperation(
-					printer, this.panelDiagrama);
+			PrintFigureOperation printerOperation = new PrintFigureOperation(printer, this.panelDiagrama);
 			printerOperation.setPrintMode(PrintFigureOperation.FIT_PAGE);
 			printerOperation.setPrintMargin(new Insets(0, 0, 0, 0));
 			printerOperation.run(this.proyecto.getDiagramaActual().getNombre());
@@ -684,10 +662,8 @@ public class Principal extends Observable implements FigureListener {
 		else {
 			this.advertencia(observacion.toString());
 
-			String nombreArchivo = "Diagrama-"
-					+ this.proyecto.getDiagramaActual().getNombre();
-			nombreArchivo += String.format("-%s.txt",
-					dateFormat.format(new Date()));
+			String nombreArchivo = "Diagrama-" + this.proyecto.getDiagramaActual().getNombre();
+			nombreArchivo += String.format("-%s.txt", dateFormat.format(new Date()));
 
 			this.guardarValidacion(nombreArchivo, observacion.toString());
 		}
@@ -705,10 +681,8 @@ public class Principal extends Observable implements FigureListener {
 		else {
 			this.advertencia(observacion.toString());
 
-			String nombreArchivo = "Proyecto-"
-					+ this.proyecto.getDiagramaRaiz().getNombre();
-			nombreArchivo += String.format("_%s.txt",
-					dateFormat.format(new Date()));
+			String nombreArchivo = "Proyecto-" + this.proyecto.getDiagramaRaiz().getNombre();
+			nombreArchivo += String.format("_%s.txt", dateFormat.format(new Date()));
 
 			this.guardarValidacion(nombreArchivo, observacion.toString());
 		}
@@ -813,10 +787,8 @@ public class Principal extends Observable implements FigureListener {
 		}
 
 		if (modificado && this.proyecto != null) {
-			this.proyecto.getValidacion().setEstado(
-					EstadoValidacion.SIN_VALIDAR);
-			this.proyecto.getDiagramaActual().getValidacion()
-					.setEstado(EstadoValidacion.SIN_VALIDAR);
+			this.proyecto.getValidacion().setEstado(EstadoValidacion.SIN_VALIDAR);
+			this.proyecto.getDiagramaActual().getValidacion().setEstado(EstadoValidacion.SIN_VALIDAR);
 
 			this.actualizarEstado();
 		}
@@ -838,16 +810,14 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	public void convertir() {
 		ConversorDERaLogico conversor = ConversorDERaLogico.getInstance();
-		DiagramaLogico diaLog = conversor.convertir(this.proyecto
-				.getDiagramaActual());
+		DiagramaLogico diaLog = conversor.convertir(this.proyecto.getDiagramaActual());
 		DiagramaLogicoControl diaControl = new DiagramaLogicoControl(diaLog);
 		this.proyecto.setDiagramaLogico(diaControl);
 
 		ConversorDERRepresentacion converRep = new ConversorDERRepresentacion();
-		this.proyecto.getDiagramaLogicoControl().setListaObjetosLogicos(
-				converRep.createRepresentation(this.proyecto
-						.getDiagramaLogicoControl()));
-		
+
+		converRep.createRepresentation(this.proyecto.getDiagramaLogicoControl());
+
 		TreeManager.agregarADiagramaActual(diaControl);
 		this.modificado(true);
 	}

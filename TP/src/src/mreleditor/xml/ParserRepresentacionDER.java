@@ -83,9 +83,11 @@ public class ParserRepresentacionDER extends ParserXML {
 					.obtenerRepresentaciones(componente.getId());
 			// Asignarselas a las figura correspondiente de cada diagrama
 			Control<?> control = (Control<?>) componente;
-			for (String idDiagrama : representaciones.keySet())
+			for (String idDiagrama : representaciones.keySet()){
 				control.getFigura(idDiagrama).setRepresentacion(
 						representaciones.get(idDiagrama));
+				
+			}
 		}
 		return proyecto;
 	}
