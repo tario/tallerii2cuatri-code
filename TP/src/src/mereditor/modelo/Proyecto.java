@@ -144,6 +144,11 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 		return this.diagramaLogico;
 	}
 	
+	public void borrarDiagramaLogico() {
+		componentes.remove(diagramaLogico.getId());
+		diagramaLogico=null;
+	}
+	
 
 	/**
 	 * Establece el diagrama logico del proyecto.

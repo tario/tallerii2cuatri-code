@@ -40,7 +40,7 @@ public class TreeManager {
 
 		this.init();
 	}
-
+	
 	private void init() {
 		tree.setBackground(new Color(null, 240, 240, 240));
 
@@ -86,11 +86,11 @@ public class TreeManager {
 
 		item.setExpanded(true);
 	}
-
+	private final static String DIAGRAMA_LOGICO_TEXT="Diagrama Logico";
 	private static void agregarLogico(DiagramaLogico diagrama, TreeItem tree) {
 		// Crear el item raiz.
 		TreeItem item = new TreeItem(tree, SWT.NULL);
-		item.setText("Diagrama Logico");
+		item.setText(DIAGRAMA_LOGICO_TEXT);
 		item.setData(diagrama);
 		// Cargar el icono del item.
 		String nombreIcono = ((Control<?>) diagrama).getNombreIcono();
@@ -180,6 +180,15 @@ public class TreeManager {
 
 	public static void setDiagramaActivo(TreeItem diagramaActivo) {
 		TreeManager.diagramaActivo = diagramaActivo;
+		TreeItem[] hijos= diagramaActivo.getItems();
+		for(int i=0; i<hijos.length;i++){
+			if(hijos[i].getText().equals(DIAGRAMA_LOGICO_TEXT))
+				TreeManager.diagramaLogicoActivo = hijos[i];
+		}
+	}
+	public static void borrarLogicoActivo(){
+		if( diagramaLogicoActivo != null)
+		diagramaLogicoActivo.dispose();
 	}
 	
 	public static void setDiagramaLogicoActivo(TreeItem diagramaActivo) {

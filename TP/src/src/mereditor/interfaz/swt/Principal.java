@@ -809,6 +809,11 @@ public class Principal extends Observable implements FigureListener {
 	 * Convierte de DER a logico
 	 */
 	public void convertir() {
+		
+		TreeManager.borrarLogicoActivo();
+		if(proyecto.getDiagramaLogico()!=null)
+			proyecto.borrarDiagramaLogico();
+		
 		ConversorDERaLogico conversor = ConversorDERaLogico.getInstance();
 		DiagramaLogico diaLog = conversor.convertir(this.proyecto.getDiagramaActual());
 		DiagramaLogicoControl diaControl = new DiagramaLogicoControl(diaLog);
