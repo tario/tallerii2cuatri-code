@@ -61,6 +61,7 @@ public class ConversorDERaLogico {
 		inicializarVariables();
 		this.der = der;
 		diagramaLogico.setNombre(der.getNombre()+" - Logico");
+		diagramaLogico.setDer(der);
 
 		// Primero convierte las jerarquias
 		for (Entidad raiz : getRaices()) {

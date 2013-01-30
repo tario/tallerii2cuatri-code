@@ -112,5 +112,10 @@ public abstract class ModeloParserXml extends ParserXML {
 	public Attr agregarId(Element elemento, String valor) {
 		return this.agregarAtributo(elemento, Constants.ID_ATTR, valor);
 	}
+	public Element agregarDer(Element elemento, String valor) {
+		return this.agregarElemento(elemento, Constants.DER_TAG, valor);
+	}
+	
+	
 
 }

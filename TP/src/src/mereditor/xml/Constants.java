@@ -96,4 +96,7 @@ public class Constants {
 	public static final String REPRESENTACION_LOGICA_TAG = "RepresentacionLogica";
 	public static final String REPRESENTACION_LOGICA_ID_QUERY = "//RepresentacionLogica[@id='%s']";
 	public static final String DIAGRAMA_LOGICO_PADRE_QUERY = "./ancestor::DiagramaLogico";
+	
+	public static final String DER_TAG = "Der";
+	
 }

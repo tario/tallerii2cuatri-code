@@ -59,7 +59,11 @@ public class TreeManager {
 	 * @param diagrama
 	 * @param tree
 	 */
-	private static void agregar(Diagrama diagrama, Tree tree) {
+	
+	private static void agregar(Diagrama diagrama, Tree tree){
+		 agregar( diagrama,  tree,null);
+	}
+	private static void agregar(Diagrama diagrama, Tree tree, Proyecto proyecto) {
 		tree.removeAll();
 		tree.setData(diagrama);
 		// Crear el item raiz.
@@ -73,7 +77,8 @@ public class TreeManager {
 		diagramaActivo = item;
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
-			agregar(diagramaHijo, item);
+			agregar(diagramaHijo, item,proyecto);
+		
 
 		for (Componente componente : diagrama.getEntidades(false))
 			agregar(componente, item);
@@ -83,8 +88,18 @@ public class TreeManager {
 
 		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
+		
+		for(Componente componente:proyecto.getComponentes())
+			if(DiagramaLogico.class.isInstance(componente)){
+				DiagramaLogico logico=(DiagramaLogico)componente;
+				if(diagrama.getId().equals(logico.getDer().getId()))
+					agregarLogico(logico, item);
+			}
+						
+			
 
 		item.setExpanded(true);
+		
 	}
 	private final static String DIAGRAMA_LOGICO_TEXT="Diagrama Logico";
 	private static void agregarLogico(DiagramaLogico diagrama, TreeItem tree) {
@@ -96,7 +111,7 @@ public class TreeManager {
 		String nombreIcono = ((Control<?>) diagrama).getNombreIcono();
 		item.setImage(Principal.getIcono(nombreIcono));
 
-		diagramaActivo = item;
+		diagramaLogicoActivo = item;
 
 
 		for (Componente componente : diagrama.getTablas()){
@@ -113,7 +128,7 @@ public class TreeManager {
 	 * @param diagrama
 	 * @param padre
 	 */
-	private static void agregar(Diagrama diagrama, TreeItem padre) {
+	private static void agregar(Diagrama diagrama, TreeItem padre, Proyecto proyecto) {
 		TreeItem item = new TreeItem(padre, SWT.NULL);
 		item.setText(diagrama.getNombre());
 		item.setData(diagrama);
@@ -131,6 +146,13 @@ public class TreeManager {
 
 		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
+		
+		for(Componente componente:proyecto.getComponentes())
+			if(DiagramaLogico.class.isInstance(componente)){
+				DiagramaLogico logico=(DiagramaLogico)componente;
+				if(diagrama.getId().equals(logico.getDer().getId()))
+					agregarLogico(logico, item);
+			}
 		
 		
 	}
@@ -155,9 +177,7 @@ public class TreeManager {
 	 * @param proyecto
 	 */
 	public static void cargar(Proyecto proyecto) {
-		TreeManager.agregar(proyecto.getDiagramaRaiz(), TreeManager.tree);
-		if (proyecto.getDiagramaLogico() != null)
-			TreeManager.agregarADiagramaActual(proyecto.getDiagramaLogico());
+		TreeManager.agregar(proyecto.getDiagramaRaiz(), TreeManager.tree, proyecto);
 		tab.setText(proyecto.getNombre());
 		folder.setEnabled(true);
 	}
@@ -181,6 +201,7 @@ public class TreeManager {
 	public static void setDiagramaActivo(TreeItem diagramaActivo) {
 		TreeManager.diagramaActivo = diagramaActivo;
 		TreeItem[] hijos= diagramaActivo.getItems();
+		diagramaLogicoActivo=null;
 		for(int i=0; i<hijos.length;i++){
 			if(hijos[i].getText().equals(DIAGRAMA_LOGICO_TEXT))
 				TreeManager.diagramaLogicoActivo = hijos[i];

@@ -3,6 +3,7 @@ package mreleditor.xml;
 import org.w3c.dom.Element;
 
 import mereditor.control.DiagramaLogicoControl;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.xml.Constants;
@@ -17,7 +18,6 @@ public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizabl
 		super(proyecto);
 		this.id = componente.getId();
 		this.nombre = componente.getNombre();
-
 		this.tablas = componente.getTablas();
 		this.der=componente.getDer();
 	}
@@ -34,6 +34,7 @@ public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizabl
 		Element elemento = parser.crearElemento(Constants.DIAGRAMA_LOGICO_TAG);
 		parser.agregarId(elemento, this.id.toString());
 		parser.agregarNombre(elemento, nombre);
+		parser.agregarDer(elemento,this.getDer().getId());
 
 		// Agregar las referencias a las tablas
 		if (this.tablas.size() > 0) {
@@ -53,7 +54,7 @@ public class DiagramaLogicoXml extends DiagramaLogicoControl implements Xmlizabl
 		
 		this.id = elemento.getAttribute(Constants.ID_ATTR);
 		this.nombre = XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
-
+		this.der= (Diagrama) getProyecto().getComponente(XmlHelper.querySingle(elemento, Constants.DER_TAG).getTextContent());
 		parser.registrar(this);
 
 		// Tablas

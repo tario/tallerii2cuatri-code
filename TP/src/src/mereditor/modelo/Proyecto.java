@@ -123,6 +123,13 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 			Componente diagrama = this.componentes.get(id);
 			if (DiagramaControl.class.isInstance(diagrama))
 				this.diagramaActual = (DiagramaControl) diagrama;
+			
+			diagramaLogico=null;
+			for(Componente componente:componentes.values())
+				if(DiagramaLogico.class.isInstance(componente))
+					if(((DiagramaLogico)componente).getDer().getId().equals(id))
+						diagramaLogico=(DiagramaLogico)componente;
+				
 		}
 	}
 
