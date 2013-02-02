@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Color;
 
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
+import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
 import mreleditor.modelo.Tabla.ClaveForanea;
 
@@ -24,7 +25,6 @@ public class TablaFigure extends Figura<Tabla> {
 	
 	private AtributosFigure atributos;
 	
-	private static int BORDERS_PADDING = 10;
 	private static int COMMON_PADDING = 30;
 	private static int ATRIBUTE_PIXEL_HEIGHT = 20;
 	private static int CHARACTER_PIXEL_WIDTH = 6;
@@ -99,29 +99,55 @@ public class TablaFigure extends Figura<Tabla> {
 		this.setSize( iRectangleWidth, iRectangleHeight );
 	}
 	
-	private void insertAttributesLabels() {
+	private void drawAttributesLabels() {
 		Tabla tabla = this.componente;
 		
-		Set<String> atributosPK = tabla.getClavePrimaria(); // si el atributo existe en la lista, lo marcamos como 'PK'
-		Set< ClaveForanea > atributosFK = tabla.getClavesForaneas(); // si el atributo existe en la lista, lo marcamos como 'FK' (sii no es PK)
+		Set<String> atributosPK = tabla.getClavePrimaria();
 		Iterator<String> it = tabla.getAtributos().iterator();
 		while( it.hasNext() ) {
 			
 			// Incluir PK o FK segun se trate de claves primarias o foraneas
-			String attribute = it.next();
+			String attribute = "";
+			boolean bIsPK = false;
+			attribute = it.next();
 			if( atributosPK.contains(attribute) ) {
 				attribute = "PK - " + attribute;
-			} else if( atributosFK.contains(attribute) ) {
-				attribute = "FK - " + attribute;
-			} else {
-				attribute = "     " + attribute;
-			}
+				bIsPK = true;
+			} 
 			
+			if( !bIsPK && !tabla.getClavesForaneas().isEmpty() ) {
+				Iterator<ClaveForanea> itFK = tabla.getClavesForaneas().iterator();
+				while( itFK.hasNext() ) {
+					Set<String> atributosFK = itFK.next().getAtributos();
+					if( atributosFK.contains(attribute)) {
+						attribute = "FK - " + attribute;
+					}
+				}
+			} 
+
 			Label newLabel = new Label();
 			newLabel.setFont( this.getFont() );
 			newLabel.setText( attribute );
 			
 			this.atributos.add(newLabel);
+		}
+	}
+	
+	private void drawTableFKRelations() {
+		Tabla tabla = this.componente;
+		
+		Iterator<ClaveForanea> it = tabla.getClavesForaneas().iterator();
+		while( it.hasNext() ) {
+			ClaveForanea claveFK = it.next();
+			
+			String tablaReferenciada = claveFK.getTablaReferenciada();
+			
+			DiagramaLogico der = (DiagramaLogico)tabla.getPadre();
+			Tabla tablaRef = der.getTablaByName(tablaReferenciada);
+			
+			//TODO: necesito Figura<Tabla> para poder dibujar!!
+			//Connection conexion = conectarTabla(tabla);
+			//this.add(conexion);
 		}
 	}
 	
@@ -144,7 +170,10 @@ public class TablaFigure extends Figura<Tabla> {
 		this.lblName.setText(tabla.getNombre());
 		
 		// Redibujar labels de atributos
-		insertAttributesLabels();	
+		drawAttributesLabels();	
+		
+		// Redibujar relaciones con otras tablas
+		drawTableFKRelations();
 	}
 	
 	private Ellipse circuloIdentificador() {

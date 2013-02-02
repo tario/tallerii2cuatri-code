@@ -6,6 +6,7 @@ package mreleditor.modelo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import mereditor.modelo.Diagrama;
@@ -55,6 +56,16 @@ public class DiagramaLogico extends ComponenteNombre {
 		return tablas;
 	}
 
+	public Tabla getTablaByName(String nombre) {
+		Iterator<Tabla> it = this.tablas.iterator();
+		while( it.hasNext() ) {
+			Tabla tabla = it.next();
+			if( tabla.getNombre().equals(nombre) ) 
+				return tabla; 
+		}
+		return null;
+	}
+	
 	public void setTablas(ArrayList<Tabla> tablas) {
 		this.tablas = tablas;
 	}
