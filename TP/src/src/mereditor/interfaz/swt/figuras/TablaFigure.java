@@ -13,6 +13,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
+import mereditor.control.DiagramaLogicoControl;
+import mereditor.control.TablaControl;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mreleditor.modelo.DiagramaLogico;
@@ -54,8 +56,9 @@ public class TablaFigure extends Figura<Tabla> {
 		
 		atributos = new AtributosFigure();
 		this.add(atributos);
+		addAttributesLabels();
 		
-		this.actualizar(); // add attributes labels
+		//this.actualizar(); 
 	}
 	
 	public Connection conectarTabla(Figura<Tabla> figura) {
@@ -99,7 +102,7 @@ public class TablaFigure extends Figura<Tabla> {
 		this.setSize( iRectangleWidth, iRectangleHeight );
 	}
 	
-	private void drawAttributesLabels() {
+	private void addAttributesLabels() {
 		Tabla tabla = this.componente;
 		
 		Set<String> atributosPK = tabla.getClavePrimaria();
@@ -134,20 +137,26 @@ public class TablaFigure extends Figura<Tabla> {
 	}
 	
 	private void drawTableFKRelations() {
-		Tabla tabla = this.componente;
+		TablaControl tablaC = (TablaControl)this.componente;
 		
-		Iterator<ClaveForanea> it = tabla.getClavesForaneas().iterator();
+		Iterator<ClaveForanea> it = tablaC.getClavesForaneas().iterator();
 		while( it.hasNext() ) {
 			ClaveForanea claveFK = it.next();
 			
 			String tablaReferenciada = claveFK.getTablaReferenciada();
 			
-			DiagramaLogico der = (DiagramaLogico)tabla.getPadre();
-			Tabla tablaRef = der.getTablaByName(tablaReferenciada);
+			DiagramaLogicoControl derC = (DiagramaLogicoControl)tablaC.getPadre();
+			TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);
+			String idTabla = tablaRef.getId();
 			
-			//TODO: necesito Figura<Tabla> para poder dibujar!!
-			//Connection conexion = conectarTabla(tabla);
-			//this.add(conexion);
+			if( tablaRef.getFiguras().containsKey(idTabla) )
+			{
+				TablaFigure tablaRefFigure = tablaRef.getFiguras().get(idTabla);
+				
+				Connection conexion = conectarTabla(tablaRefFigure);
+				
+				//this.add(conexion);
+			}
 		}
 	}
 	
@@ -169,8 +178,8 @@ public class TablaFigure extends Figura<Tabla> {
 		// Nombre de tabla
 		this.lblName.setText(tabla.getNombre());
 		
-		// Redibujar labels de atributos
-		drawAttributesLabels();	
+		// Redibujar labels de atributos (¿?)
+		//addAttributesLabels();	
 		
 		// Redibujar relaciones con otras tablas
 		drawTableFKRelations();
