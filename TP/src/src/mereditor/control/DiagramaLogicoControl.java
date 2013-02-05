@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 
 import mereditor.interfaz.swt.figuras.Figura;
+import mereditor.interfaz.swt.figuras.TablaFigure;
 import mereditor.modelo.Proyecto;
 import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
+import mreleditor.modelo.Tabla.ClaveForanea;
 
 public class DiagramaLogicoControl extends DiagramaLogico implements Control<DiagramaLogico>{
 
@@ -60,6 +63,25 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 		}
 		*/
 		this.dibujar(contenedor, idDiagrama, this.tablas);
+
+		Iterator<Tabla> itTablas = this.tablas.iterator();
+		while( itTablas.hasNext() ) {
+			TablaControl tabla = (TablaControl)itTablas.next();
+			if( tabla.getClavesForaneas().size() > 0 ) {
+				TablaFigure figuraTabla = (TablaFigure)tabla.getFigura(tabla.getId());
+				Iterator<ClaveForanea> itClaves = tabla.getClavesForaneas().iterator();
+				while( itClaves.hasNext() ) {
+					ClaveForanea claveFK = itClaves.next();
+					
+					String tablaReferenciada = claveFK.getTablaReferenciada();			
+					TablaControl tablaRef = (TablaControl)getTablaByName(tablaReferenciada);	
+					TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(tablaRef.getId());
+					
+					Connection conexion = figuraTabla.conectarTabla(figuraTablaRef);
+					contenedor.add(conexion);
+				}
+			}
+		}
 	}
 	
 	/*@SuppressWarnings("rawtypes")

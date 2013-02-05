@@ -64,7 +64,7 @@ public class TablaFigure extends Figura<Tabla> {
 	public Connection conectarTabla(Figura<Tabla> figura) {
 		Connection conexion = Figura.conectarChopboxEllipse(this, figura);
 
-		this.getParent().add(conexion);
+		//this.getParent().add(conexion); // lanza nullreference exception, getParent()==null
 		this.conexiones.put(figura.componente.getId(), conexion);
 
 		return conexion;
@@ -147,16 +147,9 @@ public class TablaFigure extends Figura<Tabla> {
 			
 			DiagramaLogicoControl derC = (DiagramaLogicoControl)tablaC.getPadre();
 			TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);
-			String idTabla = tablaRef.getId();
+			TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(tablaRef.getId());
 			
-			if( tablaRef.getFiguras().containsKey(idTabla) )
-			{
-				TablaFigure tablaRefFigure = tablaRef.getFiguras().get(idTabla);
-				
-				Connection conexion = conectarTabla(tablaRefFigure);
-				
-				//this.add(conexion);
-			}
+			conectarTabla(figuraTablaRef);
 		}
 	}
 	
@@ -182,7 +175,7 @@ public class TablaFigure extends Figura<Tabla> {
 		//addAttributesLabels();	
 		
 		// Redibujar relaciones con otras tablas
-		drawTableFKRelations();
+		//drawTableFKRelations();
 	}
 	
 	private Ellipse circuloIdentificador() {
