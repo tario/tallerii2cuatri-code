@@ -1,8 +1,10 @@
 package mereditor.control;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -12,6 +14,7 @@ import mereditor.interfaz.swt.figuras.TablaFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.representacion.PList;
 import mreleditor.modelo.Tabla;
+import mreleditor.modelo.Tabla.ClaveForanea;
 
 public class TablaControl extends Tabla implements Control<Tabla>,
 		MouseListener {
@@ -64,7 +67,24 @@ public class TablaControl extends Tabla implements Control<Tabla>,
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		TablaFigure figuraTabla = (TablaFigure) this.getFigura(idDiagrama);
 		contenedor.add(figuraTabla);
-		this.figures.put(idDiagrama, figuraTabla);
+		//this.figures.put(idDiagrama, figuraTabla);
+		
+		/**
+		 * Conectar tabla con tablas referenciadas por claves foraneas
+		 */
+		if( this.getClavesForaneas().size() > 0 ) {
+			DiagramaLogicoControl derC = (DiagramaLogicoControl)this.getPadre(idDiagrama);
+			Iterator<ClaveForanea> itClaves = this.getClavesForaneas().iterator();
+			while( itClaves.hasNext() ) {
+				ClaveForanea claveFK = itClaves.next();
+				
+				String tablaReferenciada = claveFK.getTablaReferenciada();			
+				TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);	
+				TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(tablaRef.getId());
+				
+				figuraTabla.conectarTabla(figuraTablaRef);
+			}
+		}
 	}
 
 	public Map<String, TablaFigure> getFiguras() {

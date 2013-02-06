@@ -62,11 +62,12 @@ public class TablaFigure extends Figura<Tabla> {
 	}
 	
 	public Connection conectarTabla(Figura<Tabla> figura) {
-		Connection conexion = Figura.conectarChopboxEllipse(this, figura);
-
-		//this.getParent().add(conexion); // lanza nullreference exception, getParent()==null
+		//Connection conexion = Figura.conectarChopboxEllipse(this, figura);
+		Connection conexion = Figura.conectarChopbox(this, figura);
+		
+		this.getParent().add(conexion); 
 		this.conexiones.put(figura.componente.getId(), conexion);
-
+		
 		return conexion;
 	}
 	
@@ -81,7 +82,7 @@ public class TablaFigure extends Figura<Tabla> {
 		return conexion;
 	}
 
-	private void calculateRectangleDimention() {
+	/*private void calculateRectangleDimention() {
 		// Calcular alto de rectangulo segun cantidad de atributos de la tabla + padding top-bottom
 		Tabla tabla = this.componente;
 		int iCantidadAtributos = tabla.getAtributos().size();
@@ -100,7 +101,7 @@ public class TablaFigure extends Figura<Tabla> {
 		int iRectangleWidth = ( (2 * COMMON_PADDING) + (iMaxAtributoName * CHARACTER_PIXEL_WIDTH) );
 		
 		this.setSize( iRectangleWidth, iRectangleHeight );
-	}
+	}*/
 	
 	private void addAttributesLabels() {
 		Tabla tabla = this.componente;
@@ -136,6 +137,7 @@ public class TablaFigure extends Figura<Tabla> {
 		}
 	}
 	
+	/*
 	private void drawTableFKRelations() {
 		TablaControl tablaC = (TablaControl)this.componente;
 		
@@ -151,7 +153,7 @@ public class TablaFigure extends Figura<Tabla> {
 			
 			conectarTabla(figuraTablaRef);
 		}
-	}
+	}*/
 	
 	public String getID() {
 		return id;
@@ -166,7 +168,7 @@ public class TablaFigure extends Figura<Tabla> {
 		Tabla tabla = this.componente;
 		
 		// Recalcular tamaño de tabla (si se agregaron o quitaron atributos)
-		calculateRectangleDimention();
+		//calculateRectangleDimention();
 		
 		// Nombre de tabla
 		this.lblName.setText(tabla.getNombre());

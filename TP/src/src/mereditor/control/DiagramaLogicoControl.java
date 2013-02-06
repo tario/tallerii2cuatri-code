@@ -44,7 +44,6 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 		return false;
 	}*/
 	
-	
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
@@ -63,25 +62,6 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 		}
 		*/
 		this.dibujar(contenedor, idDiagrama, this.tablas);
-
-		Iterator<Tabla> itTablas = this.tablas.iterator();
-		while( itTablas.hasNext() ) {
-			TablaControl tabla = (TablaControl)itTablas.next();
-			if( tabla.getClavesForaneas().size() > 0 ) {
-				TablaFigure figuraTabla = (TablaFigure)tabla.getFigura(tabla.getId());
-				Iterator<ClaveForanea> itClaves = tabla.getClavesForaneas().iterator();
-				while( itClaves.hasNext() ) {
-					ClaveForanea claveFK = itClaves.next();
-					
-					String tablaReferenciada = claveFK.getTablaReferenciada();			
-					TablaControl tablaRef = (TablaControl)getTablaByName(tablaReferenciada);	
-					TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(tablaRef.getId());
-					
-					Connection conexion = figuraTabla.conectarTabla(figuraTablaRef);
-					contenedor.add(conexion);
-				}
-			}
-		}
 	}
 	
 	/*@SuppressWarnings("rawtypes")
