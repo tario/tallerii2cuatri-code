@@ -68,19 +68,23 @@ public class TablaControl extends Tabla implements Control<Tabla>,
 		TablaFigure figuraTabla = (TablaFigure) this.getFigura(idDiagrama);
 		contenedor.add(figuraTabla);
 		//this.figures.put(idDiagrama, figuraTabla);
+	}
+	
+	/**
+	 * Conectar tabla con tablas referenciadas por claves foraneas
+	 */
+	public void dibujarRelaciones(Figure contenedor, String idDiagrama, DiagramaLogicoControl derC) {
+		TablaFigure figuraTabla = (TablaFigure) this.getFigura(idDiagrama);
 		
-		/**
-		 * Conectar tabla con tablas referenciadas por claves foraneas
-		 */
 		if( this.getClavesForaneas().size() > 0 ) {
-			DiagramaLogicoControl derC = (DiagramaLogicoControl)this.getPadre(idDiagrama);
+			//DiagramaLogicoControl derC = (DiagramaLogicoControl)this.getPadre(idDiagrama);
 			Iterator<ClaveForanea> itClaves = this.getClavesForaneas().iterator();
 			while( itClaves.hasNext() ) {
 				ClaveForanea claveFK = itClaves.next();
 				
 				String tablaReferenciada = claveFK.getTablaReferenciada();			
 				TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);	
-				TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(tablaRef.getId());
+				TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(idDiagrama);
 				
 				figuraTabla.conectarTabla(figuraTablaRef);
 			}

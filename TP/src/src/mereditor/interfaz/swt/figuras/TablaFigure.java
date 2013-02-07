@@ -23,8 +23,7 @@ import mreleditor.modelo.Tabla.ClaveForanea;
 
 public class TablaFigure extends Figura<Tabla> {
 
-	protected String id;	
-	
+	protected String id;		
 	private AtributosFigure atributos;
 	
 	private static int COMMON_PADDING = 30;
@@ -57,12 +56,9 @@ public class TablaFigure extends Figura<Tabla> {
 		atributos = new AtributosFigure();
 		this.add(atributos);
 		addAttributesLabels();
-		
-		//this.actualizar(); 
 	}
 	
 	public Connection conectarTabla(Figura<Tabla> figura) {
-		//Connection conexion = Figura.conectarChopboxEllipse(this, figura);
 		Connection conexion = Figura.conectarChopbox(this, figura);
 		
 		this.getParent().add(conexion); 
@@ -81,8 +77,83 @@ public class TablaFigure extends Figura<Tabla> {
 
 		return conexion;
 	}
+	
+	private void addAttributesLabels() {
+		Tabla tabla = this.componente;
+		
+		// Agregar Atributos PK
+		if( !tabla.getClavePrimaria().isEmpty() ) {
+			Iterator<String> itPK = tabla.getClavePrimaria().iterator();
+			while( itPK.hasNext() ) {
+				String attribute = "PK - " + itPK.next();
+				
+				Label newLabel = new Label();
+				newLabel.setFont( this.getFont() );
+				newLabel.setText( attribute );
+				
+				this.atributos.add(newLabel);
+			}
+		}
+		
+		// Agregar Atributos FK
+		if( !tabla.getClavesForaneas().isEmpty() ) {
+			Iterator<ClaveForanea> itClaveForanea = tabla.getClavesForaneas().iterator();
+			while( itClaveForanea.hasNext() ) {
+				Iterator<String> itFK = itClaveForanea.next().getAtributos().iterator();
+				while( itFK.hasNext() ) {
+					String attribute = "FK - " + itFK.next();
+					
+					Label newLabel = new Label();
+					newLabel.setFont( this.getFont() );
+					newLabel.setText( attribute );
+					
+					this.atributos.add(newLabel);
+				}
+			}
+		}
+		
+		// Agrego Resto de Atributos
+		Iterator<String> it = tabla.getAtributos().iterator();
+		while( it.hasNext() ) {
+			
+			// Incluir PK o FK segun se trate de claves primarias o foraneas
+			String attribute = it.next();
+			boolean bIsPK = false;
+			boolean bIsFK = false;
+			if( tabla.getClavePrimaria().contains(attribute) ) {
+				bIsPK = true;
+			} 
+			
+			if( !bIsPK && !tabla.getClavesForaneas().isEmpty() ) {
+				Iterator<ClaveForanea> itFK = tabla.getClavesForaneas().iterator();
+				while( itFK.hasNext() ) {
+					Set<String> atributosFK = itFK.next().getAtributos();
+					if( atributosFK.contains(attribute)) {
+						bIsFK = true;
+						break;
+					}
+				}
+			} 
 
-	/*private void calculateRectangleDimention() {
+			if( !bIsPK && !bIsFK ) {
+				Label newLabel = new Label();
+				newLabel.setFont( this.getFont() );
+				newLabel.setText( attribute );
+				
+				this.atributos.add(newLabel);
+			}
+		}
+	}
+	
+	public String getID() {
+		return id;
+	}
+	
+	public void setID(String id) {
+		this.id = id;
+	}
+	
+	private void calculateRectangleDimention() {
 		// Calcular alto de rectangulo segun cantidad de atributos de la tabla + padding top-bottom
 		Tabla tabla = this.componente;
 		int iCantidadAtributos = tabla.getAtributos().size();
@@ -101,83 +172,17 @@ public class TablaFigure extends Figura<Tabla> {
 		int iRectangleWidth = ( (2 * COMMON_PADDING) + (iMaxAtributoName * CHARACTER_PIXEL_WIDTH) );
 		
 		this.setSize( iRectangleWidth, iRectangleHeight );
-	}*/
-	
-	private void addAttributesLabels() {
-		Tabla tabla = this.componente;
-		
-		Set<String> atributosPK = tabla.getClavePrimaria();
-		Iterator<String> it = tabla.getAtributos().iterator();
-		while( it.hasNext() ) {
-			
-			// Incluir PK o FK segun se trate de claves primarias o foraneas
-			String attribute = "";
-			boolean bIsPK = false;
-			attribute = it.next();
-			if( atributosPK.contains(attribute) ) {
-				attribute = "PK - " + attribute;
-				bIsPK = true;
-			} 
-			
-			if( !bIsPK && !tabla.getClavesForaneas().isEmpty() ) {
-				Iterator<ClaveForanea> itFK = tabla.getClavesForaneas().iterator();
-				while( itFK.hasNext() ) {
-					Set<String> atributosFK = itFK.next().getAtributos();
-					if( atributosFK.contains(attribute)) {
-						attribute = "FK - " + attribute;
-					}
-				}
-			} 
-
-			Label newLabel = new Label();
-			newLabel.setFont( this.getFont() );
-			newLabel.setText( attribute );
-			
-			this.atributos.add(newLabel);
-		}
-	}
-	
-	/*
-	private void drawTableFKRelations() {
-		TablaControl tablaC = (TablaControl)this.componente;
-		
-		Iterator<ClaveForanea> it = tablaC.getClavesForaneas().iterator();
-		while( it.hasNext() ) {
-			ClaveForanea claveFK = it.next();
-			
-			String tablaReferenciada = claveFK.getTablaReferenciada();
-			
-			DiagramaLogicoControl derC = (DiagramaLogicoControl)tablaC.getPadre();
-			TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);
-			TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(tablaRef.getId());
-			
-			conectarTabla(figuraTablaRef);
-		}
-	}*/
-	
-	public String getID() {
-		return id;
-	}
-	
-	public void setID(String id) {
-		this.id = id;
 	}
 	
 	@Override
 	public void actualizar() {
 		Tabla tabla = this.componente;
 		
-		// Recalcular tamaño de tabla (si se agregaron o quitaron atributos)
-		//calculateRectangleDimention();
-		
 		// Nombre de tabla
 		this.lblName.setText(tabla.getNombre());
 		
-		// Redibujar labels de atributos (¿?)
-		//addAttributesLabels();	
-		
-		// Redibujar relaciones con otras tablas
-		//drawTableFKRelations();
+		// Recalcular tamaño de tabla (si se agregaron o quitaron atributos)
+		calculateRectangleDimention();
 	}
 	
 	private Ellipse circuloIdentificador() {

@@ -16,11 +16,6 @@ import mreleditor.modelo.Tabla.ClaveForanea;
 
 public class DiagramaLogicoControl extends DiagramaLogico implements Control<DiagramaLogico>{
 
-	/*@SuppressWarnings("rawtypes")
-	protected ArrayList<Figura> listaObjetosLogicos;*/
-	
-	//protected ArrayList<TablaControl> listaTablasControl;
-	
 	public DiagramaLogicoControl(Proyecto proyecto) {
 		super(proyecto);
 	}
@@ -33,41 +28,15 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 	public Figura<DiagramaLogico> getFigura(String idDiagrama) {
 		return null;
 	}
-	
-	/*private boolean checkTable(String id) {
-		Iterator<TablaControl> it = listaTablasControl.iterator();
-		while (it.hasNext()) {
-			if (id == it.next().getId())
-				return true;
-		}
-		
-		return false;
-	}*/
-	
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		idDiagrama = idDiagrama != null ? idDiagrama : this.id;
 
-	/*	if (this.listaTablasControl == null) {
-			
-			this.listaTablasControl = new ArrayList<TablaControl>();
-			
-			ArrayList<Tabla> tablas = this.getTablas();
-			Iterator<Tabla> it = tablas.iterator();
-			
-			while (it.hasNext()) {
-				this.listaTablasControl.add(new TablaControl(it.next()));
-			}
-		}
-		*/
 		this.dibujar(contenedor, idDiagrama, this.tablas);
+		
+		this.dibujarRelaciones(contenedor, idDiagrama, this.tablas);
 	}
-	
-	/*@SuppressWarnings("rawtypes")
-	public void setListaObjetosLogicos(ArrayList<Figura> lista) {
-		this.listaObjetosLogicos = lista;
-	}*/
 	
 	@SuppressWarnings("rawtypes")
 	public ArrayList<Figura> getListaObjetosLogicos() {
@@ -84,12 +53,15 @@ public class DiagramaLogicoControl extends DiagramaLogico implements Control<Dia
 			((Control<?>) componente).dibujar(contenedor, id);
 	}
 	
+	private void dibujarRelaciones(Figure contenedor, String id, ArrayList<Tabla> tablas) {
+		for (Tabla componente : tablas)
+			((TablaControl) componente).dibujarRelaciones(contenedor, id, this);
+	}
+	
 	public void dibujar(Figure contenedor) {
 		this.dibujar(contenedor, this.id);
 	}
 	
-	
-
 	@Override
 	public String getNombreIcono() {
 		return "logicdiagram.png";
