@@ -77,7 +77,6 @@ public class TablaControl extends Tabla implements Control<Tabla>,
 		TablaFigure figuraTabla = (TablaFigure) this.getFigura(idDiagrama);
 		
 		if( this.getClavesForaneas().size() > 0 ) {
-			//DiagramaLogicoControl derC = (DiagramaLogicoControl)this.getPadre(idDiagrama);
 			Iterator<ClaveForanea> itClaves = this.getClavesForaneas().iterator();
 			while( itClaves.hasNext() ) {
 				ClaveForanea claveFK = itClaves.next();

@@ -4,17 +4,25 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MidpointLocator;
+import org.eclipse.draw2d.PolygonDecoration;
+import org.eclipse.draw2d.PolylineConnection;
+import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 
 import mereditor.control.DiagramaLogicoControl;
 import mereditor.control.TablaControl;
+import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mreleditor.modelo.DiagramaLogico;
@@ -59,22 +67,23 @@ public class TablaFigure extends Figura<Tabla> {
 	}
 	
 	public Connection conectarTabla(Figura<Tabla> figura) {
-		Connection conexion = Figura.conectarChopbox(this, figura);
+		PolylineConnection conexion = (PolylineConnection)Figura.conectarChopbox(this, figura);
+		
+		PolygonDecoration sourceDecoration = new PolygonDecoration();
+		PointList points = new PointList();
+		points.addPoint(0,0); points.addPoint(-2,2);
+		points.addPoint(-4,0); points.addPoint(-2,-2); points.addPoint(0,0);
+		sourceDecoration.setTemplate(points);
+		sourceDecoration.setBackgroundColor(ColorConstants.black);
+		sourceDecoration.setFill(true);
+		sourceDecoration.setScale(3, 3);
+		conexion.setSourceDecoration(sourceDecoration);
+
+		conexion.setTargetDecoration(new PolygonDecoration());
 		
 		this.getParent().add(conexion); 
 		this.conexiones.put(figura.componente.getId(), conexion);
 		
-		return conexion;
-	}
-	
-	public Connection conectarEntidad(String id, Connection conexionEntidad) {
-		Ellipse circuloConexion = this.circuloIdentificador();
-		conexionEntidad.add(circuloConexion, new MidpointLocator(conexionEntidad, 0));
-
-		Connection conexion = Figura.conectarChopbox(this, circuloConexion);
-		this.getParent().add(conexion);
-		this.conexiones.put(id, conexion);
-
 		return conexion;
 	}
 	
@@ -85,12 +94,13 @@ public class TablaFigure extends Figura<Tabla> {
 		if( !tabla.getClavePrimaria().isEmpty() ) {
 			Iterator<String> itPK = tabla.getClavePrimaria().iterator();
 			while( itPK.hasNext() ) {
-				String attribute = "PK - " + itPK.next();
+				String attribute = itPK.next();
 				
 				Label newLabel = new Label();
 				newLabel.setFont( this.getFont() );
 				newLabel.setText( attribute );
-				
+				newLabel.setIcon( Principal.getIcono("PrimaryKey.png") );
+				newLabel.setIconAlignment(PositionConstants.LEFT);
 				this.atributos.add(newLabel);
 			}
 		}
@@ -101,11 +111,13 @@ public class TablaFigure extends Figura<Tabla> {
 			while( itClaveForanea.hasNext() ) {
 				Iterator<String> itFK = itClaveForanea.next().getAtributos().iterator();
 				while( itFK.hasNext() ) {
-					String attribute = "FK - " + itFK.next();
+					String attribute = itFK.next();
 					
 					Label newLabel = new Label();
 					newLabel.setFont( this.getFont() );
 					newLabel.setText( attribute );
+					newLabel.setIcon( Principal.getIcono("ForeignKey.png") );
+					newLabel.setIconAlignment(PositionConstants.LEFT);
 					
 					this.atributos.add(newLabel);
 				}
@@ -183,15 +195,6 @@ public class TablaFigure extends Figura<Tabla> {
 		
 		// Recalcular tamaño de tabla (si se agregaron o quitaron atributos)
 		calculateRectangleDimention();
-	}
-	
-	private Ellipse circuloIdentificador() {
-		Color negro = new Color(null, 0, 0, 0);
-		Ellipse circulo = new Ellipse();
-		circulo.setAntialias(SWT.ON);
-		circulo.setSize(10, 10);
-		circulo.setBackgroundColor(negro);
-		return circulo;
 	}
 
 }
