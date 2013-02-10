@@ -30,22 +30,22 @@ public class SaverLoaderXML {
 		this.modeloParser = new ModeloBaseParserXml(this.proyecto);
 		this.modeloLogicoParser = new ModeloLogicoParserXml(this.proyecto);
 		this.representacionParser = new RepresentacionParserXml(this.proyecto);
-		this.representacionParserDER = new ParserRepresentacionDER(
-				this.proyecto);
+		this.representacionParserDER = new ParserRepresentacionDER(this.proyecto);
 	}
 
 	public SaverLoaderXML(String path) throws Exception {
 		this.proyecto = new Proyecto();
 		this.proyecto.setPath(path);
 		this.proyectoParser = new ProyectoParserXml(path);
-		this.modeloParser = new ModeloBaseParserXml(proyecto,
-				proyectoParser.getModeloPath());
-		this.modeloLogicoParser = new ModeloLogicoParserXml(proyecto,
-				proyectoParser.getModeloLogicoPath());
-		this.representacionParser = new RepresentacionParserXml(proyecto,
-				proyectoParser.getRepresentacionPath());
-		this.representacionParserDER = new ParserRepresentacionDER(proyecto,
-				proyectoParser.getRepresentacionDERPath());
+		this.modeloParser = new ModeloBaseParserXml(proyecto, proyectoParser.getModeloPath());
+
+		if (proyectoParser.hasLogic()) {
+			this.modeloLogicoParser = new ModeloLogicoParserXml(proyecto, proyectoParser.getModeloLogicoPath());
+
+			this.representacionParserDER = new ParserRepresentacionDER(proyecto,
+					proyectoParser.getRepresentacionDERPath());
+		}
+		this.representacionParser = new RepresentacionParserXml(proyecto, proyectoParser.getRepresentacionPath());
 	}
 
 	/**
@@ -57,9 +57,12 @@ public class SaverLoaderXML {
 	 */
 	public Proyecto load() throws Exception {
 		this.modeloParser.parsearXml();
-		this.modeloLogicoParser.parsearXml();
 		this.representacionParser.parsearXml();
-		this.representacionParserDER.parsearXml();
+
+		if (proyectoParser.hasLogic()) {
+			this.modeloLogicoParser.parsearXml();
+			this.representacionParserDER.parsearXml();
+		}
 		return this.proyecto;
 	}
 
@@ -77,7 +80,7 @@ public class SaverLoaderXML {
 		} catch (Exception e) {
 			return this.modeloLogicoParser.resolver(id);
 		}
-		
+
 	}
 
 	/**
@@ -101,7 +104,7 @@ public class SaverLoaderXML {
 	public Document saveComponentes() throws DOMException, Exception {
 		return this.modeloParser.generarXml();
 	}
-	
+
 	public Document saveComponentesLogicos() throws DOMException, Exception {
 		return this.modeloLogicoParser.generarXml();
 	}
@@ -129,9 +132,9 @@ public class SaverLoaderXML {
 	}
 
 	/**
-	 * Método que se hace disponible para fines de testing. Encuentra y devuelve
-	 * las representaciones de un componente para cada diagrama en el que este
-	 * presente en el archivo.
+	 * Método que se hace disponible para fines de testing. Encuentra y
+	 * devuelve las representaciones de un componente para cada diagrama en el
+	 * que este presente en el archivo.
 	 * 
 	 * @param string
 	 * @return
@@ -141,9 +144,9 @@ public class SaverLoaderXML {
 	}
 
 	/**
-	 * Método que se hace disponible para fines de testing. Encuentra y devuelve
-	 * las representaciones de un componente para cada diagrama en el que este
-	 * presente en el archivo.
+	 * Método que se hace disponible para fines de testing. Encuentra y
+	 * devuelve las representaciones de un componente para cada diagrama en el
+	 * que este presente en el archivo.
 	 * 
 	 * @param string
 	 * @return

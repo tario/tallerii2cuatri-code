@@ -2,7 +2,6 @@ package mereditor.xml;
 
 import java.io.File;
 
-
 import mereditor.modelo.Proyecto;
 
 import org.w3c.dom.DOMException;
@@ -17,52 +16,60 @@ public class ProyectoParserXml extends ParserXML {
 	private String representacionDERPath;
 	private Proyecto proyecto;
 
-	
-	public ProyectoParserXml(Proyecto proyecto)throws Exception{
+	private boolean hasLogic = false;
+
+	public ProyectoParserXml(Proyecto proyecto) throws Exception {
 		super();
-		this.proyecto=proyecto;
+		this.proyecto = proyecto;
 	}
-	public ProyectoParserXml(String path)throws Exception {
+
+	public ProyectoParserXml(String path) throws Exception {
 		setRoot(path);
 		if (!this.validarFormato(this.root))
-		throw new RuntimeException("Formato inválido del archivo del proyecto.");
+			throw new RuntimeException("Formato inválido del archivo del proyecto.");
 
-	String dir = new File(path).getParent() + File.separator;
+		String dir = new File(path).getParent() + File.separator;
 
-	modeloPath = dir + XmlHelper.querySingle(this.root, "./Modelo").getTextContent();
-	representacionPath = dir + XmlHelper.querySingle(this.root, "./Representacion")
-			.getTextContent();
-	representacionDERPath  = dir + XmlHelper.querySingle(this.root, "./RepresentacionLogica")
-			.getTextContent();
-	modeloLogicoPath = dir + XmlHelper.querySingle(this.root, "./DiagramaLogico")
-			.getTextContent();
+		modeloPath = dir + XmlHelper.querySingle(this.root, "./Modelo").getTextContent();
+		representacionPath = dir + XmlHelper.querySingle(this.root, "./Representacion").getTextContent();
+
+		if (hasLogic) {
+			representacionDERPath = dir + XmlHelper.querySingle(this.root, "./RepresentacionLogica").getTextContent();
+			modeloLogicoPath = dir + XmlHelper.querySingle(this.root, "./DiagramaLogico").getTextContent();
+		}
 	}
-	
-	String getModeloPath(){
+	public boolean hasLogic(){
+		return hasLogic;
+	}
+	String getModeloPath() {
 		return modeloPath;
 	}
-	String getRepresentacionPath(){
+
+	String getRepresentacionPath() {
 		return representacionPath;
 	}
-	
+
 	String getRepresentacionDERPath() {
 		return representacionDERPath;
 	}
-	
+
 	String getModeloLogicoPath() {
 		return modeloLogicoPath;
 	}
 
-	
 	private boolean validarFormato(Element root) {
-		if (XmlHelper.querySingle(root, "./Modelo") != null
-				&& XmlHelper.querySingle(root, "./Representacion") != null
-					&& XmlHelper.querySingle(root, "./RepresentacionLogica") != null
-						&& XmlHelper.querySingle(root, "./DiagramaLogico") != null)
+		if (XmlHelper.querySingle(root, "./RepresentacionLogica") != null
+				&& XmlHelper.querySingle(root, "./DiagramaLogico") != null)
+			hasLogic = true;
+
+		if (XmlHelper.querySingle(root, "./Modelo") != null && XmlHelper.querySingle(root, "./Representacion") != null
+
+		)
 			return true;
 
 		return false;
 	}
+
 	@Override
 	public Document generarXml() throws DOMException, Exception {
 		Document doc = this.docBuilder.newDocument();
@@ -92,8 +99,4 @@ public class ProyectoParserXml extends ParserXML {
 		return null;
 	}
 
-
-
-	
-	
 }
