@@ -65,6 +65,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.w3c.dom.Document;
 
 /**
@@ -495,7 +496,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	public void abrirDiagramaLogico(String id) {
-		this.panelDiagrama.setVisible(false);
+		this.panelDiagrama.setVisible(false);	
 		this.panelDiagramaLogico.setVisible(true);
 		this.proyecto.setDiagramaLogico(id);
 		this.cargarInterfazLogica();
@@ -571,16 +572,28 @@ public class Principal extends Observable implements FigureListener {
 	 * Disminuciî‰¢ del zoom.
 	 */
 	public void zoomOut(Combo cboZoom) {
-		this.panelDiagrama.zoomOut();
-		cboZoom.setText(this.panelDiagrama.getZoom());
+		if( this.panelDiagrama.isVisible()) {
+			this.panelDiagrama.zoomOut();
+			cboZoom.setText(this.panelDiagrama.getZoom());
+		} else if( this.panelDiagramaLogico.isVisible()) {
+			this.panelDiagramaLogico.zoomOut(); // workaround para el zoom del diagrama logico
+			cboZoom.setText(this.panelDiagramaLogico.getZoom());
+		}
+		
 	}
 
 	/**
 	 * Aumento del zoom.
 	 */
 	public void zoomIn(Combo cboZoom) {
-		this.panelDiagrama.zoomIn();
-		cboZoom.setText(this.panelDiagrama.getZoom());
+		if( this.panelDiagrama.isVisible()) {
+			this.panelDiagrama.zoomIn();
+			cboZoom.setText(this.panelDiagrama.getZoom());
+		} else if( this.panelDiagramaLogico.isVisible()) {
+			this.panelDiagramaLogico.zoomIn(); // workaround para el zoom del diagrama logico
+			cboZoom.setText(this.panelDiagramaLogico.getZoom());
+		}
+		
 	}
 
 	/**
@@ -591,7 +604,11 @@ public class Principal extends Observable implements FigureListener {
 	 *            {@link DiagramaFigura#zoomOptions}.
 	 */
 	public void zoom(String zoom) {
-		this.panelDiagrama.zoom(zoom);
+		if( this.panelDiagrama.isVisible()) {
+			this.panelDiagrama.zoom(zoom);
+		} else if( this.panelDiagramaLogico.isVisible()) {
+			this.panelDiagramaLogico.zoom(zoom); // workaround para el zoom del diagrama logico
+		}
 	}
 
 	/**
