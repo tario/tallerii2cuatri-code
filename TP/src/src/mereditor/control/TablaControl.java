@@ -82,10 +82,11 @@ public class TablaControl extends Tabla implements Control<Tabla>,
 				ClaveForanea claveFK = itClaves.next();
 				
 				String tablaReferenciada = claveFK.getTablaReferenciada();			
-				TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);	
-				TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(idDiagrama);
-				
-				figuraTabla.conectarTabla(figuraTablaRef);
+				TablaControl tablaRef = (TablaControl)derC.getTablaByName(tablaReferenciada);
+				if( tablaRef != null ) {
+					TablaFigure figuraTablaRef = (TablaFigure) tablaRef.getFigura(idDiagrama);
+					figuraTabla.conectarTabla(figuraTablaRef);
+				}
 			}
 		}
 	}
