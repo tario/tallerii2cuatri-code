@@ -4,8 +4,8 @@
         <Nombre>Consumo</Nombre>
         <Participantes>
             <Participante>
-                <RefEntidad idref="394eee43-227e-4d76-ae1f-9feb4aafe962"/>
-                <Cardinalidad max="n" min="1"/>
+                <RefEntidad idref="0bf041b6-8c6d-4f2f-ad97-907683812e47"/>
+                <Cardinalidad max="n" min="0"/>
                 <Rol/>
             </Participante>
             <Participante>
@@ -14,8 +14,8 @@
                 <Rol/>
             </Participante>
             <Participante>
-                <RefEntidad idref="0bf041b6-8c6d-4f2f-ad97-907683812e47"/>
-                <Cardinalidad max="n" min="0"/>
+                <RefEntidad idref="394eee43-227e-4d76-ae1f-9feb4aafe962"/>
+                <Cardinalidad max="n" min="1"/>
                 <Rol/>
             </Participante>
         </Participantes>
@@ -33,21 +33,21 @@
     <Entidad id="394eee43-227e-4d76-ae1f-9feb4aafe962" tipo="MAESTRA_COSA">
         <Nombre>Consumidor</Nombre>
         <Atributos>
-            <Atributo id="059967af-37ee-4683-9d79-faf1838e7e19" tipo="CARACTERIZACION">
-                <Nombre>apellido</Nombre>
-                <Cardinalidad max="" min=""/>
-            </Atributo>
             <Atributo id="7aab0e98-d29f-41df-a43c-56f3ea31efc2" tipo="CARACTERIZACION">
                 <Nombre>nombre</Nombre>
-                <Cardinalidad max="" min=""/>
+                <Cardinalidad max="1" min="1"/>
             </Atributo>
             <Atributo id="5763a98c-117c-4aec-aeda-e5b497fb700f" tipo="CARACTERIZACION">
                 <Nombre>fNacim</Nombre>
-                <Cardinalidad max="" min=""/>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="059967af-37ee-4683-9d79-faf1838e7e19" tipo="CARACTERIZACION">
+                <Nombre>apellido</Nombre>
+                <Cardinalidad max="1" min="1"/>
             </Atributo>
             <Atributo id="3f576a89-389b-47f8-90be-278de139aa29" tipo="CARACTERIZACION">
                 <Nombre>dni</Nombre>
-                <Cardinalidad max="" min=""/>
+                <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
         <Identificadores>
@@ -59,6 +59,18 @@
     <Entidad id="0bf041b6-8c6d-4f2f-ad97-907683812e47" tipo="MAESTRA_COSA">
         <Nombre>Servicio</Nombre>
         <Atributos>
+            <Atributo id="9e4f2271-d6fc-40b9-b634-13b14a72cc8c" tipo="CARACTERIZACION">
+                <Nombre>codServ</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="e353f592-ddb8-489c-bc26-eadb1fe0372c" tipo="CARACTERIZACION">
+                <Nombre>descrip</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="6353a848-fcc4-4306-971b-bec4422f07b4" tipo="CARACTERIZACION">
+                <Nombre>requisitos</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
             <Atributo id="b454566e-9bc6-4359-919c-418eb50ee187" tipo="CARACTERIZACION">
                 <Nombre>vigencia</Nombre>
                 <Cardinalidad max="1" min="1"/>
@@ -81,27 +93,15 @@
                         <Nombre>menores7</Nombre>
                         <Cardinalidad max="1" min="0"/>
                     </Atributo>
-                    <Atributo id="f3159932-9dbc-4864-9dbb-c1356e5b4f0c" tipo="CARACTERIZACION">
-                        <Nombre>jubilados</Nombre>
-                        <Cardinalidad max="1" min="0"/>
-                    </Atributo>
                     <Atributo id="be7bb8c8-e0f9-4b87-bb78-26e487b093a0" tipo="CARACTERIZACION">
                         <Nombre>adultos</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
+                    <Atributo id="f3159932-9dbc-4864-9dbb-c1356e5b4f0c" tipo="CARACTERIZACION">
+                        <Nombre>jubilados</Nombre>
+                        <Cardinalidad max="1" min="0"/>
+                    </Atributo>
                 </Atributos>
-            </Atributo>
-            <Atributo id="6353a848-fcc4-4306-971b-bec4422f07b4" tipo="CARACTERIZACION">
-                <Nombre>requisitos</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="9e4f2271-d6fc-40b9-b634-13b14a72cc8c" tipo="CARACTERIZACION">
-                <Nombre>codServ</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="e353f592-ddb8-489c-bc26-eadb1fe0372c" tipo="CARACTERIZACION">
-                <Nombre>descrip</Nombre>
-                <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
         <Identificadores>
@@ -110,9 +110,28 @@
             </Identificador>
         </Identificadores>
     </Entidad>
+    <Relacion id="0f5220b0-b0cd-40be-9fde-ca43d5f515d4" tipo="ASOCIACION">
+        <Nombre>R/V</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="86a2307c-734c-45b0-b232-4944f653e05c"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="4ceef096-32cc-40d5-92ed-5680e5fca3a4"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
     <Entidad id="4ceef096-32cc-40d5-92ed-5680e5fca3a4" tipo="MAESTRA_COSA">
         <Nombre>Responsable</Nombre>
         <Atributos>
+            <Atributo id="2430f47c-61cb-4c0f-8ad9-f05cf080e298" tipo="CARACTERIZACION">
+                <Nombre>CUIToL</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
             <Atributo id="fd8277b0-bc3c-4e22-a465-4c6d96d6ef84" tipo="CARACTERIZACION">
                 <Nombre>domic</Nombre>
                 <Cardinalidad max="1" min="1"/>
@@ -135,10 +154,6 @@
                 <Nombre>teléfonos</Nombre>
                 <Cardinalidad max="n" min="1"/>
             </Atributo>
-            <Atributo id="2430f47c-61cb-4c0f-8ad9-f05cf080e298" tipo="CARACTERIZACION">
-                <Nombre>CUIToL</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
         </Atributos>
         <Identificadores>
             <Identificador>
@@ -146,21 +161,6 @@
             </Identificador>
         </Identificadores>
     </Entidad>
-    <Relacion id="0f5220b0-b0cd-40be-9fde-ca43d5f515d4" tipo="ASOCIACION">
-        <Nombre>R/V</Nombre>
-        <Participantes>
-            <Participante>
-                <RefEntidad idref="4ceef096-32cc-40d5-92ed-5680e5fca3a4"/>
-                <Cardinalidad max="n" min="1"/>
-                <Rol/>
-            </Participante>
-            <Participante>
-                <RefEntidad idref="86a2307c-734c-45b0-b232-4944f653e05c"/>
-                <Cardinalidad max="1" min="1"/>
-                <Rol/>
-            </Participante>
-        </Participantes>
-    </Relacion>
     <Jerarquia id="ca22a5ed-25cf-4394-add4-0080c008dcde" tipo="TOTAL_EXCLUSIVA">
         <Generica>
             <RefEntidad idref="394eee43-227e-4d76-ae1f-9feb4aafe962"/>
@@ -190,13 +190,13 @@
     <Diagrama id="f2df4948-2b1a-435f-9ad7-69c872ee21e1">
         <Nombre>Servicios</Nombre>
         <Componentes>
-            <Componente idref="394eee43-227e-4d76-ae1f-9feb4aafe962"/>
             <Componente idref="4ceef096-32cc-40d5-92ed-5680e5fca3a4"/>
-            <Componente idref="ca22a5ed-25cf-4394-add4-0080c008dcde"/>
-            <Componente idref="86a2307c-734c-45b0-b232-4944f653e05c"/>
             <Componente idref="61f3a2fa-df37-4718-bfce-8c68ad99c9b7"/>
-            <Componente idref="0f5220b0-b0cd-40be-9fde-ca43d5f515d4"/>
+            <Componente idref="394eee43-227e-4d76-ae1f-9feb4aafe962"/>
+            <Componente idref="86a2307c-734c-45b0-b232-4944f653e05c"/>
             <Componente idref="0bf041b6-8c6d-4f2f-ad97-907683812e47"/>
+            <Componente idref="0f5220b0-b0cd-40be-9fde-ca43d5f515d4"/>
+            <Componente idref="ca22a5ed-25cf-4394-add4-0080c008dcde"/>
         </Componentes>
         <Validacion estado="SIN_VALIDAR">
             <Observaciones>Servicios: 

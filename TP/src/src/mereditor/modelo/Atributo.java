@@ -68,6 +68,8 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos,
 	}
 
 	public void setCardinalidadMaxima(String cardinalidad) {
+		if(cardinalidad.isEmpty())
+			return;
 		this.cardinalidadMaxima = cardinalidad;
 	}
 

@@ -2,4 +2,6 @@
 <Proyecto>
     <Modelo>CtaCte-comp.xml</Modelo>
     <Representacion>CtaCte-rep.xml</Representacion>
+    <RepresentacionLogica>CtaCte-log-rep.xml</RepresentacionLogica>
+    <DiagramaLogico>CtaCte-logicos-comp.xml</DiagramaLogico>
 </Proyecto>

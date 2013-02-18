@@ -2,4 +2,6 @@
 <Proyecto>
     <Modelo>Mensajería-comp.xml</Modelo>
     <Representacion>Mensajería-rep.xml</Representacion>
+    <RepresentacionLogica>Mensajería-log-rep.xml</RepresentacionLogica>
+    <DiagramaLogico>Mensajería-logicos-comp.xml</DiagramaLogico>
 </Proyecto>

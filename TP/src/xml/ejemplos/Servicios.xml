@@ -2,4 +2,6 @@
 <Proyecto>
     <Modelo>Servicios-comp.xml</Modelo>
     <Representacion>Servicios-rep.xml</Representacion>
+    <RepresentacionLogica>Servicios-log-rep.xml</RepresentacionLogica>
+    <DiagramaLogico>Servicios-logicos-comp.xml</DiagramaLogico>
 </Proyecto>

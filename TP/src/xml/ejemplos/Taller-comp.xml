@@ -3,33 +3,15 @@
     <Entidad id="6a42c604-242a-40b8-a062-f8e15974dd43" tipo="MAESTRA_COSA">
         <Nombre>Empresa</Nombre>
         <Atributos>
-            <Atributo id="19bf90b9-de0c-45c2-9252-269d2096fb98" tipo="CARACTERIZACION">
-                <Nombre>Rsoc</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="1a609c62-8b01-4f85-9c8e-2923619feca4" tipo="CARACTERIZACION">
                 <Nombre>CUIT</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
-        </Atributos>
-    </Entidad>
-    <Entidad id="bc0a5d90-5f13-4250-b947-1b3e14c7c7b5" tipo="MAESTRA_COSA">
-        <Nombre>Marca</Nombre>
-        <Atributos>
-            <Atributo id="340a2c0e-c608-433d-886d-9d150de1ec9a" tipo="CARACTERIZACION">
-                <Nombre>cod</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="5f7e0576-a97a-49e7-8668-d1507810792f" tipo="CARACTERIZACION">
-                <Nombre>nombre</Nombre>
+            <Atributo id="19bf90b9-de0c-45c2-9252-269d2096fb98" tipo="CARACTERIZACION">
+                <Nombre>Rsoc</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
-        <Identificadores>
-            <Identificador>
-                <RefAtributo idref="340a2c0e-c608-433d-886d-9d150de1ec9a"/>
-            </Identificador>
-        </Identificadores>
     </Entidad>
     <Relacion id="c047527f-bf92-44ea-b3c1-57bc0b820e54" tipo="ASOCIACION">
         <Nombre>SMO/OT</Nombre>
@@ -52,46 +34,127 @@
             </Atributo>
         </Atributos>
     </Relacion>
-    <Entidad id="03ab8624-2688-41ef-9f59-711fd6c9d2e1" tipo="MAESTRA_COSA">
-        <Nombre>Repuesto</Nombre>
+    <Entidad id="1b0501c5-c969-4c46-b55b-feedda8734d6" tipo="MAESTRA_COSA">
+        <Nombre>SMO</Nombre>
         <Atributos>
-            <Atributo id="81db629e-44db-414c-9fc1-b80f827273c2" tipo="CARACTERIZACION">
+            <Atributo id="e14dbde7-13d0-4712-8fd4-a449db0a6262" tipo="CARACTERIZACION">
+                <Nombre>codServ</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="b38fe73d-a153-4940-9fb7-e7a874101d4f" tipo="CARACTERIZACION">
                 <Nombre>precio</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
-            <Atributo id="da655c60-c03a-46fc-bc11-7becace7767b" tipo="CARACTERIZACION">
-                <Nombre>codRep</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="3371771e-aa19-4cc6-8e38-7694dae35493" tipo="CARACTERIZACION">
-                <Nombre>descR</Nombre>
+            <Atributo id="950174a5-8c0c-461b-9c25-2531e786ba45" tipo="CARACTERIZACION">
+                <Nombre>descrip</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
         <Identificadores>
             <Identificador>
-                <RefAtributo idref="da655c60-c03a-46fc-bc11-7becace7767b"/>
+                <RefAtributo idref="e14dbde7-13d0-4712-8fd4-a449db0a6262"/>
             </Identificador>
         </Identificadores>
     </Entidad>
-    <Entidad id="bc48341f-b39d-4b43-a4c0-8b7261278ff1" tipo="MAESTRA_COSA">
-        <Nombre>Urgencia</Nombre>
+    <Jerarquia id="904bf8fb-caa3-42fe-8dba-d20ddd6c5613" tipo="TOTAL_EXCLUSIVA">
+        <Generica>
+            <RefEntidad idref="94d15440-f692-40b6-b5de-38a04474014d"/>
+        </Generica>
+        <Derivadas>
+            <RefEntidad idref="bc48341f-b39d-4b43-a4c0-8b7261278ff1"/>
+            <RefEntidad idref="4a0d9c38-8d4f-4ec6-831b-0ecd025a3373"/>
+        </Derivadas>
+    </Jerarquia>
+    <Diagrama id="2b03bbfd-8f87-4510-9c9b-10c78ea9f703">
+        <Nombre>Taller</Nombre>
+        <Componentes>
+            <Componente idref="b3420aa4-bc15-492a-99b2-dc60ca66f6f0"/>
+            <Componente idref="03ab8624-2688-41ef-9f59-711fd6c9d2e1"/>
+            <Componente idref="bc0a5d90-5f13-4250-b947-1b3e14c7c7b5"/>
+            <Componente idref="0d08c2ba-4960-43c3-a5bc-b10f88d2235a"/>
+            <Componente idref="4fdf2420-69b6-4b95-b726-d191ad903b20"/>
+            <Componente idref="37a57a3f-35db-4871-9522-beb9d3d47dc8"/>
+            <Componente idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
+            <Componente idref="c047527f-bf92-44ea-b3c1-57bc0b820e54"/>
+            <Componente idref="4a0d9c38-8d4f-4ec6-831b-0ecd025a3373"/>
+            <Componente idref="af2eb28f-8bd8-4d8b-bad4-bbf28cb6eee7"/>
+            <Componente idref="b6126794-9ca3-433e-9d33-1da6bd9753a3"/>
+            <Componente idref="904bf8fb-caa3-42fe-8dba-d20ddd6c5613"/>
+            <Componente idref="bc48341f-b39d-4b43-a4c0-8b7261278ff1"/>
+            <Componente idref="94d15440-f692-40b6-b5de-38a04474014d"/>
+            <Componente idref="1b0501c5-c969-4c46-b55b-feedda8734d6"/>
+            <Componente idref="37a9e16a-0e26-445a-a53a-1862f3d0d570"/>
+            <Componente idref="40acba8d-6014-4614-98d3-84725116270d"/>
+            <Componente idref="10f7842d-1964-4afe-b6e9-7651b2417a96"/>
+            <Componente idref="6a42c604-242a-40b8-a062-f8e15974dd43"/>
+        </Componentes>
+        <Validacion estado="SIN_VALIDAR">
+            <Observaciones/>
+        </Validacion>
+    </Diagrama>
+    <Entidad id="94d15440-f692-40b6-b5de-38a04474014d" tipo="MAESTRA_COSA">
+        <Nombre>OT</Nombre>
         <Atributos>
-            <Atributo id="ab4fe4c6-8f7e-47e2-bec9-1cf67198f30f" tipo="CARACTERIZACION">
-                <Nombre>ingreso</Nombre>
+            <Atributo id="3dfa8224-0113-4d0c-be96-814fe43a94f5" tipo="CARACTERIZACION">
+                <Nombre>finServO</Nombre>
                 <Cardinalidad max="1" min="1"/>
                 <Atributos>
-                    <Atributo id="9242f1ef-ad24-4a34-812e-a20fc738ec6d" tipo="CARACTERIZACION">
+                    <Atributo id="fef35e97-2035-4389-903d-cc79f68a1565" tipo="CARACTERIZACION">
                         <Nombre>hora</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
-                    <Atributo id="a269a4d9-8a9a-4ee8-9b23-a777eba65375" tipo="CARACTERIZACION">
+                    <Atributo id="784ad417-772e-4392-b1c5-ac1304f4a58c" tipo="CARACTERIZACION">
                         <Nombre>fecha</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
                 </Atributos>
             </Atributo>
+            <Atributo id="dd840452-81a2-4806-a628-8434a608a222" tipo="CARACTERIZACION">
+                <Nombre>nroOT</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="e778474f-1473-43ab-a4ab-5f703398daff" tipo="CARACTERIZACION">
+                <Nombre>solicitud</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Atributos>
+                    <Atributo id="0d50a1f2-e175-4709-9b96-20f41b275181" tipo="CARACTERIZACION">
+                        <Nombre>fecha</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="ab49493a-aa9b-4537-9aef-4a56dc7991d2" tipo="CARACTERIZACION">
+                        <Nombre>hora</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+            <Atributo id="dfa7e296-b019-4b2f-a92b-b3d6f7d69387" tipo="CARACTERIZACION">
+                <Nombre>retAutO</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Atributos>
+                    <Atributo id="5113d0f1-55f2-4dba-bde6-fae494f16031" tipo="CARACTERIZACION">
+                        <Nombre>hora</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="68b1c159-6375-4215-a7df-2a1f560419a7" tipo="CARACTERIZACION">
+                        <Nombre>fecha</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+            <Atributo id="647b2d90-9654-41f3-8f22-f417ca85f260" tipo="CARACTERIZACION">
+                <Nombre>descProb</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="bc250bde-daff-4819-a65a-31d738aa11dc" tipo="CARACTERIZACION">
+                <Nombre>estado</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
         </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="dd840452-81a2-4806-a628-8434a608a222"/>
+            </Identificador>
+        </Identificadores>
     </Entidad>
     <Entidad id="0d08c2ba-4960-43c3-a5bc-b10f88d2235a" tipo="MAESTRA_COSA">
         <Nombre>Modelo</Nombre>
@@ -115,21 +178,17 @@
         <Nombre>R/OT</Nombre>
         <Participantes>
             <Participante>
-                <RefEntidad idref="94d15440-f692-40b6-b5de-38a04474014d"/>
+                <RefEntidad idref="03ab8624-2688-41ef-9f59-711fd6c9d2e1"/>
                 <Cardinalidad max="n" min="0"/>
                 <Rol/>
             </Participante>
             <Participante>
-                <RefEntidad idref="03ab8624-2688-41ef-9f59-711fd6c9d2e1"/>
+                <RefEntidad idref="94d15440-f692-40b6-b5de-38a04474014d"/>
                 <Cardinalidad max="n" min="0"/>
                 <Rol/>
             </Participante>
         </Participantes>
         <Atributos>
-            <Atributo id="a0f7a9fb-6714-4e2c-ac6b-9bc7088747f7" tipo="CARACTERIZACION">
-                <Nombre>monto</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="a35d4473-b60a-4e55-a6be-5edc5e313ad1" tipo="CARACTERIZACION">
                 <Nombre>proveedor</Nombre>
                 <Cardinalidad max="1" min="1"/>
@@ -144,6 +203,10 @@
                     </Atributo>
                 </Atributos>
             </Atributo>
+            <Atributo id="a0f7a9fb-6714-4e2c-ac6b-9bc7088747f7" tipo="CARACTERIZACION">
+                <Nombre>monto</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
         </Atributos>
     </Relacion>
     <Entidad id="b3420aa4-bc15-492a-99b2-dc60ca66f6f0" tipo="MAESTRA_COSA">
@@ -153,12 +216,12 @@
                 <Nombre>apellido</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
-            <Atributo id="cd0aaf1b-02e5-4526-8676-2b3573ea0763" tipo="CARACTERIZACION">
-                <Nombre>nombre</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="b285533c-444c-4940-8c3d-3cf7a4aaaf1d" tipo="CARACTERIZACION">
                 <Nombre>CUIToL</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="cd0aaf1b-02e5-4526-8676-2b3573ea0763" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
@@ -175,6 +238,10 @@
                 <Nombre>nroC</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
+            <Atributo id="00627fd7-28c4-46f5-a61e-de837911d4aa" tipo="CARACTERIZACION">
+                <Nombre>tipoContrib</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
             <Atributo id="f730ae09-7e16-471e-aea1-2dd427220c18" tipo="CARACTERIZACION">
                 <Nombre>teléfonos</Nombre>
                 <Cardinalidad max="n" min="1"/>
@@ -183,99 +250,26 @@
                 <Nombre>domicilio</Nombre>
                 <Cardinalidad max="1" min="1"/>
                 <Atributos>
-                    <Atributo id="1dd93e19-7bd0-4249-90d0-8f536b940289" tipo="CARACTERIZACION">
-                        <Nombre>ubic</Nombre>
+                    <Atributo id="10752225-39a6-44f6-8e8e-f95187189b22" tipo="CARACTERIZACION">
+                        <Nombre>calle</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
                     <Atributo id="894348a2-9192-411a-9d23-b0acf745cbec" tipo="CARACTERIZACION">
                         <Nombre>loc</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
-                    <Atributo id="10752225-39a6-44f6-8e8e-f95187189b22" tipo="CARACTERIZACION">
-                        <Nombre>calle</Nombre>
+                    <Atributo id="1dd93e19-7bd0-4249-90d0-8f536b940289" tipo="CARACTERIZACION">
+                        <Nombre>ubic</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
                 </Atributos>
-            </Atributo>
-            <Atributo id="00627fd7-28c4-46f5-a61e-de837911d4aa" tipo="CARACTERIZACION">
-                <Nombre>tipoContrib</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-        </Atributos>
-    </Entidad>
-    <Entidad id="1b0501c5-c969-4c46-b55b-feedda8734d6" tipo="MAESTRA_COSA">
-        <Nombre>SMO</Nombre>
-        <Atributos>
-            <Atributo id="b38fe73d-a153-4940-9fb7-e7a874101d4f" tipo="CARACTERIZACION">
-                <Nombre>precio</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="e14dbde7-13d0-4712-8fd4-a449db0a6262" tipo="CARACTERIZACION">
-                <Nombre>codServ</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="950174a5-8c0c-461b-9c25-2531e786ba45" tipo="CARACTERIZACION">
-                <Nombre>descrip</Nombre>
-                <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
         <Identificadores>
             <Identificador>
-                <RefAtributo idref="e14dbde7-13d0-4712-8fd4-a449db0a6262"/>
+                <RefAtributo idref="fa0b56c8-5ccc-494c-8380-dd8ce14d413f"/>
             </Identificador>
         </Identificadores>
-    </Entidad>
-    <Jerarquia id="b6126794-9ca3-433e-9d33-1da6bd9753a3" tipo="TOTAL_EXCLUSIVA">
-        <Generica>
-            <RefEntidad idref="40acba8d-6014-4614-98d3-84725116270d"/>
-        </Generica>
-        <Derivadas>
-            <RefEntidad idref="b3420aa4-bc15-492a-99b2-dc60ca66f6f0"/>
-            <RefEntidad idref="6a42c604-242a-40b8-a062-f8e15974dd43"/>
-        </Derivadas>
-    </Jerarquia>
-    <Jerarquia id="904bf8fb-caa3-42fe-8dba-d20ddd6c5613" tipo="TOTAL_EXCLUSIVA">
-        <Generica>
-            <RefEntidad idref="94d15440-f692-40b6-b5de-38a04474014d"/>
-        </Generica>
-        <Derivadas>
-            <RefEntidad idref="4a0d9c38-8d4f-4ec6-831b-0ecd025a3373"/>
-            <RefEntidad idref="bc48341f-b39d-4b43-a4c0-8b7261278ff1"/>
-        </Derivadas>
-    </Jerarquia>
-    <Relacion id="37a9e16a-0e26-445a-a53a-1862f3d0d570" tipo="ASOCIACION">
-        <Nombre>M/M</Nombre>
-        <Participantes>
-            <Participante>
-                <RefEntidad idref="bc0a5d90-5f13-4250-b947-1b3e14c7c7b5"/>
-                <Cardinalidad max="n" min="1"/>
-                <Rol/>
-            </Participante>
-            <Participante>
-                <RefEntidad idref="0d08c2ba-4960-43c3-a5bc-b10f88d2235a"/>
-                <Cardinalidad max="1" min="1"/>
-                <Rol/>
-            </Participante>
-        </Participantes>
-    </Relacion>
-    <Entidad id="4a0d9c38-8d4f-4ec6-831b-0ecd025a3373" tipo="MAESTRA_COSA">
-        <Nombre>Programada</Nombre>
-        <Atributos>
-            <Atributo id="8da4319f-e721-4a6b-9fa1-4ff6d2f5d9bc" tipo="CARACTERIZACION">
-                <Nombre>turno</Nombre>
-                <Cardinalidad max="1" min="1"/>
-                <Atributos>
-                    <Atributo id="3f2e2486-5c42-460d-8c75-5c5d1b848a73" tipo="CARACTERIZACION">
-                        <Nombre>fecha</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                    <Atributo id="055a9e74-658b-4c15-a9a5-9dd8d8d036b8" tipo="CARACTERIZACION">
-                        <Nombre>hora</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                </Atributos>
-            </Atributo>
-        </Atributos>
     </Entidad>
     <Entidad id="dc035f31-912d-43f7-b1ae-21699dcc5112" tipo="MAESTRA_COSA">
         <Nombre>Automotor</Nombre>
@@ -299,17 +293,134 @@
             </Identificador>
         </Identificadores>
     </Entidad>
-    <Relacion id="37a57a3f-35db-4871-9522-beb9d3d47dc8" tipo="ASOCIACION">
-        <Nombre>ModA</Nombre>
+    <Entidad id="4a0d9c38-8d4f-4ec6-831b-0ecd025a3373" tipo="MAESTRA_COSA">
+        <Nombre>Programada</Nombre>
+        <Atributos>
+            <Atributo id="8da4319f-e721-4a6b-9fa1-4ff6d2f5d9bc" tipo="CARACTERIZACION">
+                <Nombre>turno</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Atributos>
+                    <Atributo id="055a9e74-658b-4c15-a9a5-9dd8d8d036b8" tipo="CARACTERIZACION">
+                        <Nombre>hora</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="3f2e2486-5c42-460d-8c75-5c5d1b848a73" tipo="CARACTERIZACION">
+                        <Nombre>fecha</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+        </Atributos>
+    </Entidad>
+    <Relacion id="4fdf2420-69b6-4b95-b726-d191ad903b20" tipo="ASOCIACION">
+        <Nombre>A/OT</Nombre>
         <Participantes>
             <Participante>
                 <RefEntidad idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="94d15440-f692-40b6-b5de-38a04474014d"/>
                 <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Entidad id="bc0a5d90-5f13-4250-b947-1b3e14c7c7b5" tipo="MAESTRA_COSA">
+        <Nombre>Marca</Nombre>
+        <Atributos>
+            <Atributo id="340a2c0e-c608-433d-886d-9d150de1ec9a" tipo="CARACTERIZACION">
+                <Nombre>cod</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="5f7e0576-a97a-49e7-8668-d1507810792f" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="340a2c0e-c608-433d-886d-9d150de1ec9a"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="03ab8624-2688-41ef-9f59-711fd6c9d2e1" tipo="MAESTRA_COSA">
+        <Nombre>Repuesto</Nombre>
+        <Atributos>
+            <Atributo id="da655c60-c03a-46fc-bc11-7becace7767b" tipo="CARACTERIZACION">
+                <Nombre>codRep</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="81db629e-44db-414c-9fc1-b80f827273c2" tipo="CARACTERIZACION">
+                <Nombre>precio</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="3371771e-aa19-4cc6-8e38-7694dae35493" tipo="CARACTERIZACION">
+                <Nombre>descR</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+        </Atributos>
+        <Identificadores>
+            <Identificador>
+                <RefAtributo idref="da655c60-c03a-46fc-bc11-7becace7767b"/>
+            </Identificador>
+        </Identificadores>
+    </Entidad>
+    <Entidad id="bc48341f-b39d-4b43-a4c0-8b7261278ff1" tipo="MAESTRA_COSA">
+        <Nombre>Urgencia</Nombre>
+        <Atributos>
+            <Atributo id="ab4fe4c6-8f7e-47e2-bec9-1cf67198f30f" tipo="CARACTERIZACION">
+                <Nombre>ingreso</Nombre>
+                <Cardinalidad max="1" min="1"/>
+                <Atributos>
+                    <Atributo id="a269a4d9-8a9a-4ee8-9b23-a777eba65375" tipo="CARACTERIZACION">
+                        <Nombre>fecha</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="9242f1ef-ad24-4a34-812e-a20fc738ec6d" tipo="CARACTERIZACION">
+                        <Nombre>hora</Nombre>
+                        <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                </Atributos>
+            </Atributo>
+        </Atributos>
+    </Entidad>
+    <Jerarquia id="b6126794-9ca3-433e-9d33-1da6bd9753a3" tipo="TOTAL_EXCLUSIVA">
+        <Generica>
+            <RefEntidad idref="40acba8d-6014-4614-98d3-84725116270d"/>
+        </Generica>
+        <Derivadas>
+            <RefEntidad idref="b3420aa4-bc15-492a-99b2-dc60ca66f6f0"/>
+            <RefEntidad idref="6a42c604-242a-40b8-a062-f8e15974dd43"/>
+        </Derivadas>
+    </Jerarquia>
+    <Relacion id="37a9e16a-0e26-445a-a53a-1862f3d0d570" tipo="ASOCIACION">
+        <Nombre>M/M</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="bc0a5d90-5f13-4250-b947-1b3e14c7c7b5"/>
+                <Cardinalidad max="n" min="1"/>
                 <Rol/>
             </Participante>
             <Participante>
                 <RefEntidad idref="0d08c2ba-4960-43c3-a5bc-b10f88d2235a"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+        </Participantes>
+    </Relacion>
+    <Relacion id="37a57a3f-35db-4871-9522-beb9d3d47dc8" tipo="ASOCIACION">
+        <Nombre>ModA</Nombre>
+        <Participantes>
+            <Participante>
+                <RefEntidad idref="0d08c2ba-4960-43c3-a5bc-b10f88d2235a"/>
                 <Cardinalidad max="n" min="0"/>
+                <Rol/>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
+                <Cardinalidad max="1" min="1"/>
                 <Rol/>
             </Participante>
         </Participantes>
@@ -318,118 +429,12 @@
         <Nombre>C/A</Nombre>
         <Participantes>
             <Participante>
+                <RefEntidad idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
+                <Cardinalidad max="1" min="1"/>
+                <Rol/>
+            </Participante>
+            <Participante>
                 <RefEntidad idref="40acba8d-6014-4614-98d3-84725116270d"/>
-                <Cardinalidad max="n" min="1"/>
-                <Rol/>
-            </Participante>
-            <Participante>
-                <RefEntidad idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
-                <Cardinalidad max="1" min="1"/>
-                <Rol/>
-            </Participante>
-        </Participantes>
-    </Relacion>
-    <Diagrama id="2b03bbfd-8f87-4510-9c9b-10c78ea9f703">
-        <Nombre>Taller</Nombre>
-        <Componentes>
-            <Componente idref="40acba8d-6014-4614-98d3-84725116270d"/>
-            <Componente idref="af2eb28f-8bd8-4d8b-bad4-bbf28cb6eee7"/>
-            <Componente idref="bc0a5d90-5f13-4250-b947-1b3e14c7c7b5"/>
-            <Componente idref="b3420aa4-bc15-492a-99b2-dc60ca66f6f0"/>
-            <Componente idref="0d08c2ba-4960-43c3-a5bc-b10f88d2235a"/>
-            <Componente idref="904bf8fb-caa3-42fe-8dba-d20ddd6c5613"/>
-            <Componente idref="03ab8624-2688-41ef-9f59-711fd6c9d2e1"/>
-            <Componente idref="94d15440-f692-40b6-b5de-38a04474014d"/>
-            <Componente idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
-            <Componente idref="4a0d9c38-8d4f-4ec6-831b-0ecd025a3373"/>
-            <Componente idref="10f7842d-1964-4afe-b6e9-7651b2417a96"/>
-            <Componente idref="37a57a3f-35db-4871-9522-beb9d3d47dc8"/>
-            <Componente idref="b6126794-9ca3-433e-9d33-1da6bd9753a3"/>
-            <Componente idref="37a9e16a-0e26-445a-a53a-1862f3d0d570"/>
-            <Componente idref="4fdf2420-69b6-4b95-b726-d191ad903b20"/>
-            <Componente idref="c047527f-bf92-44ea-b3c1-57bc0b820e54"/>
-            <Componente idref="1b0501c5-c969-4c46-b55b-feedda8734d6"/>
-            <Componente idref="6a42c604-242a-40b8-a062-f8e15974dd43"/>
-            <Componente idref="bc48341f-b39d-4b43-a4c0-8b7261278ff1"/>
-        </Componentes>
-        <Validacion estado="SIN_VALIDAR">
-            <Observaciones/>
-        </Validacion>
-    </Diagrama>
-    <Entidad id="94d15440-f692-40b6-b5de-38a04474014d" tipo="MAESTRA_COSA">
-        <Nombre>OT</Nombre>
-        <Atributos>
-            <Atributo id="3dfa8224-0113-4d0c-be96-814fe43a94f5" tipo="CARACTERIZACION">
-                <Nombre>finServO</Nombre>
-                <Cardinalidad max="1" min="1"/>
-                <Atributos>
-                    <Atributo id="784ad417-772e-4392-b1c5-ac1304f4a58c" tipo="CARACTERIZACION">
-                        <Nombre>fecha</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                    <Atributo id="fef35e97-2035-4389-903d-cc79f68a1565" tipo="CARACTERIZACION">
-                        <Nombre>hora</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                </Atributos>
-            </Atributo>
-            <Atributo id="bc250bde-daff-4819-a65a-31d738aa11dc" tipo="CARACTERIZACION">
-                <Nombre>estado</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="647b2d90-9654-41f3-8f22-f417ca85f260" tipo="CARACTERIZACION">
-                <Nombre>descProb</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-            <Atributo id="dfa7e296-b019-4b2f-a92b-b3d6f7d69387" tipo="CARACTERIZACION">
-                <Nombre>retAutO</Nombre>
-                <Cardinalidad max="1" min="1"/>
-                <Atributos>
-                    <Atributo id="68b1c159-6375-4215-a7df-2a1f560419a7" tipo="CARACTERIZACION">
-                        <Nombre>fecha</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                    <Atributo id="5113d0f1-55f2-4dba-bde6-fae494f16031" tipo="CARACTERIZACION">
-                        <Nombre>hora</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                </Atributos>
-            </Atributo>
-            <Atributo id="e778474f-1473-43ab-a4ab-5f703398daff" tipo="CARACTERIZACION">
-                <Nombre>solicitud</Nombre>
-                <Cardinalidad max="1" min="1"/>
-                <Atributos>
-                    <Atributo id="ab49493a-aa9b-4537-9aef-4a56dc7991d2" tipo="CARACTERIZACION">
-                        <Nombre>hora</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                    <Atributo id="0d50a1f2-e175-4709-9b96-20f41b275181" tipo="CARACTERIZACION">
-                        <Nombre>fecha</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                </Atributos>
-            </Atributo>
-            <Atributo id="dd840452-81a2-4806-a628-8434a608a222" tipo="CARACTERIZACION">
-                <Nombre>nroOT</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
-        </Atributos>
-        <Identificadores>
-            <Identificador>
-                <RefAtributo idref="dd840452-81a2-4806-a628-8434a608a222"/>
-            </Identificador>
-        </Identificadores>
-    </Entidad>
-    <Relacion id="4fdf2420-69b6-4b95-b726-d191ad903b20" tipo="ASOCIACION">
-        <Nombre>A/OT</Nombre>
-        <Participantes>
-            <Participante>
-                <RefEntidad idref="94d15440-f692-40b6-b5de-38a04474014d"/>
-                <Cardinalidad max="1" min="1"/>
-                <Rol/>
-            </Participante>
-            <Participante>
-                <RefEntidad idref="dc035f31-912d-43f7-b1ae-21699dcc5112"/>
                 <Cardinalidad max="n" min="1"/>
                 <Rol/>
             </Participante>

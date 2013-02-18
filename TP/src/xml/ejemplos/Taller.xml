@@ -2,4 +2,6 @@
 <Proyecto>
     <Modelo>Taller-comp.xml</Modelo>
     <Representacion>Taller-rep.xml</Representacion>
+    <RepresentacionLogica>Taller-log-rep.xml</RepresentacionLogica>
+    <DiagramaLogico>Taller-logicos-comp.xml</DiagramaLogico>
 </Proyecto>
