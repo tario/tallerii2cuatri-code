@@ -56,7 +56,7 @@ public class Jerarquia extends Componente {
 	public Entidad getRaiz(){
 		Entidad raiz=this.getGenerica();
 		while(raiz.esDerivada()){
-			raiz.getGenerica();
+			raiz=raiz.getGenerica();
 		}
 		return raiz;
 	}

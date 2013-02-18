@@ -115,7 +115,7 @@ public class ConversorDERaLogico {
 		Entidad padre = entidadPadre.get(entidad);
 		if (padre == null)
 			padre = entidad;
-		tabla.addClavePrimaria(construirPK(entidad, prefijo));
+		tabla.addClavePrimaria(construirPK(padre, prefijo));
 	}
 
 	private ArrayList<String> construirPK(Entidad entidad, String prefijo) {
@@ -246,10 +246,14 @@ public class ConversorDERaLogico {
 	private void agregarFK(Entidad entidad, Tabla tabla, String prefijo) {
 		String nombreTabla = entidad.getNombre();
 		Entidad padre = entidadPadre.get(entidad);
+		
 		boolean borrada = entidadesBorradas.contains(entidad);
-		if (borrada)
+		if (borrada){
 			nombreTabla = padre.getNombre();
-		tabla.addClaveForanea(construirPK(entidad, prefijo + entidad.getNombre() + "-"), nombreTabla);
+		}else{
+			padre=entidad;
+		}
+		tabla.addClaveForanea(construirPK(padre, prefijo + entidad.getNombre() + "-"), nombreTabla);
 	}
 
 	private void agregarEntidadesRelacionadas(Entidad entidad, Tabla tabla) {
