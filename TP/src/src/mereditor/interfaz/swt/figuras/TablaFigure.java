@@ -1,31 +1,25 @@
 package mereditor.interfaz.swt.figuras;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 
-import mereditor.control.DiagramaLogicoControl;
-import mereditor.control.TablaControl;
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
-import mreleditor.modelo.DiagramaLogico;
 import mreleditor.modelo.Tabla;
 import mreleditor.modelo.Tabla.ClaveForanea;
 
@@ -90,6 +84,73 @@ public class TablaFigure extends Figura<Tabla> {
 	private void addAttributesLabels() {
 		Tabla tabla = this.componente;
 		
+		ArrayList<Label> labelsPrimaryKeys = new ArrayList<Label>();
+		ArrayList<Label> labelsForeignKeys = new ArrayList<Label>();
+		ArrayList<Label> labelsNormales = new ArrayList<Label>();
+		
+		Iterator<String> it = tabla.getAtributos().iterator();
+		while( it.hasNext() ) {
+			
+			// Incluir PK o FK segun se trate de claves primarias o foraneas
+			String attribute = it.next();
+			boolean bIsPK = false;
+			boolean bIsFK = false;
+			if( tabla.getClavePrimaria().contains(attribute) ) {
+				bIsPK = true;
+			} 
+			
+			if( !tabla.getClavesForaneas().isEmpty() ) {
+				Iterator<ClaveForanea> itFK = tabla.getClavesForaneas().iterator();
+				while( itFK.hasNext() ) {
+					Set<String> atributosFK = itFK.next().getAtributos();
+					if( atributosFK.contains(attribute)) {
+						bIsFK = true;
+						break;
+					}
+				}
+			} 
+			
+			Label newLabel = new Label();
+			newLabel.setFont( this.getFont() );
+			newLabel.setText( attribute );
+			if( bIsPK && bIsFK )
+			{
+				newLabel.setIcon( Principal.getIcono("PrimaryAndForeignKey.png") );
+				newLabel.setIconAlignment(PositionConstants.LEFT);
+				labelsPrimaryKeys.add(newLabel);
+				
+			} else if( bIsPK && !bIsFK ) {
+				newLabel.setIcon( Principal.getIcono("PrimaryKey.png") );
+				newLabel.setIconAlignment(PositionConstants.LEFT);
+				labelsPrimaryKeys.add(newLabel);
+				
+			} else if( !bIsPK && bIsFK ) {
+				newLabel.setIcon( Principal.getIcono("ForeignKey.png") );
+				newLabel.setIconAlignment(PositionConstants.LEFT);
+				labelsForeignKeys.add(newLabel);
+				
+			} else if( !bIsPK && !bIsFK ) {
+				
+				labelsNormales.add(newLabel);
+			}
+		}
+		
+		Iterator<Label> itPK = labelsPrimaryKeys.iterator();
+		while( itPK.hasNext() ) {
+			this.atributos.add(itPK.next());
+		}
+		
+		Iterator<Label> itFK = labelsForeignKeys.iterator();
+		while( itFK.hasNext() ) {
+			this.atributos.add(itFK.next());
+		}
+		
+		Iterator<Label> itNormales = labelsNormales.iterator();
+		while( itNormales.hasNext() ) {
+			this.atributos.add(itNormales.next());
+		}
+		
+		/*
 		// Agregar Atributos PK
 		if( !tabla.getClavePrimaria().isEmpty() ) {
 			Iterator<String> itPK = tabla.getClavePrimaria().iterator();
@@ -154,7 +215,7 @@ public class TablaFigure extends Figura<Tabla> {
 				
 				this.atributos.add(newLabel);
 			}
-		}
+		}*/
 	}
 	
 	public String getID() {
