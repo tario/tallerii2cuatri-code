@@ -322,10 +322,14 @@ public class ConversorDERaLogico {
 		EntidadRelacion ultimaEntidadRelacion = null;
 		for (EntidadRelacion entidadRelacion : relacion.getParticipantes()) {
 			ultimaEntidadRelacion = entidadRelacion;
-			String cardinalidad = entidadRelacion.getCardinalidadMinima() + entidadRelacion.getCardinalidadMaxima();
-			if (!cardinalidad.equals("01") && !cardinalidad.equals("11")) {
-				agregarPK(entidadRelacion.getEntidad(), tabla, entidadRelacion.getEntidad().getNombre() + "-");
-				PKagregada = true;
+			for (EntidadRelacion entidadRelacion2 : relacion.getParticipantes()){
+				if(!entidadRelacion2.getEntidad().getNombre().equals(entidadRelacion.getEntidad().getNombre())){
+					String cardinalidad = entidadRelacion2.getCardinalidadMinima() + entidadRelacion2.getCardinalidadMaxima();
+					if(!cardinalidad.equals("01") && !cardinalidad.equals("11")){
+						agregarPK(entidadRelacion.getEntidad(), tabla, entidadRelacion.getEntidad().getNombre() + "-");
+						PKagregada = true;
+					}
+				}
 			}
 		}
 		if (PKagregada == false)
@@ -436,8 +440,7 @@ public class ConversorDERaLogico {
 
 	private ArrayList<Tabla> convertirColapsandoEnPadre(Entidad raiz) {
 		ArrayList<Tabla> tablas = new ArrayList<Tabla>();
-		Tabla tablaPadre = convertirEntidad(raiz);
-		tablas.add(tablaPadre);
+		
 		Stack<Entidad> nodosSinProcesar = new Stack<Entidad>();
 		nodosSinProcesar.push(raiz);
 
@@ -445,10 +448,23 @@ public class ConversorDERaLogico {
 			Entidad nodoPadre = nodosSinProcesar.pop();
 			for (Entidad nodoHijo : nodoPadre.getDerivadas()) {
 				entidadesBorradas.add(nodoHijo);
+				
+				nodosSinProcesar.push(nodoHijo);
+			}
+		}
+		Tabla tablaPadre = convertirEntidad(raiz);
+		tablas.add(tablaPadre);
+		
+		nodosSinProcesar.push(raiz);
+		while (!nodosSinProcesar.empty()) {
+			Entidad nodoPadre = nodosSinProcesar.pop();
+			for (Entidad nodoHijo : nodoPadre.getDerivadas()) {
 				agregarAtributos(nodoHijo, tablaPadre, nodoHijo.getNombre() + "-");
 				nodosSinProcesar.push(nodoHijo);
 			}
 		}
+		
+		
 		return tablas;
 	}
 
