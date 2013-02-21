@@ -652,7 +652,9 @@ public class ConversorDERaLogico {
 		while (!nodosSinProcesar.empty()) {
 			Entidad nodoPadre = nodosSinProcesar.pop();
 			for (Entidad nodoHijo : nodoPadre.getDerivadas()) {
-				tablas.add(convertirEntidad(nodoHijo));
+				Tabla hijo=convertirEntidad(nodoHijo);
+				hijo.addClaveForanea(construirPK(nodoPadre,""), nodoPadre.getNombre());
+				tablas.add(hijo);
 				nodosSinProcesar.push(nodoHijo);
 			}
 		}
